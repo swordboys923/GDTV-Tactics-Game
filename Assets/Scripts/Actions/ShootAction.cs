@@ -56,7 +56,7 @@ public class ShootAction : BaseAction {
             targetUnit = targetUnit,
             shootingUnit = unit,
         });
-        targetUnit.Damage(40);
+        targetUnit.Damage(GetDamageAmount());
     }
 
     private void NextState(){

@@ -28,6 +28,7 @@ public class UnitActionSystem : MonoBehaviour {
     }
     private void Start() {
         SetSelectedUnit(selectedUnit);
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
     private void Update() {
         if(isBusy) return;
@@ -40,7 +41,7 @@ public class UnitActionSystem : MonoBehaviour {
     private void HandleSelectedAction() {
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-            if(! selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
+            if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
             if(!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) return;
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
@@ -57,6 +58,7 @@ public class UnitActionSystem : MonoBehaviour {
         isBusy = false;
         OnBusyChanged?.Invoke(this, isBusy);
     }
+
     private bool TryHandleUnitSelection() {
         if(InputManager.Instance.IsMouseButtonDownThisFrame()) {
             Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
@@ -80,8 +82,8 @@ public class UnitActionSystem : MonoBehaviour {
 
         OnSelectedUnitChanged?.Invoke(this,EventArgs.Empty);
     }
-    public BaseAction GetSelectedAction()
-    {
+
+    public BaseAction GetSelectedAction() {
         return selectedAction;
     }
 
@@ -92,5 +94,12 @@ public class UnitActionSystem : MonoBehaviour {
 
     public Unit GetSelectedUnit() {
         return selectedUnit;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
+        if(selectedUnit == null) {
+            SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
+        }
+        SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
     }
 }

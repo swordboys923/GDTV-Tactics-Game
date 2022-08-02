@@ -48,7 +48,7 @@ public class LevelGrid : MonoBehaviour {
     public void UnitMovedGridPosition(Unit unit, GridPosition fromGridPosition, GridPosition toGridPosition) {
         RemoveUnitAtGridPosition(fromGridPosition, unit);
         AddUnitAtGridPosition(toGridPosition, unit);
-
+        //TODO: Don't update the grid visual on each grid position movement.
         OnAnyUnitMovedGridPosition?.Invoke(this, EventArgs.Empty);
     }
 
@@ -56,7 +56,7 @@ public class LevelGrid : MonoBehaviour {
     public Vector3 GetWorldPosition(GridPosition gridPosition) => gridSystem.GetWorldPosition(gridPosition);
     public bool IsValidGridPosition(GridPosition gridPosition) => gridSystem.IsValidGridPosition(gridPosition);
     public int GetWidth() => gridSystem.GetWidth();
-    public int GetHeight() => gridSystem.GetHeight();    
+    public int GetHeight() => gridSystem.GetHeight();
     public bool HasAnyUnitOnGridPosition(GridPosition gridPosition) {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.HasAnyUnit();
@@ -72,7 +72,7 @@ public class LevelGrid : MonoBehaviour {
         return gridObject.GetInteractible();
     }
 
-       public void SetInteractibleAtGridPosition(GridPosition gridPosition, IInteractible interactible) {
+    public void SetInteractibleAtGridPosition(GridPosition gridPosition, IInteractible interactible) {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         gridObject.SetInteractible(interactible);
     }

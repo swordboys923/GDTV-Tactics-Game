@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48a6d1d7c16c43269f0d8bd0a8861a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: 2c2d4af5614614c4196bf7bf87c79473, type: 2}
   maxMoveDistance: 4
 --- !u!114 &5045696243131554750
 MonoBehaviour:
@@ -230,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13ce056ceb544064b434ca92c8a923f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: f20e634f918ff69489f5649daef60609, type: 2}
 --- !u!114 &5552814445849840420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eab3f5c4afaa4467bca330477b4e999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: ababf36641b83ec4cb1d56f12821697d, type: 2}
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -303,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824549a9a774b4bd6adf5c96f0483d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: 686ff9d46bd28a44c93daff94db7b2d2, type: 2}
   grenadeProjectilePrefab: {fileID: 6283873618205082161, guid: 70ff876d617a4438e8aeceec8f9071fa,
     type: 3}
 --- !u!114 &9178287933640442473
@@ -317,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38c73187271d4c0d86fdd5dbfe73e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: b7cf2d557ee00954d82d2f0eabcb1e43, type: 2}
 --- !u!114 &6824689072217741393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a6de574e8b047a5924e71cf7d245db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: 3e33cb2327108234b83757884093923e, type: 2}
 --- !u!1 &2345650259463418054
 GameObject:
   m_ObjectHideFlags: 0

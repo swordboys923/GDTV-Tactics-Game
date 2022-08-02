@@ -11,6 +11,8 @@ public abstract class BaseAction : MonoBehaviour {
     protected bool isActive;
     protected Action onActionComplete; 
 
+    [SerializeField] protected ActionDataSO actionDataSO;
+
     protected virtual void Awake() {
         unit = GetComponent<Unit>();
     }
@@ -23,7 +25,7 @@ public abstract class BaseAction : MonoBehaviour {
         return validGridPositionList.Contains(gridPosition);
     }
     public virtual int GetActionPointsCost() {
-        return 1;
+        return actionDataSO.GetActionCost();
     }
     public abstract List<GridPosition> GetValidActionGridPositionList();
 
@@ -32,6 +34,10 @@ public abstract class BaseAction : MonoBehaviour {
         this.onActionComplete = onActionComplete;
 
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected int GetDamageAmount() {
+        return actionDataSO.GetBaseActionDamage();
     }
 
     protected void ActionComplete() {

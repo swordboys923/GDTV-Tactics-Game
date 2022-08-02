@@ -7,6 +7,7 @@ using TMPro;
 public class ActionButtonUI : MonoBehaviour{
 
     [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private TextMeshProUGUI actionCostTextMeshPro;
     [SerializeField] private Button button;
     [SerializeField] private GameObject selectedGameObject;
 
@@ -14,6 +15,7 @@ public class ActionButtonUI : MonoBehaviour{
     public void SetBaseAction(BaseAction baseAction) {
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
+        actionCostTextMeshPro.text = baseAction.GetActionPointsCost().ToString();
         button.onClick.AddListener(() => {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
         });

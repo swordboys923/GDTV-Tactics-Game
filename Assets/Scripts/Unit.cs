@@ -115,5 +115,4 @@ public class Unit : MonoBehaviour {
     public float GetHealthNormalized() {
         return healthSystem.GetHealthNormalized();
     }
-
 }

@@ -19,7 +19,6 @@ public class SwordAction : BaseAction
 
     private void Update() {
         if(!isActive) return;
-        if(!isActive) return;
 
         stateTimer -= Time.deltaTime;
         
@@ -44,7 +43,7 @@ public class SwordAction : BaseAction
                 state = State.SwingingSwordAfterHit;
                 float afterHitStateTime = .5f;
                 stateTimer = afterHitStateTime;
-                targetUnit.Damage(100);
+                targetUnit.Damage(GetDamageAmount());
                 OnAnySwordHit?.Invoke(this, EventArgs.Empty);
                 break;
             case State.SwingingSwordAfterHit:

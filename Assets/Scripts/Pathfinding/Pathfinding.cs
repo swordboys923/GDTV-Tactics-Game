@@ -40,6 +40,7 @@ public class Pathfinding : MonoBehaviour {
                 Vector3 worldPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
                 float raycastOffsetDistance = 5f;
                 if(Physics.Raycast(worldPosition + Vector3.down * raycastOffsetDistance, Vector3.up,raycastOffsetDistance*2,obstaclesLayerMask)){
+                    //TODO: Implement movement cost with colliders placed at world positions.
                     GetNode(x,z).SetIsWalkable(false);
                 }
             }

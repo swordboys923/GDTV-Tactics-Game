@@ -19,6 +19,8 @@ public class TurnSystem : MonoBehaviour {
         Instance  = this;
     }
 
+    //TODO: not an error in this script, however if the unit selected last dies in the enemy turn,
+    //the game throws a null error because the object can't be found
     public void NextTurn() {
         turnNumber++;
         isPlayerTurn = !isPlayerTurn;
