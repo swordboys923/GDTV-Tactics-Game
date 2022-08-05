@@ -75,7 +75,6 @@ public class UnitActionSystem : MonoBehaviour {
         return false;
     }
 
-
     private void SetSelectedUnit (Unit unit) {
         selectedUnit = unit;
         SetSelectedAction(unit.GetMoveAction());

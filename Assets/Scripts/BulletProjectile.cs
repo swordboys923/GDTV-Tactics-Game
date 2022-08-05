@@ -14,14 +14,12 @@ public class BulletProjectile : MonoBehaviour {
     private void Update() {
         Vector3 moveDir = (targetPosition - transform.position).normalized;
 
-        float distanceBeforeMoving = Vector3.Distance(transform.position, targetPosition);
-        
+        float sqrMagnitudeBeforeMoving = (transform.position - targetPosition).sqrMagnitude;
         float moveSpeed = 200f;
         transform.position += moveDir * moveSpeed * Time.deltaTime;
+        float sqrMagnitudeAfterMoving = (transform.position - targetPosition).sqrMagnitude;
 
-        float distanceAfterMoving = Vector3.Distance(transform.position,targetPosition);
-
-        if (distanceBeforeMoving < distanceAfterMoving) {
+        if(sqrMagnitudeBeforeMoving < sqrMagnitudeAfterMoving) {
             transform.position = targetPosition;
             trailRenderer.transform.parent = null;
             Destroy(gameObject);

@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour {
     [SerializeField] int actionPointsMax = 2;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
+    private ManaSystem manaSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
     private ShootAction shootAction;
@@ -22,6 +23,7 @@ public class Unit : MonoBehaviour {
     private void Awake() {
         actionPoints = actionPointsMax;
         healthSystem = GetComponent<HealthSystem>();
+        manaSystem = GetComponent<ManaSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
         shootAction = GetComponent<ShootAction>();
@@ -69,14 +71,14 @@ public class Unit : MonoBehaviour {
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) {
-        if(CanSpendActionPointsToTakeAction(baseAction)) {
-            SpendActionPoints(baseAction.GetActionPointsCost());
+        if(CanSpendActionPointsToTakeAction(baseAction) && baseAction.CanAct()) {
+            SpendManaPoints(baseAction.GetActionManaCost());
             return true;
         }
         return false;
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
-        return actionPoints >= baseAction.GetActionPointsCost();
+        return manaSystem.GetMana() >= baseAction.GetActionManaCost();
     }
 
     public int GetActionPoints() {
@@ -91,16 +93,19 @@ public class Unit : MonoBehaviour {
         healthSystem.Damage(damageAmount);
     }
 
+    private void SpendManaPoints(int amount) {
+        manaSystem.ProcessMana(amount);
 
-    private void SpendActionPoints(int amount) {
-        actionPoints -=amount;
-
+        //TODO: Finish this bit
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
         if((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn())) {
             actionPoints = actionPointsMax;
+            foreach(BaseAction baseAction in baseActionArray){
+                baseAction.SetStartTurnValue();
+            }
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -114,5 +119,25 @@ public class Unit : MonoBehaviour {
 
     public float GetHealthNormalized() {
         return healthSystem.GetHealthNormalized();
+    }
+
+    public int GetHealth() {
+        return healthSystem.GetHealth();
+    }
+
+    public int GetHealthMax() {
+        return healthSystem.GetHealthMax();
+    }
+
+    public float GetManaNormalized() {
+        return manaSystem.GetManaNormalized();
+    }
+
+    public int GetMana() {
+        return manaSystem.GetMana();
+    }
+
+    public int GetManaMax() {
+        return manaSystem.GetManaMax();
     }
 }

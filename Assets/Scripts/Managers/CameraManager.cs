@@ -45,8 +45,8 @@ public class CameraManager : MonoBehaviour {
     private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e) {
         switch(sender) {
             case ShootAction shootAction:
-            HideActionCamera();
-            break;
+                HideActionCamera();
+                break;
         }
     }
 

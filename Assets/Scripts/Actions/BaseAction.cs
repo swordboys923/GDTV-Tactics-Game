@@ -24,10 +24,16 @@ public abstract class BaseAction : MonoBehaviour {
         List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
         return validGridPositionList.Contains(gridPosition);
     }
-    public virtual int GetActionPointsCost() {
+    public virtual int GetActionManaCost() {
         return actionDataSO.GetActionCost();
     }
+
+    public virtual bool CanAct() {
+        return true;
+    }
     public abstract List<GridPosition> GetValidActionGridPositionList();
+
+    public abstract void SetStartTurnValue();
 
     protected void ActionStart(Action onActionComplete) {
         isActive = true;

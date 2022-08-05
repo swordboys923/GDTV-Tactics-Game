@@ -5,28 +5,23 @@ using UnityEngine;
 
 public class InteractAction : BaseAction
 {
-    private int maxInteractDistance = 1;
-
-
     private void Update() {
         if(!isActive) return;
 
     }
-    public override string GetActionName()
-    {
+    public override string GetActionName() {
         return "Interact";
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction {
             gridPosition = gridPosition,
             actionValue = 0,
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList()
-    {
+    public override List<GridPosition> GetValidActionGridPositionList() {
+        int maxInteractDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
 
@@ -45,12 +40,15 @@ public class InteractAction : BaseAction
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
-    {
+    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         IInteractible interactible = LevelGrid.Instance.GetInteractibleAtGridPosition(gridPosition);
         interactible.Interact(OnInteractComplete);
 
         ActionStart(onActionComplete);
+    }
+
+    public override void SetStartTurnValue() {
+        
     }
 
     private void OnInteractComplete(){

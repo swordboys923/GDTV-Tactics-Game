@@ -15,7 +15,7 @@ public class ActionButtonUI : MonoBehaviour{
     public void SetBaseAction(BaseAction baseAction) {
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
-        actionCostTextMeshPro.text = baseAction.GetActionPointsCost().ToString();
+        actionCostTextMeshPro.text = baseAction.GetActionManaCost().ToString();
         button.onClick.AddListener(() => {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
         });

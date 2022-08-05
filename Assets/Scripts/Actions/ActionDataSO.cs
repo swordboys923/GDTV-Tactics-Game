@@ -6,6 +6,7 @@ using UnityEngine;
 public class ActionDataSO : ScriptableObject {
     [SerializeField] int actionCost;
     [SerializeField] int actionBaseDamage;
+    [SerializeField] int maxRange;
 
     public int GetActionCost() {
         return actionCost;
@@ -13,6 +14,10 @@ public class ActionDataSO : ScriptableObject {
 
     public int GetBaseActionDamage() {
         return actionBaseDamage;
+    }
+
+    public int GetMaxRange() {
+        return maxRange;
     }
 }
 

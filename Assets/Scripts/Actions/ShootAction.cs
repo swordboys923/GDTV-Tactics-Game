@@ -16,7 +16,6 @@ public class ShootAction : BaseAction {
 
     [SerializeField] private LayerMask obstaclesLayerMask;
     private State state;
-    private int maxShootDistance = 7;
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
@@ -92,6 +91,7 @@ public class ShootAction : BaseAction {
         return GetValidActionGridPositionList(unitGridPosition);
     }
     public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition) {
+        int maxShootDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
         for (int x = -maxShootDistance; x <=maxShootDistance; x++) {
@@ -127,7 +127,6 @@ public class ShootAction : BaseAction {
         return validGridPositionList;
     }
 
-
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
@@ -144,7 +143,7 @@ public class ShootAction : BaseAction {
     }
 
     public int GetMaxShootDistance(){
-        return maxShootDistance;
+        return actionDataSO.GetMaxRange();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
@@ -157,5 +156,9 @@ public class ShootAction : BaseAction {
 
     public int GetTargetCountAtPosition(GridPosition gridPosition) {
         return GetValidActionGridPositionList(gridPosition).Count;
+    }
+
+    public override void SetStartTurnValue() {
+        
     }
 }

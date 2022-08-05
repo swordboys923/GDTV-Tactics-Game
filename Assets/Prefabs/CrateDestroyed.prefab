@@ -310,7 +310,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 16
+  m_VersionIndex: 19
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2515,7 +2515,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4
+  m_VersionIndex: 7
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3145,7 +3145,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 10
+  m_VersionIndex: 16
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5028,7 +5028,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965346308188445681}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -7364,7 +7364,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102689091264620252}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -9830,7 +9830,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2562441609206819112}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -11687,7 +11687,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3086593018420800396}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -14323,7 +14323,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3651521031547805991}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -16923,7 +16923,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4456816247409156272}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -18935,7 +18935,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6412827375184783076}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -19971,7 +19971,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6582043411828916784}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -21634,7 +21634,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596890282894579727}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -23163,7 +23163,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7930481336433340698}
   serializedVersion: 2
-  m_Mass: 0.3
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -23180,6 +23180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3931681358874958853}
+  - component: {fileID: 9020802496264594599}
   m_Layer: 0
   m_Name: CrateDestroyed
   m_TagString: Untagged
@@ -23223,6 +23224,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9020802496264594599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8226844700140561537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbcc9e1bf617ca4c8c575681826a247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerMax: 5
 --- !u!1001 &7404711122075948796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25722,7 +25736,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4
+  m_VersionIndex: 13
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

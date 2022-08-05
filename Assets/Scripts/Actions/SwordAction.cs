@@ -12,7 +12,6 @@ public class SwordAction : BaseAction
         SwingingSwordBeforeHit,
         SwingingSwordAfterHit,
     }
-    private int maxSwordDistance = 1;
     private State state;
     private float stateTimer;
     private Unit targetUnit;
@@ -54,21 +53,19 @@ public class SwordAction : BaseAction
         }
     }
 
-    public override string GetActionName()
-    {
+    public override string GetActionName() {
         return "Sword";
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction{
             gridPosition = gridPosition,
             actionValue = 200,
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList()
-    {
+    public override List<GridPosition> GetValidActionGridPositionList() {
+        int maxSwordDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
 
@@ -91,8 +88,7 @@ public class SwordAction : BaseAction
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
-    {
+    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
         state = State.SwingingSwordBeforeHit;
         float beforeHitstateTime = .7f;
@@ -103,6 +99,10 @@ public class SwordAction : BaseAction
     }
 
     public int GetMaxSwordDistance() {
-        return maxSwordDistance;
+        return actionDataSO.GetMaxRange();
+    }
+
+    public override void SetStartTurnValue() {
+        
     }
 }

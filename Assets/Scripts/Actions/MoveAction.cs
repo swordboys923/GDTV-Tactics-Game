@@ -7,9 +7,9 @@ public class MoveAction : BaseAction {
 
     public EventHandler OnStartMoving;
     public EventHandler OnStopMoving;
-    [SerializeField] private int maxMoveDistance = 4;
     private List<Vector3> positionList;
     private int currentPositionIndex;
+    private bool hasMoved = false;
 
 
     private void Update() {
@@ -29,6 +29,7 @@ public class MoveAction : BaseAction {
             currentPositionIndex++;
             if(currentPositionIndex >= positionList.Count){
                 OnStopMoving?.Invoke(this,EventArgs.Empty);
+                hasMoved = true;
                 ActionComplete();
             }
         }
@@ -47,6 +48,7 @@ public class MoveAction : BaseAction {
     }
 
     public override List<GridPosition> GetValidActionGridPositionList() {
+        int maxMoveDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
 
@@ -71,9 +73,16 @@ public class MoveAction : BaseAction {
         return validGridPositionList;
     }
 
-    public override string GetActionName()
-    {
+    public override string GetActionName() {
         return "Move";
+    }
+
+    public override void SetStartTurnValue() {
+        hasMoved = false;
+    }
+
+    public override bool CanAct() {
+        return !hasMoved;
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
@@ -83,6 +92,5 @@ public class MoveAction : BaseAction {
             actionValue = targetCountAtGridPosition * 10,
         };
     }
-
 
 }

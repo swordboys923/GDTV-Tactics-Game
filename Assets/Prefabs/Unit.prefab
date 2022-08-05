@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 3465264998833811446}
   - component: {fileID: 9178287933640442473}
   - component: {fileID: 6824689072217741393}
+  - component: {fileID: 7043065377765357279}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -218,7 +219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionDataSO: {fileID: 11400000, guid: 2c2d4af5614614c4196bf7bf87c79473, type: 2}
-  maxMoveDistance: 4
 --- !u!114 &5045696243131554750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +335,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionDataSO: {fileID: 11400000, guid: 3e33cb2327108234b83757884093923e, type: 2}
+--- !u!114 &7043065377765357279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115536541247420099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc38b7da07265d40a672f196fb40249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mana: 100
 --- !u!1 &2345650259463418054
 GameObject:
   m_ObjectHideFlags: 0
