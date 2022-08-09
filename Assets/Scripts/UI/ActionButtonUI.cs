@@ -15,14 +15,14 @@ public class ActionButtonUI : MonoBehaviour{
     public void SetBaseAction(BaseAction baseAction) {
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
-        actionCostTextMeshPro.text = baseAction.GetActionManaCost().ToString();
+        actionCostTextMeshPro.text = baseAction.GetActionResourceCost().ToString();
         button.onClick.AddListener(() => {
-            UnitActionSystem.Instance.SetSelectedAction(baseAction);
+            UnitActionManager.Instance.SetSelectedAction(baseAction);
         });
     }
 
     public void UpdateSelectedVisual() {
-        BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
+        BaseAction selectedBaseAction = UnitActionManager.Instance.GetSelectedAction();
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
     }
 }

@@ -2,40 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaSystem : MonoBehaviour {
+public class ManaSystem : ActionResourceSystem {
 
     
     public event EventHandler OnDead;
     public event EventHandler OnDamaged;
-    [SerializeField] private int mana = 100;
-    private int manaMax;
 
     private void Awake() {
-        manaMax = mana;
+        resourceMax = resource;
     }
 
-    public void ProcessMana(int manaAmount) {
-        mana -= manaAmount;
-        if(mana < 0) {
-            mana = 0;
+    public override void ProcessActionResource(int resourceAmount) {
+        resource -= resourceAmount;
+        if(resource < 0) {
+            resource = 0;
         }
-        //OnDamaged?.Invoke(this, EventArgs.Empty);
-        
-        // if (mana == 0) {
-        //     Die();
-        // }
     }
 
-
-    public float GetManaNormalized() {
-        return (float)mana / manaMax;
-    }
-
-    public int GetMana() {
-        return mana;
-    }
-
-    public int GetManaMax() {
-        return manaMax;
+    public override bool HasSufficientResource(int amount) {
+        return resource >= amount;
     }
 }

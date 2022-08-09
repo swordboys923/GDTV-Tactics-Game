@@ -9,8 +9,13 @@ public class MoveAction : BaseAction {
     public EventHandler OnStopMoving;
     private List<Vector3> positionList;
     private int currentPositionIndex;
-    private bool hasMoved = false;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        actionType = ActionType.Movement;
+    }
 
     private void Update() {
         if (!isActive) return;
@@ -29,7 +34,6 @@ public class MoveAction : BaseAction {
             currentPositionIndex++;
             if(currentPositionIndex >= positionList.Count){
                 OnStopMoving?.Invoke(this,EventArgs.Empty);
-                hasMoved = true;
                 ActionComplete();
             }
         }
@@ -77,14 +81,6 @@ public class MoveAction : BaseAction {
         return "Move";
     }
 
-    public override void SetStartTurnValue() {
-        hasMoved = false;
-    }
-
-    public override bool CanAct() {
-        return !hasMoved;
-    }
-
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
        int targetCountAtGridPosition = unit.GetShootAction().GetTargetCountAtPosition(gridPosition);
         return new EnemyAIAction {
@@ -92,5 +88,4 @@ public class MoveAction : BaseAction {
             actionValue = targetCountAtGridPosition * 10,
         };
     }
-
 }

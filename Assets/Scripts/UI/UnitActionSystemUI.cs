@@ -17,9 +17,9 @@ public class UnitActionSystemUI : MonoBehaviour {
         actionButtonUIList = new List<ActionButtonUI>();
     }
     private void Start() {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
-        UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        UnitActionManager.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         Unit.OnAnyActionPointsChanged += Unit_OnAnyOnAnyActionPointsChanged;
         
@@ -36,7 +36,7 @@ public class UnitActionSystemUI : MonoBehaviour {
 
         actionButtonUIList.Clear();
 
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
         foreach(BaseAction baseAction in selectedUnit.GetBaseActionArray()) {
             Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
             ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
@@ -75,7 +75,7 @@ public class UnitActionSystemUI : MonoBehaviour {
     }
 
     private void UpdateActionPoints() {
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
         int actionPoints = selectedUnit.GetActionPoints();
         actionPointsText.text = $"Action Points: {actionPoints}";
     }

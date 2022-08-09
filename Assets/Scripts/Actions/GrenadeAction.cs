@@ -10,21 +10,18 @@ public class GrenadeAction : BaseAction
     private void Update() {
         if(!isActive) return;
     }
-    public override string GetActionName()
-    {
+    public override string GetActionName() {
         return "Grenade";
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction{
             gridPosition = gridPosition,
             actionValue = 0,
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList()
-    {
+    public override List<GridPosition> GetValidActionGridPositionList() {
         int maxThrowDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
@@ -51,9 +48,6 @@ public class GrenadeAction : BaseAction
         grenadeProjectileTransform.GetComponent<GrenadeProjectile>().Setup(gridPosition,OnGrenadeBehaviorComplete);
         
         ActionStart(onActionComplete);
-    }
-    public override void SetStartTurnValue() {
-        
     }
 
     private void OnGrenadeBehaviorComplete(){

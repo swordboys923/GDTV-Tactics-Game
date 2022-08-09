@@ -47,9 +47,6 @@ public class InteractAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-    public override void SetStartTurnValue() {
-        
-    }
 
     private void OnInteractComplete(){
         ActionComplete();

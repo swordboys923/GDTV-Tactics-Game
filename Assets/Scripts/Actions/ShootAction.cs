@@ -157,8 +157,4 @@ public class ShootAction : BaseAction {
     public int GetTargetCountAtPosition(GridPosition gridPosition) {
         return GetValidActionGridPositionList(gridPosition).Count;
     }
-
-    public override void SetStartTurnValue() {
-        
-    }
 }

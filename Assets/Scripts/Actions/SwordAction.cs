@@ -101,8 +101,4 @@ public class SwordAction : BaseAction
     public int GetMaxSwordDistance() {
         return actionDataSO.GetMaxRange();
     }
-
-    public override void SetStartTurnValue() {
-        
-    }
 }

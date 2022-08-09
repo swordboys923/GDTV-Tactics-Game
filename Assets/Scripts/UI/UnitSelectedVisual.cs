@@ -14,7 +14,7 @@ public class UnitSelectedVisual : MonoBehaviour
     }
 
     private void Start() {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UpdateUnitVisual();
     }
 
@@ -23,7 +23,7 @@ public class UnitSelectedVisual : MonoBehaviour
     }
 
     private void UpdateUnitVisual() {
-        if(UnitActionSystem.Instance.GetSelectedUnit() == unit) {
+        if(UnitActionManager.Instance.GetSelectedUnit() == unit) {
             meshRenderer.enabled = true;
         } else {
             meshRenderer.enabled = false;
@@ -31,6 +31,6 @@ public class UnitSelectedVisual : MonoBehaviour
     }
 
     private void OnDestroy() {
-        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
     }
 }

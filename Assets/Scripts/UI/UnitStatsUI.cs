@@ -16,11 +16,11 @@ public class UnitStatsUI : MonoBehaviour {
     private Unit selectedUnit;
 
     private void Start() {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         //TODO: This works, but it updates the UI at the very end of the turn which feels a bit laggy.
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
-        selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
         UpdateAllUI();
     }
 
@@ -33,13 +33,13 @@ public class UnitStatsUI : MonoBehaviour {
     }
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e) {
-        UnitActionSystem unitActionSystem = sender as UnitActionSystem;
+        UnitActionManager unitActionSystem = sender as UnitActionManager;
         selectedUnit = unitActionSystem.GetSelectedUnit();
         UpdateAllUI();
     }
 
     private void UpdateAllUI() {
-        if(UnitActionSystem.Instance.GetSelectedUnit()) {
+        if(UnitActionManager.Instance.GetSelectedUnit()) {
             unitName.text = selectedUnit.name.ToString();
             UpdateHealth();
             UpdateMana();
@@ -54,10 +54,10 @@ public class UnitStatsUI : MonoBehaviour {
     }
 
     private void UpdateMana() {
-        int manaPoints = selectedUnit.GetMana();
-        int manaMax = selectedUnit.GetManaMax();
+        int manaPoints = selectedUnit.GetResource();
+        int manaMax = selectedUnit.GetResourceMax();
         manaText.text = $"{manaPoints}/{manaMax} HP";
-        manaBarImage.fillAmount = selectedUnit.GetManaNormalized();
+        manaBarImage.fillAmount = selectedUnit.GetResourceNormalized();
     }
 
 

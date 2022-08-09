@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionBusyUI : MonoBehaviour {
 
     void Start() {
-        UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
+        UnitActionManager.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
         gameObject.SetActive(false);
     }
 

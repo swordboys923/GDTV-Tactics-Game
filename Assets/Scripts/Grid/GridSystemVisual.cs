@@ -44,7 +44,7 @@ public class GridSystemVisual : MonoBehaviour {
             }
         }
 
-        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
 
         UpdateGridVisual();
@@ -92,8 +92,8 @@ public class GridSystemVisual : MonoBehaviour {
 
     private void UpdateGridVisual() {
         HideAllGridPositions();
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
+        BaseAction selectedAction = UnitActionManager.Instance.GetSelectedAction();
         GridVisualType gridVisualType;
         switch (selectedAction) {
             default:

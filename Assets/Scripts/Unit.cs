@@ -10,20 +10,23 @@ public class Unit : MonoBehaviour {
     public static event EventHandler OnAnyUnitDead;
 
     [SerializeField] private bool isEnemy;
-    [SerializeField] int actionPointsMax = 2;
+    [SerializeField] int actionActionPointsMax = 1;
+    [SerializeField] int movementActionPointsMax = 1;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
-    private ManaSystem manaSystem;
+    private ActionResourceSystem resourceSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
     private ShootAction shootAction;
     private BaseAction[] baseActionArray;
-    private int actionPoints;
+    private int actionActionPoints;
+    private int movementActionPoints;
 
     private void Awake() {
-        actionPoints = actionPointsMax;
+        actionActionPoints = actionActionPointsMax;
+        movementActionPoints = movementActionPointsMax;
         healthSystem = GetComponent<HealthSystem>();
-        manaSystem = GetComponent<ManaSystem>();
+        resourceSystem = GetComponent<ActionResourceSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
         shootAction = GetComponent<ShootAction>();
@@ -37,6 +40,10 @@ public class Unit : MonoBehaviour {
         healthSystem.OnDead += HealthSystem_OnDead;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+
+        foreach(BaseAction baseAction in baseActionArray){
+            baseAction.OnActionComplete += BaseAction_OnActionComplete;
+        }
     }
     private void Update() {
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -71,18 +78,24 @@ public class Unit : MonoBehaviour {
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) {
-        if(CanSpendActionPointsToTakeAction(baseAction) && baseAction.CanAct()) {
-            SpendManaPoints(baseAction.GetActionManaCost());
+        if(CanSpendActionPointsToTakeAction(baseAction)) {
+            SpendResourcePoints(baseAction.GetActionResourceCost());
             return true;
         }
         return false;
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
-        return manaSystem.GetMana() >= baseAction.GetActionManaCost();
+        int actionPoints;
+        if (baseAction is MoveAction){
+            actionPoints = movementActionPoints;
+        } else {
+            actionPoints = actionActionPoints;
+        }
+        return resourceSystem.HasSufficientResource(baseAction.GetActionResourceCost()) && actionPoints > 0;
     }
 
     public int GetActionPoints() {
-        return actionPoints;
+        return 99;
     }
 
     public bool IsEnemy() {
@@ -93,8 +106,8 @@ public class Unit : MonoBehaviour {
         healthSystem.Damage(damageAmount);
     }
 
-    private void SpendManaPoints(int amount) {
-        manaSystem.ProcessMana(amount);
+    private void SpendResourcePoints(int amount) {
+        resourceSystem.ProcessActionResource(amount);
 
         //TODO: Finish this bit
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
@@ -102,10 +115,8 @@ public class Unit : MonoBehaviour {
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
         if((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn())) {
-            actionPoints = actionPointsMax;
-            foreach(BaseAction baseAction in baseActionArray){
-                baseAction.SetStartTurnValue();
-            }
+            actionActionPoints = actionActionPointsMax;
+            movementActionPoints = movementActionPointsMax;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -115,6 +126,15 @@ public class Unit : MonoBehaviour {
         Destroy(gameObject);
 
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void BaseAction_OnActionComplete (object sender, EventArgs e) {
+        BaseAction baseAction = sender as BaseAction;
+        if(baseAction is MoveAction){
+            movementActionPoints--;
+        } else {
+            actionActionPoints--;
+        }
     }
 
     public float GetHealthNormalized() {
@@ -129,15 +149,15 @@ public class Unit : MonoBehaviour {
         return healthSystem.GetHealthMax();
     }
 
-    public float GetManaNormalized() {
-        return manaSystem.GetManaNormalized();
+    public float GetResourceNormalized() {
+        return resourceSystem.GetResourceNormalized();
     }
 
-    public int GetMana() {
-        return manaSystem.GetMana();
+    public int GetResource() {
+        return resourceSystem.GetResource();
     }
 
-    public int GetManaMax() {
-        return manaSystem.GetManaMax();
+    public int GetResourceMax() {
+        return resourceSystem.GetResourceMax();
     }
 }

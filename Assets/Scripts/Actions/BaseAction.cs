@@ -3,17 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ActionType {
+    Movement,
+    Action,
+    Inventory,
+}
+
 public abstract class BaseAction : MonoBehaviour {
 
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
+    public event EventHandler OnActionComplete;
     protected Unit unit;
     protected bool isActive;
-    protected Action onActionComplete; 
+    protected Action onActionComplete;
+    [SerializeField] protected ActionType actionType;
 
     [SerializeField] protected ActionDataSO actionDataSO;
 
     protected virtual void Awake() {
+        actionType = ActionType.Action;
         unit = GetComponent<Unit>();
     }
 
@@ -24,16 +33,12 @@ public abstract class BaseAction : MonoBehaviour {
         List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
         return validGridPositionList.Contains(gridPosition);
     }
-    public virtual int GetActionManaCost() {
+    public virtual int GetActionResourceCost() {
         return actionDataSO.GetActionCost();
     }
 
-    public virtual bool CanAct() {
-        return true;
-    }
     public abstract List<GridPosition> GetValidActionGridPositionList();
 
-    public abstract void SetStartTurnValue();
 
     protected void ActionStart(Action onActionComplete) {
         isActive = true;
@@ -50,6 +55,7 @@ public abstract class BaseAction : MonoBehaviour {
         isActive = false;
         onActionComplete();
 
+        OnActionComplete?.Invoke(this,EventArgs.Empty);
         OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
     }
 
@@ -73,4 +79,8 @@ public abstract class BaseAction : MonoBehaviour {
     }
 
     public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
+
+    public ActionType GetActionType() {
+        return actionType;
+    }
 }
