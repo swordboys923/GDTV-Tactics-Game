@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour {
 
+    public static event EventHandler OnAnyHealthChanged;
     public event EventHandler OnDead;
-    public event EventHandler OnDamaged;
+    public event EventHandler OnHealthChanged;
     [SerializeField] private int health = 100;
     private int healthMax;
 
@@ -18,7 +19,8 @@ public class HealthSystem : MonoBehaviour {
         if(health < 0) {
             health = 0;
         }
-        OnDamaged?.Invoke(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
+        OnAnyHealthChanged?.Invoke(this,EventArgs.Empty);
         
         if (health == 0) {
             Die();

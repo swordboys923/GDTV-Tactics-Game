@@ -1,9 +1,10 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ActionResourceSystem : MonoBehaviour {
 
+    public static event EventHandler OnAnyResourceChanged;
 
     [SerializeField] protected int resource;
     protected int resourceMax;
@@ -23,4 +24,8 @@ public abstract class ActionResourceSystem : MonoBehaviour {
     }
 
     public abstract void ProcessActionResource(int resourceAmount);
+
+    protected void ProcessComplete(){
+        OnAnyResourceChanged?.Invoke(this,EventArgs.Empty);
+    }
 }

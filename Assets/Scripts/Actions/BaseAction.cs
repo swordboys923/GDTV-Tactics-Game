@@ -3,11 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActionType {
-    Movement,
-    Action,
-    Inventory,
-}
 
 public abstract class BaseAction : MonoBehaviour {
 
@@ -17,12 +12,10 @@ public abstract class BaseAction : MonoBehaviour {
     protected Unit unit;
     protected bool isActive;
     protected Action onActionComplete;
-    [SerializeField] protected ActionType actionType;
 
     [SerializeField] protected ActionDataSO actionDataSO;
 
     protected virtual void Awake() {
-        actionType = ActionType.Action;
         unit = GetComponent<Unit>();
     }
 
@@ -79,8 +72,4 @@ public abstract class BaseAction : MonoBehaviour {
     }
 
     public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
-
-    public ActionType GetActionType() {
-        return actionType;
-    }
 }

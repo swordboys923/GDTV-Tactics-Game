@@ -16,9 +16,9 @@ public class UnitStatsUI : MonoBehaviour {
     private Unit selectedUnit;
 
     private void Start() {
-        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        //TODO: This works, but it updates the UI at the very end of the turn which feels a bit laggy.
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
+        HealthSystem.OnAnyHealthChanged += HealthSystem_OnAnyHealthChanged;
+        ActionResourceSystem.OnAnyResourceChanged += ActionResourceSystem_OnAnyResourceChanged;
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
         UpdateAllUI();
@@ -28,13 +28,17 @@ public class UnitStatsUI : MonoBehaviour {
         UpdateAllUI();
     }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e) {
+    private void HealthSystem_OnAnyHealthChanged(object sender, EventArgs e) {
         UpdateAllUI();
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e) {
-        UnitActionManager unitActionSystem = sender as UnitActionManager;
-        selectedUnit = unitActionSystem.GetSelectedUnit();
+    private void ActionResourceSystem_OnAnyResourceChanged(object sender, EventArgs e){
+        UpdateAllUI();
+    }
+
+    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
+        UnitActionManager unitActionManager = sender as UnitActionManager;
+        selectedUnit = unitActionManager.GetSelectedUnit();
         UpdateAllUI();
     }
 
@@ -42,7 +46,7 @@ public class UnitStatsUI : MonoBehaviour {
         if(UnitActionManager.Instance.GetSelectedUnit()) {
             unitName.text = selectedUnit.name.ToString();
             UpdateHealth();
-            UpdateMana();
+            UpdateResource();
         }
     }
 
@@ -53,7 +57,7 @@ public class UnitStatsUI : MonoBehaviour {
         healthBarImage.fillAmount = selectedUnit.GetHealthNormalized();
     }
 
-    private void UpdateMana() {
+    private void UpdateResource() {
         int manaPoints = selectedUnit.GetResource();
         int manaMax = selectedUnit.GetResourceMax();
         manaText.text = $"{manaPoints}/{manaMax} HP";

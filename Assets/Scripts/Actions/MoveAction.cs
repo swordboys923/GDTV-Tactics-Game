@@ -10,13 +10,6 @@ public class MoveAction : BaseAction {
     private List<Vector3> positionList;
     private int currentPositionIndex;
 
-
-    protected override void Awake()
-    {
-        base.Awake();
-        actionType = ActionType.Movement;
-    }
-
     private void Update() {
         if (!isActive) return;
 

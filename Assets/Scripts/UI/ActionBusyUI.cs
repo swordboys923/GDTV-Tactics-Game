@@ -6,11 +6,11 @@ using UnityEngine;
 public class ActionBusyUI : MonoBehaviour {
 
     void Start() {
-        UnitActionManager.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
+        UnitActionManager.Instance.OnBusyChanged += UnitActionManager_OnBusyChanged;
         gameObject.SetActive(false);
     }
 
-    private void UnitActionSystem_OnBusyChanged(object sender, bool isBusy) {
+    private void UnitActionManager_OnBusyChanged(object sender, bool isBusy) {
         if(isBusy) {
             Show();
         } else {

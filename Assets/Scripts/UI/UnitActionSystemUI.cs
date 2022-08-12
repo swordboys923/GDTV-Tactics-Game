@@ -9,7 +9,6 @@ public class UnitActionSystemUI : MonoBehaviour {
 
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainerTransform;
-    [SerializeField] private TextMeshProUGUI actionPointsText;
 
     private List<ActionButtonUI> actionButtonUIList;
 
@@ -17,13 +16,9 @@ public class UnitActionSystemUI : MonoBehaviour {
         actionButtonUIList = new List<ActionButtonUI>();
     }
     private void Start() {
-        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
-        UnitActionManager.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
-        Unit.OnAnyActionPointsChanged += Unit_OnAnyOnAnyActionPointsChanged;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionManager_OnSelectedActionChanged;
         
-        UpdateActionPoints();
         CreateUnitActionButtons();
         UpdatedSelectedVisual();
     }
@@ -45,38 +40,19 @@ public class UnitActionSystemUI : MonoBehaviour {
             actionButtonUIList.Add(actionButtonUI);
         }
     }
-    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
+    private void UnitActionManager_OnSelectedActionChanged(object sender, EventArgs e)
     {
         UpdatedSelectedVisual();
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e) {
+    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
         CreateUnitActionButtons();
         UpdatedSelectedVisual();
-        UpdateActionPoints();
-    }
-
-    private void UnitActionSystem_OnActionStarted(object sender, EventArgs e) {
-        UpdateActionPoints();
-    }
-    
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
-        UpdateActionPoints();
-    }
-
-    private void Unit_OnAnyOnAnyActionPointsChanged(object sender, EventArgs e) {
-        UpdateActionPoints();
     }
 
     private void UpdatedSelectedVisual() {
         foreach (ActionButtonUI actionButtonUI in actionButtonUIList) {
             actionButtonUI.UpdateSelectedVisual();
         }
-    }
-
-    private void UpdateActionPoints() {
-        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
-        int actionPoints = selectedUnit.GetActionPoints();
-        actionPointsText.text = $"Action Points: {actionPoints}";
     }
 }

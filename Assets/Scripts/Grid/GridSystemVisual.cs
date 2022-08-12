@@ -44,8 +44,10 @@ public class GridSystemVisual : MonoBehaviour {
             }
         }
 
-        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        UnitActionManager.Instance.OnSelectedActionChanged += UnitActionManager_OnSelectedActionChanged;
         LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
 
         UpdateGridVisual();
     }
@@ -118,10 +120,12 @@ public class GridSystemVisual : MonoBehaviour {
                 gridVisualType = GridVisualType.Blue;
                 break;
         }
-        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        if (selectedAction){
+            ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        }
     }
 
-    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) {
+    private void UnitActionManager_OnSelectedActionChanged(object sender, EventArgs e) {
         UpdateGridVisual();
     }
 
@@ -138,5 +142,13 @@ public class GridSystemVisual : MonoBehaviour {
 
         Debug.LogError("Could not find GridVisualTypeMaterial for GridVIsualType " + gridVisualType);
         return null;
+    }
+
+    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e){
+        HideAllGridPositions();
+    }
+
+    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
+        HideAllGridPositions();
     }
 }

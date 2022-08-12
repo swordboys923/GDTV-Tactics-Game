@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ManaSystem : ActionResourceSystem {
 
-    
     public event EventHandler OnDead;
     public event EventHandler OnDamaged;
 
@@ -17,6 +16,7 @@ public class ManaSystem : ActionResourceSystem {
         if(resource < 0) {
             resource = 0;
         }
+        ProcessComplete();
     }
 
     public override bool HasSufficientResource(int amount) {
