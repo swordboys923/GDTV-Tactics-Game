@@ -7,11 +7,15 @@ using UnityEngine;
 public abstract class BaseAction : MonoBehaviour {
 
     public static event EventHandler OnAnyActionStarted;
-    public static event EventHandler OnAnyActionCompleted;
+    public static event EventHandler<BaseActionEventArgs> OnAnyActionCompleted;
     public event EventHandler OnActionComplete;
     protected Unit unit;
     protected bool isActive;
     protected Action onActionComplete;
+
+    public class BaseActionEventArgs: EventArgs {
+        public Unit actingUnit;
+    }
 
     [SerializeField] protected ActionDataSO actionDataSO;
 
@@ -49,7 +53,9 @@ public abstract class BaseAction : MonoBehaviour {
         onActionComplete();
 
         OnActionComplete?.Invoke(this,EventArgs.Empty);
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+        OnAnyActionCompleted?.Invoke(this, new BaseActionEventArgs{
+            actingUnit = unit
+        });
     }
 
     public Unit GetUnit() {

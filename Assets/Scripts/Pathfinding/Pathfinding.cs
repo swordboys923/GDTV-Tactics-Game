@@ -10,6 +10,7 @@ public class Pathfinding : MonoBehaviour {
 
     [SerializeField] private Transform gridDebugObjectPrefab;
     [SerializeField] private LayerMask obstaclesLayerMask;
+    [SerializeField] private LayerMask groundLayerMask;
     private int width;
     private int height;
     private float cellSize;

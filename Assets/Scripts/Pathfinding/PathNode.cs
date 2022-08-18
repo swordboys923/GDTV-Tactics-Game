@@ -14,8 +14,7 @@ public class PathNode {
         this.gridPosition = gridPosition;
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         return gridPosition.ToString();
     }
 

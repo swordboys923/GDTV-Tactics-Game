@@ -6,10 +6,12 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour {
 
     [SerializeField] private GameObject actionCameraGameObject;
+    [SerializeField] private CameraController cameraController;
 
     private void Start() {
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
 
         HideActionCamera();
     }
@@ -48,6 +50,12 @@ public class CameraManager : MonoBehaviour {
                 HideActionCamera();
                 break;
         }
+    }
+
+    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
+        Unit unit = UnitActionManager.Instance.GetSelectedUnit();
+        Vector3 location = unit.GetWorldPosition();
+        cameraController.SetTransform(location);
     }
 
 }

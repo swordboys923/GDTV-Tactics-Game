@@ -47,4 +47,10 @@ public class CameraController : MonoBehaviour
         float zoomSpeed = 5f;
         cinemachineTransposer.m_FollowOffset = Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
     }
+
+    public void SetTransform(Vector3 location) {
+        while(transform.position != location){
+            transform.position = Vector3.Lerp(transform.position, location, Time.deltaTime * 3);
+        }
+    }
 }
