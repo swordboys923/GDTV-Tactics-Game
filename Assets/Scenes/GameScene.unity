@@ -992,7 +992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnNumberText: {fileID: 1316204471}
   endTurnButton: {fileID: 1838253840}
-  enemyTurnVisualGameObject: {fileID: 1951675541}
 --- !u!224 &200848014 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1392693097709044820, guid: ce20e3846278b4d5486f10ae59444f67,
@@ -3045,7 +3044,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.372131, y: 1}
+    m_SensorSize: {x: 2.8457394, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5206,6 +5205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionCameraGameObject: {fileID: 1622471507}
+  cameraController: {fileID: 1693972268}
 --- !u!4 &1316939140
 Transform:
   m_ObjectHideFlags: 0
