@@ -11,8 +11,7 @@ public class CameraManager : MonoBehaviour {
     private void Start() {
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
-        //TODO: Fix This. Want to reorient the camera to the selected character. 
-        // UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
 
         HideActionCamera();
     }
@@ -53,10 +52,10 @@ public class CameraManager : MonoBehaviour {
         }
     }
 
-    // private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
-    //     Unit unit = UnitActionManager.Instance.GetSelectedUnit();
-    //     Vector3 location = unit.GetWorldPosition();
-    //     cameraController.SetTransform(location);
-    // }
+    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
+        Unit unit = UnitActionManager.Instance.GetSelectedUnit();
+        Vector3 location = unit.GetWorldPosition();
+        cameraController.SetTransform(location);
+    }
 
 }
