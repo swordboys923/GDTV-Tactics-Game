@@ -29,6 +29,7 @@ public class UnitActionManager : MonoBehaviour {
     private void Start() {
         SetSelectedUnit(selectedUnit);
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        // BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
     }
     private void Update() {
         if(isBusy) return;
@@ -101,4 +102,8 @@ public class UnitActionManager : MonoBehaviour {
         }
         //SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
     }
+
+    // private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {
+    //     SetSelectedAction(null);
+    // }
 }
