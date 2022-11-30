@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour {
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private ActionResourceSystem resourceSystem;
+    private UnitActionSystem unitActionSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
     private ShootAction shootAction;
@@ -31,6 +32,7 @@ public class Unit : MonoBehaviour {
         spinAction = GetComponent<SpinAction>();
         shootAction = GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
+        unitActionSystem = GetComponent<UnitActionSystem>();
     }
     private void Start() {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -74,7 +76,7 @@ public class Unit : MonoBehaviour {
     }
 
     public BaseAction[] GetBaseActionArray() {
-        return baseActionArray;
+        return unitActionSystem.GetBaseActionArray();
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) {

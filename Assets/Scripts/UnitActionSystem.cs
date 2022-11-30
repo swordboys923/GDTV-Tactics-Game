@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour {
 
-    [SerializeField] private BaseAction[] baseMoveActions;
-    [SerializeField] private BaseAction[] baseAttackActions;
+    [SerializeField] private BaseAction baseMoveAction;
+    [SerializeField] private BaseAction baseAttackAction;
     [SerializeField] private BaseAction[] specialActions;
+
+    [SerializeField] private BaseAction baseInteractAction;
+    private BaseAction[] baseActionArray;
 
     /*
     The intent for this class is to house the individual baseAction gameObjects attached to a Unit for purpose of clasification
@@ -22,4 +25,23 @@ public class UnitActionSystem : MonoBehaviour {
         -At the moment, I'm leaning "no"
 
     */
+
+    private void Start() {
+        baseActionArray = CreateBaseActionArray();
+
+    }
+
+    private BaseAction[] CreateBaseActionArray() {
+        List<BaseAction> baseActionList = new List<BaseAction>();
+        baseActionList.Add(baseMoveAction);
+        baseActionList.Add(baseAttackAction);
+        foreach(BaseAction action in specialActions) {
+            baseActionList.Add(action);
+        }
+        return baseActionList.ToArray();
+    }
+
+    public BaseAction[] GetBaseActionArray() {
+        return baseActionArray;
+    }
 }
