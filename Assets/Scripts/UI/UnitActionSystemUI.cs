@@ -45,7 +45,8 @@ public class UnitActionSystemUI : MonoBehaviour {
             Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
             ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
             actionButtonUI.SetBaseAction(baseAction);
-
+            //TODO: So here, I need to set Move, Attack, then put the special abilities into a separate context menu, then Items?, then Wait.
+            // instead of placing all of the actions directly into a single list.
             actionButtonUIList.Add(actionButtonUI);
         }
     }
