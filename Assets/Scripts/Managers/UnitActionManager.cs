@@ -100,7 +100,7 @@ public class UnitActionManager : MonoBehaviour {
         if(selectedUnit == null) {
             SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
         }
-        //SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
+        SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
     }
 
     // private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {

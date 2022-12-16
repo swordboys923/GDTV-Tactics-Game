@@ -49,8 +49,10 @@ public class CameraController : MonoBehaviour
     }
 
     public void SetTransform(Vector3 location) {
-        while(transform.position != location){
-            transform.position = Vector3.Lerp(transform.position, location, Time.deltaTime * 3);
-        }
+        // TODO: Bug - the while loop is causing an infinite loop, breaking Unity.
+        // while(transform.position != location){
+        //     transform.position = Vector3.Lerp(transform.position, location, Time.deltaTime * 3);
+        // }
+        transform.position = location;
     }
 }
