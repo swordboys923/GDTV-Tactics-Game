@@ -8,6 +8,9 @@ public class CameraController : MonoBehaviour
     private const float MIN_FOLLOW_Y_OFFSET = 2f;
     private const float MAX_FOLLOW_Y_OFFSET = 12f;    
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] float moveSpeed;
+    bool canMoveToNewTarget = false;
+    Vector3 targetPosition;
 
     private Vector3 targetFollowOffset;
     private CinemachineTransposer cinemachineTransposer;
@@ -20,6 +23,8 @@ public class CameraController : MonoBehaviour
         HandleMovement();
         HandleRotation();
         HandleZoom();
+        if (!canMoveToNewTarget) return;
+        MoveToNewTarget();
     }
 
     private void HandleMovement() {
@@ -48,11 +53,20 @@ public class CameraController : MonoBehaviour
         cinemachineTransposer.m_FollowOffset = Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
     }
 
-    public void SetTransform(Vector3 location) {
-        // TODO: Bug - the while loop is causing an infinite loop, breaking Unity.
-        // while(transform.position != location){
-        //     transform.position = Vector3.Lerp(transform.position, location, Time.deltaTime * 3);
-        // }
-        transform.position = location;
+    private void MoveToNewTarget() {
+        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+        float stoppingDistance = .1f;
+        if(Vector3.Distance(transform.position, targetPosition) > stoppingDistance) {
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        } else {
+            canMoveToNewTarget = false;
+        }
     }
+
+    public void CanMoveToNewTarget(Vector3 location) {
+        canMoveToNewTarget = true;
+        targetPosition = location;
+    }
+
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO: Change to TurnManager
 public class TurnSystem : MonoBehaviour {
 
     public static TurnSystem Instance { get; private set; }
@@ -19,8 +19,7 @@ public class TurnSystem : MonoBehaviour {
         Instance  = this;
     }
 
-    //TODO: not an error in this script, however if the unit selected last dies in the enemy turn,
-    //the game throws a null error because the object can't be found
+    //TODO: not an error in this script, however if there are no more friendly units at the start of a new turn, error gets thrown.
     public void NextTurn() {
         turnNumber++;
         isPlayerTurn = !isPlayerTurn;
