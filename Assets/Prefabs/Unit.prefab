@@ -360,13 +360,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8381daddcfdd00743890ac4eb3ccbccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveAction: {fileID: 229705615355130005}
-  baseAttackAction: {fileID: 9178287933640442473}
-  specialActions:
-  - {fileID: 5045696243131554750}
+  moveAction: {fileID: 229705615355130005}
+  attackAction: {fileID: 9178287933640442473}
+  specialActionArray:
   - {fileID: 5552814445849840420}
   - {fileID: 3465264998833811446}
-  baseInteractAction: {fileID: 6824689072217741393}
+  - {fileID: 5045696243131554750}
+  interactAction: {fileID: 6824689072217741393}
 --- !u!1 &2345650259463418054
 GameObject:
   m_ObjectHideFlags: 0

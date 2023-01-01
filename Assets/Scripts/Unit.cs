@@ -55,12 +55,12 @@ public class Unit : MonoBehaviour {
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
-    public MoveAction GetMoveAction() {
-        return moveAction;
+    public BaseAction GetMoveAction() {
+        return unitActionSystem.GetMoveAction();
     }
 
-    public SpinAction GetSpinAction() {
-        return spinAction;
+    public BaseAction GetAttackAction() {
+        return unitActionSystem.GetAttackAction();
     }
 
     public ShootAction GetShootAction() {
@@ -77,6 +77,10 @@ public class Unit : MonoBehaviour {
 
     public BaseAction[] GetBaseActionArray() {
         return unitActionSystem.GetBaseActionArray();
+    }
+
+    public BaseAction[] GetSpecialActionArray() {
+        return unitActionSystem.GetSpecialActionArray();
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) {

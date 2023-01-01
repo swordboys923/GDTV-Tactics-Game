@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour {
 
-    [SerializeField] private BaseAction baseMoveAction;
-    [SerializeField] private BaseAction baseAttackAction;
-    [SerializeField] private BaseAction[] specialActions;
+    [SerializeField] private BaseAction moveAction;
+    [SerializeField] private BaseAction attackAction;
+    [SerializeField] private BaseAction[] specialActionArray;
 
-    [SerializeField] private BaseAction baseInteractAction;
+    [SerializeField] private BaseAction interactAction;
     private BaseAction[] baseActionArray;
 
     /*
@@ -33,9 +33,9 @@ public class UnitActionSystem : MonoBehaviour {
 
     private BaseAction[] CreateBaseActionArray() {
         List<BaseAction> baseActionList = new List<BaseAction>();
-        baseActionList.Add(baseMoveAction);
-        baseActionList.Add(baseAttackAction);
-        foreach(BaseAction action in specialActions) {
+        baseActionList.Add(moveAction);
+        baseActionList.Add(attackAction);
+        foreach(BaseAction action in specialActionArray) {
             baseActionList.Add(action);
         }
         return baseActionList.ToArray();
@@ -43,5 +43,21 @@ public class UnitActionSystem : MonoBehaviour {
 
     public BaseAction[] GetBaseActionArray() {
         return baseActionArray;
+    }
+
+    public BaseAction[] GetSpecialActionArray() {
+        return specialActionArray;
+    } 
+
+    public BaseAction GetMoveAction() {
+        return moveAction;
+    }
+
+    public BaseAction GetAttackAction() {
+        return attackAction;
+    }
+
+    public BaseAction GetInteractAction() {
+        return interactAction;
     }
 }

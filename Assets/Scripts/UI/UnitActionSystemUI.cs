@@ -28,27 +28,46 @@ public class UnitActionSystemUI : MonoBehaviour {
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         
         CreateUnitActionButtons();
-        UpdatedSelectedVisual();
-        SetActive(true);
     }
 
-
     private void CreateUnitActionButtons() {
+        //TODO: So here, I need to set Move, Attack, then put the special abilities into a separate context menu, then Items?, then Wait.
+        // instead of placing all of the actions directly into a single list.
         foreach(Transform buttonTransform in actionButtonContainerTransform) {
             Destroy(buttonTransform.gameObject);
         }
 
         actionButtonUIList.Clear();
-
         Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
-        foreach(BaseAction baseAction in selectedUnit.GetBaseActionArray()) {
-            Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
-            ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
-            actionButtonUI.SetBaseAction(baseAction);
-            //TODO: So here, I need to set Move, Attack, then put the special abilities into a separate context menu, then Items?, then Wait.
-            // instead of placing all of the actions directly into a single list.
-            actionButtonUIList.Add(actionButtonUI);
+        CreateUnitMoveButton(selectedUnit);
+        CreateUnitAttackButton(selectedUnit);
+        CreateUnitSpecialActionButtons(selectedUnit);
+        UpdatedSelectedVisual();
+        SetActive(true);
+    }
+
+    private void CreateUnitMoveButton(Unit selectedUnit) {
+        BaseAction moveAction = selectedUnit.GetMoveAction();
+        CreateButton(moveAction);
+    }
+
+    private void CreateUnitAttackButton(Unit selectedUnit) {
+        BaseAction attackAction = selectedUnit.GetAttackAction();
+        CreateButton(attackAction);
+    }
+
+    private void CreateUnitSpecialActionButtons(Unit selectedUnit) {
+
+        foreach(BaseAction baseAction in selectedUnit.GetSpecialActionArray()) {
+            CreateButton(baseAction);
         }
+    }
+
+    private void CreateButton(BaseAction baseAction) {
+        Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
+        ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
+        actionButtonUI.SetBaseAction(baseAction);
+        actionButtonUIList.Add(actionButtonUI);
     }
     private void UnitActionManager_OnSelectedActionChanged(object sender, EventArgs e) {
         UpdatedSelectedVisual();
@@ -56,8 +75,6 @@ public class UnitActionSystemUI : MonoBehaviour {
 
     private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
         CreateUnitActionButtons();
-        UpdatedSelectedVisual();
-        SetActive(true);
     }
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {
         SetActive(false);
