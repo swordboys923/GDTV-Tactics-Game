@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 3128156861066461606}
   - component: {fileID: 9147877226753615444}
   - component: {fileID: 6496459563606494169}
+  - component: {fileID: 5937635422926401685}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -368,6 +369,7 @@ MonoBehaviour:
   - {fileID: 5552814445849840420}
   - {fileID: 3465264998833811446}
   - {fileID: 5045696243131554750}
+  - {fileID: 5937635422926401685}
   interactAction: {fileID: 6824689072217741393}
 --- !u!114 &9147877226753615444
 MonoBehaviour:
@@ -395,6 +397,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stamina: 100
+--- !u!114 &5937635422926401685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115536541247420099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b458c2dd748b2b439975bc83a3728d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDataSO: {fileID: 11400000, guid: d1e47756c3e91b54cafd64bc94cfb7f1, type: 2}
 --- !u!1 &2345650259463418054
 GameObject:
   m_ObjectHideFlags: 0
