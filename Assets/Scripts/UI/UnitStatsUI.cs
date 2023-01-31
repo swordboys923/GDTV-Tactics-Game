@@ -19,12 +19,12 @@ public class UnitStatsUI : MonoBehaviour {
         UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
         HealthSystem.OnAnyHealthChanged += HealthSystem_OnAnyHealthChanged;
         ActionResourceSystem.OnAnyResourceChanged += ActionResourceSystem_OnAnyResourceChanged;
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
         UpdateAllUI();
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
         UpdateAllUI();
     }
 

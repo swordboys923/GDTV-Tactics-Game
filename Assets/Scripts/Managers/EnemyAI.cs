@@ -18,10 +18,10 @@ public class EnemyAI : MonoBehaviour {
         state = State.WaitingForEnemyTurn;
     }
     private void Start() {
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
     }
     void Update() {
-        if(TurnSystem.Instance.IsPlayerTurn()) return;
+        if(TurnManager.Instance.IsPlayerTurn()) return;
         
         switch(state){
             case State.WaitingForEnemyTurn:
@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour {
                     if(TryTakeEnemyAIAction(SetStateTakingTurn)) {
                         state = State.Busy;
                     } else{
-                        TurnSystem.Instance.NextTurn();
+                        TurnManager.Instance.NextTurn();
                     }
                 }
                 break;
@@ -46,8 +46,8 @@ public class EnemyAI : MonoBehaviour {
         state = State.TakingTurn;
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
-        if(!TurnSystem.Instance.IsPlayerTurn()) {
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+        if(!TurnManager.Instance.IsPlayerTurn()) {
             state = State.TakingTurn;
             timer = 2f;
         }

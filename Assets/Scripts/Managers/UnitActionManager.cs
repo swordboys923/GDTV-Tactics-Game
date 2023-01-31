@@ -28,12 +28,12 @@ public class UnitActionManager : MonoBehaviour {
     }
     private void Start() {
         SetSelectedUnit(selectedUnit);
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         // BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
     }
     private void Update() {
         if(isBusy) return;
-        if(!TurnSystem.Instance.IsPlayerTurn()) return;
+        if(!TurnManager.Instance.IsPlayerTurn()) return;
         if(EventSystem.current.IsPointerOverGameObject()) return;
         if(TryHandleUnitSelection()) return;
         if(selectedAction) HandleSelectedAction();
@@ -96,7 +96,7 @@ public class UnitActionManager : MonoBehaviour {
         return selectedUnit;
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
         if(selectedUnit == null) {
             SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
         }

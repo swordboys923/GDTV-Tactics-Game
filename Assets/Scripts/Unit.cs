@@ -16,6 +16,8 @@ public class Unit : MonoBehaviour {
     private HealthSystem healthSystem;
     private ActionResourceSystem resourceSystem;
     private UnitActionSystem unitActionSystem;
+    private StaminaSystem staminaSystem;
+    private ResolveSystem resolveSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
     private ShootAction shootAction;
@@ -28,6 +30,8 @@ public class Unit : MonoBehaviour {
         movementActionPoints = movementActionPointsMax;
         healthSystem = GetComponent<HealthSystem>();
         resourceSystem = GetComponent<ActionResourceSystem>();
+        staminaSystem = GetComponent<StaminaSystem>();
+        resolveSystem = GetComponent<ResolveSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
         shootAction = GetComponent<ShootAction>();
@@ -38,7 +42,7 @@ public class Unit : MonoBehaviour {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
-        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         healthSystem.OnDead += HealthSystem_OnDead;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
@@ -119,8 +123,8 @@ public class Unit : MonoBehaviour {
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) {
-        if((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn())) {
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+        if((IsEnemy() && !TurnManager.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnManager.Instance.IsPlayerTurn())) {
             actionActionPoints = actionActionPointsMax;
             movementActionPoints = movementActionPointsMax;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
@@ -165,5 +169,17 @@ public class Unit : MonoBehaviour {
 
     public int GetResourceMax() {
         return resourceSystem.GetResourceMax();
+    }
+
+    public float GetStaminaNormalized() {
+        return staminaSystem.GetStaminaNormalized();
+    }
+
+    public int GetStamina() {
+        return staminaSystem.GetStamina();
+    }
+
+    public int GetStaminaMax() {
+        return staminaSystem.GetStaminaMax();
     }
 }

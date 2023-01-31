@@ -23,11 +23,11 @@ public class UnitManager : MonoBehaviour {
         enemyUnitList = new List<Unit>();
     }
     private void Start() {
-        Unit.OnAnyUnitSpawned += OnAnyUnitSpawned;
+        Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
     }
 
-    private void OnAnyUnitSpawned(object sender, EventArgs e) {
+    private void Unit_OnAnyUnitSpawned(object sender, EventArgs e) {
         Unit unit = sender as Unit;
         unitList.Add(unit);
         if(unit.IsEnemy()) {
@@ -47,7 +47,7 @@ public class UnitManager : MonoBehaviour {
         }        
     }
 
-    public List<Unit> GetUnitLIst() {
+    public List<Unit> GetUnitList() {
         return unitList;
     }
     public List<Unit> GetFriendlyUnitList() {
