@@ -36,6 +36,8 @@ public class TurnManager : MonoBehaviour {
         turnOrderList.Remove(unit);
     }
 
+    
+
     //TODO: not an error in this script, however if there are no more friendly units at the start of a new turn, error gets thrown.
     public void NextTurn() {
         turnNumber++;
@@ -58,7 +60,8 @@ public class TurnManager : MonoBehaviour {
     //TODO: Should cycle through the turn list backwards. That way we can pop an item off of the list when they are done with their turn.
     //TODO: Should we keep two lists? One for current turn and one for next? That way if the are any status changes, we are projecting off of the second list without damanging the current list?
 
-    private void WaitAction_OnAnyWait(object sender, WaitAction.OnWaitEventArgs e) {
-        print(e.unit.name);
+    private void WaitAction_OnAnyWait(object sender,EventArgs e) {
+
+        print(((BaseAction)sender).GetUnit().name);
     }
 }
