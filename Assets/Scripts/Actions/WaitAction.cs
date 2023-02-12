@@ -15,7 +15,10 @@ public class WaitAction : BaseAction {
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
-        throw new NotImplementedException();
+        return new EnemyAIAction {
+            gridPosition = gridPosition,
+            actionValue = 0,
+        };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList() {

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
+    // TODO: possible bug. While testing, one unit (the Unit) wasn't included in the turnOrderList
 
     public static TurnManager Instance { get; private set; }
     public event EventHandler OnTurnChanged;
+    [SerializeField] private Unit currentTurnUnit;
     private int turnNumber = 1;
     private bool isPlayerTurn = true;
     private List<Unit> turnOrderList;
@@ -21,20 +23,47 @@ public class TurnManager : MonoBehaviour {
     }
 
     private void Start() {
-        turnOrderList = new List<Unit>();
-        WaitAction.OnAnyWait += WaitAction_OnAnyWait;
-        GenerateTurnList();
+        turnOrderList = GenerateTurnList();
+        currentTurnUnit = turnOrderList[0];
     }
 
-    private void GenerateTurnList() {
-        turnOrderList.Clear();
+    private void OnEnable() {
+        WaitAction.OnAnyWait += WaitAction_OnAnyWait;
+    }
+
+    public void AddUnitToTurnList(Unit unit) {
+        turnOrderList.Add(unit);
+    }
+
+    public void AddUnitsToTurnList(Unit[] units){
+        foreach(Unit unit in units) {
+            turnOrderList.Add(unit);
+        }
+    }
+
+    private List<Unit> GenerateTurnList() {
         List<Unit> unitList = UnitManager.Instance.GetUnitList();
-        turnOrderList = unitList.OrderByDescending(t=> t.GetStaminaNormalized()).ToList();
+        return unitList.OrderByDescending(t=> t.GetStaminaNormalized()).ToList();
     }
 
     private void RemoveUnitFromTurnList(Unit unit) {
         turnOrderList.Remove(unit);
     }
+
+    private void SetNextCurrentTurnUnit () {
+        if (turnOrderList.Count() == 1) {
+            // Current Unit is last in the list
+            // End Turn
+            print("End turn!");
+        } else {
+            RemoveUnitFromTurnList(currentTurnUnit);
+            currentTurnUnit = turnOrderList[0];
+        }
+    }
+
+
+
+
 
     
 
