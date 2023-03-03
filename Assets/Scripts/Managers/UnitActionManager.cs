@@ -27,8 +27,9 @@ public class UnitActionManager : MonoBehaviour {
         Instance  = this;
     }
     private void Start() {
-        SetSelectedUnit(selectedUnit);
+        //SetSelectedUnit(selectedUnit);
         TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
+        TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
         // BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
     }
     private void Update() {
@@ -101,6 +102,10 @@ public class UnitActionManager : MonoBehaviour {
             SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
         }
         SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
+    }
+
+    private void TurnManager_OnUnitTurnChanged(object sender, TurnManager.OnUnitTurnChangedEventArgs e) {
+        SetSelectedUnit(e.currentTurnUnit);
     }
 
     // private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {

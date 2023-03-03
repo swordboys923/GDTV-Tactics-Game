@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour {
         TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
     }
     void Update() {
-        if(TurnManager.Instance.IsPlayerTurn()) return;
+        //if(TurnManager.Instance.IsPlayerTurn()) return;
         
         switch(state){
             case State.WaitingForEnemyTurn:
