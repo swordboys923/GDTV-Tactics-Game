@@ -94,7 +94,7 @@ public class GridSystemVisual : MonoBehaviour {
 
     private void UpdateGridVisual() {
         HideAllGridPositions();
-        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
+        Unit currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         BaseAction selectedAction = UnitActionManager.Instance.GetSelectedAction();
         GridVisualType gridVisualType;
         switch (selectedAction) {
@@ -110,11 +110,11 @@ public class GridSystemVisual : MonoBehaviour {
                 break;
             case ShootAction shootAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRange(selectedUnit.GetGridPosition(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
+                ShowGridPositionRange(currentTurnUnit.GetGridPosition(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
                 break;
             case SwordAction swordAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft);
+                ShowGridPositionRangeSquare(currentTurnUnit.GetGridPosition(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft);
                 break;
             case InteractAction interactAction:
                 gridVisualType = GridVisualType.Blue;

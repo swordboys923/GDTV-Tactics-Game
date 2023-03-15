@@ -44,6 +44,10 @@ public class TurnManager : MonoBehaviour {
         turnOrderList.Add(unit);
     }
 
+    public Unit GetCurrentTurnUnit() {
+        return currentTurnUnit;
+    }
+
     public void AddUnitsToTurnList(Unit[] units){
         foreach(Unit unit in units) {
             turnOrderList.Add(unit);

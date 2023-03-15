@@ -40,27 +40,26 @@ public class UnitActionSystemUI : MonoBehaviour {
         }
 
         actionButtonUIList.Clear();
-        Unit selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
-        CreateUnitMoveButton(selectedUnit);
-        CreateUnitAttackButton(selectedUnit);
-        CreateUnitSpecialActionButtons(selectedUnit);
+        Unit currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
+        CreateUnitMoveButton(currentTurnUnit);
+        CreateUnitAttackButton(currentTurnUnit);
+        CreateUnitSpecialActionButtons(currentTurnUnit);
         UpdatedSelectedVisual();
         SetActive(true);
     }
 
-    private void CreateUnitMoveButton(Unit selectedUnit) {
-        BaseAction moveAction = selectedUnit.GetMoveAction();
+    private void CreateUnitMoveButton(Unit currentTurnUnit) {
+        BaseAction moveAction = currentTurnUnit.GetMoveAction();
         CreateButton(moveAction);
     }
 
-    private void CreateUnitAttackButton(Unit selectedUnit) {
-        BaseAction attackAction = selectedUnit.GetAttackAction();
+    private void CreateUnitAttackButton(Unit currentTurnUnit) {
+        BaseAction attackAction = currentTurnUnit.GetAttackAction();
         CreateButton(attackAction);
     }
 
-    private void CreateUnitSpecialActionButtons(Unit selectedUnit) {
-
-        foreach(BaseAction baseAction in selectedUnit.GetSpecialActionArray()) {
+    private void CreateUnitSpecialActionButtons(Unit currentTurnUnit) {
+        foreach(BaseAction baseAction in currentTurnUnit.GetSpecialActionArray()) {
             CreateButton(baseAction);
         }
     }
@@ -83,7 +82,7 @@ public class UnitActionSystemUI : MonoBehaviour {
     }
 
     private void BaseAction_OnAnyActionCompleted(object sender, BaseAction.BaseActionEventArgs e) {
-        if (e.actingUnit == UnitActionManager.Instance.GetSelectedUnit()) {
+        if (e.actingUnit == TurnManager.Instance.GetCurrentTurnUnit()) {
             SetActive(true);
         }
     }

@@ -13,14 +13,15 @@ public class UnitStatsUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI unitName;
 
-    private Unit selectedUnit;
+    private Unit currentTurnUnit;
 
     private void Start() {
-        UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
+        // UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
         HealthSystem.OnAnyHealthChanged += HealthSystem_OnAnyHealthChanged;
         ActionResourceSystem.OnAnyResourceChanged += ActionResourceSystem_OnAnyResourceChanged;
         TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
-        selectedUnit = UnitActionManager.Instance.GetSelectedUnit();
+        TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
+        currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         UpdateAllUI();
     }
 
@@ -36,32 +37,38 @@ public class UnitStatsUI : MonoBehaviour {
         UpdateAllUI();
     }
 
-    private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
-        UnitActionManager unitActionManager = sender as UnitActionManager;
-        selectedUnit = unitActionManager.GetSelectedUnit();
+
+    // private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
+    //     UnitActionManager unitActionManager = sender as UnitActionManager;
+    //     currentTurnUnit = unitActionManager.GetSelectedUnit();
+    //     UpdateAllUI();
+    // }
+
+    private void TurnManager_OnUnitTurnChanged(object sender, EventArgs e) {
+        currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         UpdateAllUI();
     }
 
     private void UpdateAllUI() {
-        if(UnitActionManager.Instance.GetSelectedUnit()) {
-            unitName.text = selectedUnit.name.ToString();
+        if(TurnManager.Instance.GetCurrentTurnUnit()) {
+            unitName.text = currentTurnUnit.name.ToString();
             UpdateHealth();
             UpdateResource();
         }
     }
 
     private void UpdateHealth() {
-        int healthPoints = selectedUnit.GetHealth();
-        int healthMax = selectedUnit.GetHealthMax();
+        int healthPoints = currentTurnUnit.GetHealth();
+        int healthMax = currentTurnUnit.GetHealthMax();
         healthText.text = $"{healthPoints}/{healthMax} HP";
-        healthBarImage.fillAmount = selectedUnit.GetHealthNormalized();
+        healthBarImage.fillAmount = currentTurnUnit.GetHealthNormalized();
     }
 
     private void UpdateResource() {
-        int manaPoints = selectedUnit.GetResource();
-        int manaMax = selectedUnit.GetResourceMax();
+        int manaPoints = currentTurnUnit.GetResource();
+        int manaMax = currentTurnUnit.GetResourceMax();
         manaText.text = $"{manaPoints}/{manaMax} HP";
-        manaBarImage.fillAmount = selectedUnit.GetResourceNormalized();
+        manaBarImage.fillAmount = currentTurnUnit.GetResourceNormalized();
     }
 
 

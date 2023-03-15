@@ -23,7 +23,7 @@ public class UnitSelectedVisual : MonoBehaviour
     }
 
     private void UpdateUnitVisual() {
-        if(UnitActionManager.Instance.GetSelectedUnit() == unit) {
+        if(TurnManager.Instance.GetCurrentTurnUnit() == unit) {
             meshRenderer.enabled = true;
         } else {
             meshRenderer.enabled = false;
