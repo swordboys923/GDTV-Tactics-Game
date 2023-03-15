@@ -182,4 +182,8 @@ public class Unit : MonoBehaviour {
     public int GetStaminaMax() {
         return staminaSystem.GetStaminaMax();
     }
+
+    public bool GetIsEnemy() {
+        return isEnemy;
+    }
 }

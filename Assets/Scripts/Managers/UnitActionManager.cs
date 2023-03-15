@@ -36,7 +36,7 @@ public class UnitActionManager : MonoBehaviour {
         if(isBusy) return;
         if(!TurnManager.Instance.IsPlayerTurn()) return;
         if(EventSystem.current.IsPointerOverGameObject()) return;
-        if(TryHandleUnitSelection()) return;
+        //if(TryHandleUnitSelection()) return;
         if(selectedAction) HandleSelectedAction();
     }
 
@@ -61,21 +61,21 @@ public class UnitActionManager : MonoBehaviour {
         OnBusyChanged?.Invoke(this, isBusy);
     }
 
-    private bool TryHandleUnitSelection() {
-        if(InputManager.Instance.IsMouseButtonDownThisFrame()) {
-            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
-            if(Physics.Raycast(ray, out RaycastHit raycastHit,float.MaxValue,unitLayerMask)) {
-                if(raycastHit.transform.TryGetComponent<Unit>(out Unit unit)) {
-                    if (unit == selectedUnit) return false;
-                    if (unit.IsEnemy()) return false;
+    // private bool TryHandleUnitSelection() {
+    //     if(InputManager.Instance.IsMouseButtonDownThisFrame()) {
+    //         Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
+    //         if(Physics.Raycast(ray, out RaycastHit raycastHit,float.MaxValue,unitLayerMask)) {
+    //             if(raycastHit.transform.TryGetComponent<Unit>(out Unit unit)) {
+    //                 if (unit == selectedUnit) return false;
+    //                 if (unit.IsEnemy()) return false;
                     
-                    SetSelectedUnit(unit);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    //                 SetSelectedUnit(unit);
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
     private void SetSelectedUnit (Unit unit) {
         selectedUnit = unit;
@@ -93,6 +93,7 @@ public class UnitActionManager : MonoBehaviour {
         OnSelectedActionChanged?.Invoke(this,EventArgs.Empty);
     }
 
+    //TODO: Commenting this out to see what else in the project relies on the selectedUnit.
     public Unit GetSelectedUnit() {
         return selectedUnit;
     }

@@ -101,6 +101,6 @@ public class TurnManager : MonoBehaviour {
     }
 
     public bool IsPlayerTurn() {
-        return isPlayerTurn;
+        return !currentTurnUnit.GetIsEnemy();
     }
 }
