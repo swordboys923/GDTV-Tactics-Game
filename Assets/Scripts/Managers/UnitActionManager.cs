@@ -37,7 +37,7 @@ public class UnitActionManager : MonoBehaviour {
         if(isBusy) return;
         if(!TurnManager.Instance.IsPlayerTurn()) return;
         if(EventSystem.current.IsPointerOverGameObject()) return;
-        if(TryHandleUnitSelection()) return;
+        // if(TryHandleUnitSelection()) return;
         if(selectedAction) HandleSelectedAction();
     }
 
@@ -45,7 +45,7 @@ public class UnitActionManager : MonoBehaviour {
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
-            if(!clickedOnUnit.TrySpendActionPointsToTakeAction(selectedAction)) return;
+            if(!currentTurnUnit.TrySpendActionPointsToTakeAction(selectedAction)) return;
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
             OnActionStarted?.Invoke(this,EventArgs.Empty);
@@ -87,6 +87,7 @@ public class UnitActionManager : MonoBehaviour {
 
     private void SetCurrentTurnUnit(Unit unit) {
         currentTurnUnit = unit;
+        SetSelectedAction(unit.GetMoveAction());
     }
 
     public BaseAction GetSelectedAction() {

@@ -79,6 +79,7 @@ public class TurnManager : MonoBehaviour {
             OnUnitTurnChanged?.Invoke(this, new OnUnitTurnChangedEventArgs {
                 currentTurnUnit = currentTurnUnit,
             });
+
         }
     }
 
@@ -94,7 +95,6 @@ public class TurnManager : MonoBehaviour {
         }
 
         SetNextCurrentTurnUnit();
-        print("heyo!");
     }
 
 
