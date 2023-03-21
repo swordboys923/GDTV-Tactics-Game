@@ -68,7 +68,8 @@ public class TurnManager : MonoBehaviour {
         turnOrderList.Remove(unit);
     }
 
-    private void SetNextCurrentTurnUnit () {
+    //TODO: This is public only to test the EnemyAI. Need to make this private.
+    public void SetNextCurrentTurnUnit () {
         if (turnOrderList.Count() == 1) {
             // Current Unit is last in the list
             // End Turn

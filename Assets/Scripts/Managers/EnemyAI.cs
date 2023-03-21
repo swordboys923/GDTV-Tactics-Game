@@ -18,10 +18,10 @@ public class EnemyAI : MonoBehaviour {
         state = State.WaitingForEnemyTurn;
     }
     private void Start() {
-        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
+        TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
     }
     void Update() {
-        //if(TurnManager.Instance.IsPlayerTurn()) return;
+        if(TurnManager.Instance.IsPlayerTurn()) return;
         
         switch(state){
             case State.WaitingForEnemyTurn:
@@ -32,7 +32,8 @@ public class EnemyAI : MonoBehaviour {
                     if(TryTakeEnemyAIAction(SetStateTakingTurn)) {
                         state = State.Busy;
                     } else{
-                        TurnManager.Instance.NextTurn();
+                        TurnManager.Instance.SetNextCurrentTurnUnit();
+                        // TODO: Here the enemy needs to end their turn. i.e. take the Wait Action.
                     }
                 }
                 break;
@@ -46,7 +47,7 @@ public class EnemyAI : MonoBehaviour {
         state = State.TakingTurn;
     }
 
-    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+    private void TurnManager_OnUnitTurnChanged(object sender, EventArgs e) {
         if(!TurnManager.Instance.IsPlayerTurn()) {
             state = State.TakingTurn;
             timer = 2f;
