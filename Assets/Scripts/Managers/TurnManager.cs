@@ -27,6 +27,7 @@ public class TurnManager : MonoBehaviour {
         Instance  = this;
     }
 
+
     private void Start() {
         turnOrderList = GenerateTurnList();
         SetNextCurrentTurnUnit();
@@ -86,9 +87,14 @@ public class TurnManager : MonoBehaviour {
     //TODO: Should cycle through the turn list backwards. That way we can pop an item off of the list when they are done with their turn.
     //TODO: Should we keep two lists? One for current turn and one for next? That way if the are any status changes, we are projecting off of the second list without damanging the current list?
 
-    private void WaitAction_OnAnyWait(object sender,EventArgs e) {
+    private void WaitAction_OnAnyWait(object sender, WaitAction.OnAnyWaitEventArgs e) {
+        if(e.unit != currentTurnUnit) {
+            Debug.LogError($"Wait Action Received from {e.unit}; however currentTurnUnit is {currentTurnUnit}.");
+            return;
+        }
 
-        print(((BaseAction)sender).GetUnit().name);
+        SetNextCurrentTurnUnit();
+        print("heyo!");
     }
 
 
