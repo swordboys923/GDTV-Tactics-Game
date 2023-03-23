@@ -19,13 +19,8 @@ public class UnitStatsUI : MonoBehaviour {
         // UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
         HealthSystem.OnAnyHealthChanged += HealthSystem_OnAnyHealthChanged;
         ActionResourceSystem.OnAnyResourceChanged += ActionResourceSystem_OnAnyResourceChanged;
-        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
         currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
-        UpdateAllUI();
-    }
-
-    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
         UpdateAllUI();
     }
 
@@ -67,7 +62,7 @@ public class UnitStatsUI : MonoBehaviour {
     private void UpdateResource() {
         int manaPoints = currentTurnUnit.GetResource();
         int manaMax = currentTurnUnit.GetResourceMax();
-        manaText.text = $"{manaPoints}/{manaMax} HP";
+        manaText.text = $"{manaPoints}/{manaMax} MP";
         manaBarImage.fillAmount = currentTurnUnit.GetResourceNormalized();
     }
 

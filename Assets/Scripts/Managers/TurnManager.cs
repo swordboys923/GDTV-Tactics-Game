@@ -16,7 +16,6 @@ public class TurnManager : MonoBehaviour {
     private List<Unit> turnOrderList;
 
     private int turnNumber = 1;
-    private bool isPlayerTurn = true;
     
     private void Awake() {
         if (Instance != null) {
@@ -71,9 +70,9 @@ public class TurnManager : MonoBehaviour {
     //TODO: This is public only to test the EnemyAI. Need to make this private.
     public void SetNextCurrentTurnUnit () {
         if (turnOrderList.Count() == 1) {
-            // Current Unit is last in the list
-            // End Turn
-            print("End turn!");
+            NextTurn();
+            turnOrderList = GenerateTurnList();
+            SetNextCurrentTurnUnit();
         } else {
             RemoveUnitFromTurnList(currentTurnUnit);
             currentTurnUnit = turnOrderList[0];
@@ -101,9 +100,9 @@ public class TurnManager : MonoBehaviour {
 
     //OLD COURSE CODE
     //TODO: not an error in this script, however if there are no more friendly units at the start of a new turn, error gets thrown.
-    public void NextTurn() {
+    private void NextTurn() {
+        print("End Turn!");
         turnNumber++;
-        isPlayerTurn = !isPlayerTurn;
         OnTurnChanged?.Invoke(this,EventArgs.Empty);
     }
 

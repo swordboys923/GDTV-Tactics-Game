@@ -26,7 +26,6 @@ public class UnitActionSystemUI : MonoBehaviour {
         UnitActionManager.Instance.OnSelectedActionChanged += UnitActionManager_OnSelectedActionChanged;
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
-        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
         
         CreateUnitActionButtons();
@@ -89,13 +88,10 @@ public class UnitActionSystemUI : MonoBehaviour {
         }
     }
 
-    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
-        SetActive(TurnManager.Instance.IsPlayerTurn());
-    }
-
 
     private void TurnManager_OnUnitTurnChanged(object sender, TurnManager.OnUnitTurnChangedEventArgs e) {
         CreateUnitActionButtons();
+        SetActive(TurnManager.Instance.IsPlayerTurn());
     }
 
     private void UpdatedSelectedVisual() {

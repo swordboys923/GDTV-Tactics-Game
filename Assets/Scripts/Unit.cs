@@ -124,6 +124,7 @@ public class Unit : MonoBehaviour {
     }
 
     private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+        //TODO: Look at this logic in the if statement. I think I can just remove the if statement
         if((IsEnemy() && !TurnManager.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnManager.Instance.IsPlayerTurn())) {
             actionActionPoints = actionActionPointsMax;
             movementActionPoints = movementActionPointsMax;
