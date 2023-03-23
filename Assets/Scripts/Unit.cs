@@ -96,6 +96,9 @@ public class Unit : MonoBehaviour {
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
         int actionPoints;
+        if (baseAction is WaitAction) {
+            return true;
+        }
         if (baseAction is MoveAction){
             actionPoints = movementActionPoints;
         } else {
