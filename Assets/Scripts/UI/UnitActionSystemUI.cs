@@ -35,7 +35,6 @@ public class UnitActionSystemUI : MonoBehaviour {
         //TODO: So here, I need to set Move, Attack, then put the special abilities into a separate context menu, then Items?, then Wait.
         // instead of placing all of the actions directly into a single list.
 
-        //TODO: "Wait" should be an action on the character instead of the UI.
         foreach(Transform buttonTransform in actionButtonContainerTransform) {
             Destroy(buttonTransform.gameObject);
         }

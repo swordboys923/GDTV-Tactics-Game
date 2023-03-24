@@ -32,8 +32,8 @@ public class EnemyAI : MonoBehaviour {
                     if(TryTakeEnemyAIAction(SetStateTakingTurn)) {
                         state = State.Busy;
                     } else{
-                        TurnManager.Instance.SetNextCurrentTurnUnit();
                         // TODO: Here the enemy needs to end their turn. i.e. take the Wait Action.
+                        // Right now, am accomplishing this by making the Wait Action a low value, always free option, which seems to accomplish the desired result.
                     }
                 }
                 break;
@@ -66,17 +66,20 @@ public class EnemyAI : MonoBehaviour {
         BaseAction bestBaseAction = null;
 
         foreach(BaseAction baseAction in enemyUnit.GetBaseActionArray()){
-            if (!enemyUnit.CanSpendActionPointsToTakeAction(baseAction)) continue;
+            
+            if (!enemyUnit.CanSpendActionPointsToTakeAction(baseAction))continue;
+
             if (bestEnemyAIAction == null) {
                 bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 bestBaseAction = baseAction;
             } else {
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 if(testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue) {
-                bestEnemyAIAction = testEnemyAIAction;
-                bestBaseAction = baseAction;
+                    bestEnemyAIAction = testEnemyAIAction;
+                    bestBaseAction = baseAction;
                 }
             }
+            print(bestBaseAction + " " + bestEnemyAIAction);
         }
 
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction)){

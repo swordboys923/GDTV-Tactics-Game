@@ -25,14 +25,14 @@ public class WaitAction : BaseAction {
     }
 
     public override List<GridPosition> GetValidActionGridPositionList() {
-        List<GridPosition> positionList = new List<GridPosition>();
-        positionList.Add(unit.GetGridPosition());
-        return positionList;
+        GridPosition unitGridPosition = unit.GetGridPosition();
+
+        return new List<GridPosition> {unitGridPosition};
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         ActionStart(onActionComplete);
-        OnAnyWait.Invoke(this, new OnAnyWaitEventArgs {
+        OnAnyWait?.Invoke(this, new OnAnyWaitEventArgs {
             unit = this.unit
         });
         ActionComplete();

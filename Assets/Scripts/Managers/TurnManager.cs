@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
-    // TODO: possible bug. While testing, one unit (the Unit) wasn't included in the turnOrderList
+    // BUG: When testing, the turn order seemed to skip the enemy a few times. It would cycle Unit1, Enemy, Unit | unit1, unit | unit1, Enemy, Unit.
+    // BUG: possible bug. While testing, one unit (the Unit) wasn't included in the turnOrderList
 
     public static TurnManager Instance { get; private set; }
     public event EventHandler OnTurnChanged;
@@ -67,8 +68,7 @@ public class TurnManager : MonoBehaviour {
         turnOrderList.Remove(unit);
     }
 
-    //TODO: This is public only to test the EnemyAI. Need to make this private.
-    public void SetNextCurrentTurnUnit () {
+    private void SetNextCurrentTurnUnit () {
         if (turnOrderList.Count() == 1) {
             NextTurn();
             turnOrderList = GenerateTurnList();
@@ -99,7 +99,7 @@ public class TurnManager : MonoBehaviour {
 
 
     //OLD COURSE CODE
-    //TODO: not an error in this script, however if there are no more friendly units at the start of a new turn, error gets thrown.
+    //BUG: not an error in this script, however if there are no more friendly units at the start of a new turn, the enemy takes thousands of turns at a time and freezes up the game.
     private void NextTurn() {
         print("End Turn!");
         turnNumber++;

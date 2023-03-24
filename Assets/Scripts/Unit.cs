@@ -96,11 +96,11 @@ public class Unit : MonoBehaviour {
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
         int actionPoints;
-        if (baseAction is WaitAction) {
-            return true;
-        }
+
         if (baseAction is MoveAction){
             actionPoints = movementActionPoints;
+        } else if (baseAction is WaitAction) {
+            return true;
         } else {
             actionPoints = actionActionPoints;
         }
@@ -127,12 +127,9 @@ public class Unit : MonoBehaviour {
     }
 
     private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
-        //TODO: Look at this logic in the if statement. I think I can just remove the if statement
-        if((IsEnemy() && !TurnManager.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnManager.Instance.IsPlayerTurn())) {
-            actionActionPoints = actionActionPointsMax;
-            movementActionPoints = movementActionPointsMax;
-            OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
-        }
+        actionActionPoints = actionActionPointsMax;
+        movementActionPoints = movementActionPointsMax;
+        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void HealthSystem_OnDead(object sender, EventArgs e) {
@@ -144,6 +141,8 @@ public class Unit : MonoBehaviour {
 
     private void BaseAction_OnActionComplete (object sender, EventArgs e) {
         BaseAction baseAction = sender as BaseAction;
+        if(baseAction is WaitAction) return;
+        
         if(baseAction is MoveAction){
             movementActionPoints--;
         } else {
