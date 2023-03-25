@@ -59,7 +59,7 @@ public class Pathfinding : MonoBehaviour {
 
         //TODO: use the local width height?
         for(int x = 0; x < gridSystem.GetWidth(); x++) {
-            for(int z = 0; z < gridSystem.GetHeight(); z++) {
+            for(int z = 0; z < gridSystem.GetDepth(); z++) {
                 GridPosition gridPosition = new GridPosition(x,z);
                 PathNode pathNode = gridSystem.GetGridObject(gridPosition);
 
@@ -146,7 +146,7 @@ public class Pathfinding : MonoBehaviour {
                 PathNode leftDownNeighborNode = GetNode(gridPosition.x -1, gridPosition.z -1);
                 neighborList.Add(leftDownNeighborNode);
             }
-            if(gridPosition.z+1 < gridSystem.GetHeight()){
+            if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode leftUpNeighborNode = GetNode(gridPosition.x -1, gridPosition.z+1);
                 neighborList.Add(leftUpNeighborNode);
             }
@@ -159,7 +159,7 @@ public class Pathfinding : MonoBehaviour {
                 PathNode rightDownNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z-1);
                 neighborList.Add(rightDownNeighborNode);
             }
-            if(gridPosition.z+1 < gridSystem.GetHeight()){
+            if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode rightUpNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z+1);
                 neighborList.Add(rightUpNeighborNode);
             }       
@@ -169,7 +169,7 @@ public class Pathfinding : MonoBehaviour {
             PathNode downNeighborNode = GetNode(gridPosition.x, gridPosition.z - 1);
             neighborList.Add(downNeighborNode);
         }
-        if(gridPosition.z+1 < gridSystem.GetHeight()){
+        if(gridPosition.z+1 < gridSystem.GetDepth()){
             PathNode upNeighborNode = GetNode(gridPosition.x, gridPosition.z + 1);
             neighborList.Add(upNeighborNode);
         }
