@@ -32,7 +32,7 @@ public class GridSystemVisual : MonoBehaviour {
         }
         Instance  = this;
     }
-
+    //TODO: At each position, I need to sample the grid at that position and find the height, then spawn the visual at that height.
     private void Start() {
         gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetHeight()];
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++) {
