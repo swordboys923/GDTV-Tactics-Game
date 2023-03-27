@@ -17,7 +17,8 @@ public class MoveAction : BaseAction {
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+        transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z), Time.deltaTime * rotateSpeed);
+        
 
         float stoppingDistance = .1f;
         if(Vector3.Distance(transform.position, targetPosition) > stoppingDistance) {
@@ -38,7 +39,8 @@ public class MoveAction : BaseAction {
         positionList = new List<Vector3>();
 
         foreach(GridPosition pathGridPosition in pathGridPositionList){
-            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
+            GridPosition gridObjectGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(pathGridPosition);
+            positionList.Add(LevelGrid.Instance.GetWorldPosition(gridObjectGridPosition));
         }
         OnStartMoving?.Invoke(this,EventArgs.Empty);
         ActionStart(onActionComplete);
@@ -63,6 +65,7 @@ public class MoveAction : BaseAction {
 
                 int pathfindingDistanceMultiplier = 10;
                 if(Pathfinding.Instance.GetPathLength(unitGridPosition,testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier) continue;
+
                 validGridPositionList.Add(testGridPosition);
             }
         }
