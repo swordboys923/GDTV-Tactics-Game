@@ -33,7 +33,6 @@ public class GridSystem<TGridObject>{
         for (int x = 0; x < width; x++) {
             for (int z = 0; z < depth; z++) {
                 GridPosition gridPosition = new GridPosition(x,z);
-                gridObjectArray[x,z] = createGridObject(this, gridPosition);
                
                 Vector3 worldPosition = GetWorldPosition(gridPosition);
                 float raycastOffsetDistance = 5f;
@@ -42,15 +41,17 @@ public class GridSystem<TGridObject>{
                     //FIXME: Magic number.
                     if(hit.point.y >= .5) {
                         gridPosition.UpdateGridPositionY((int)hit.point.y);
-                        Debug.Log("Yes");
+                        Debug.Log((int)hit.point.y);
+                        Debug.Log(gridPosition.ToString());
                     }
                 }
+                gridObjectArray[x,z] = createGridObject(this, gridPosition);
             }
         }
     }
 
     public Vector3 GetWorldPosition(GridPosition gridPosition) {
-        return new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize;
+        return new Vector3(gridPosition.x * cellSize, gridPosition.y, gridPosition.z * cellSize);
     }
 
     public GridPosition GetGridPosition(Vector3 worldPosition) {

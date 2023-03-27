@@ -56,4 +56,8 @@ public class GridObject {
     public void SetInteractible(IInteractible interactible){
         this.interactible = interactible;
     }
+
+    public GridPosition GetGridPosition() {
+        return gridPosition;
+    }
 }

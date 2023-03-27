@@ -77,4 +77,8 @@ public class LevelGrid : MonoBehaviour {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         gridObject.SetInteractible(interactible);
     }
+
+    public GridPosition GetGridObjectGridPosition(GridPosition gridPosition){
+        return gridSystem.GetGridObject(gridPosition).GetGridPosition();
+    }
 }
