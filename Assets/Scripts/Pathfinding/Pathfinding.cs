@@ -10,7 +10,7 @@ public class Pathfinding : MonoBehaviour {
 
     [SerializeField] private Transform gridDebugObjectPrefab;
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private LayerMask terrainLayerMask;
     private int width;
     private int height;
     private float cellSize;
@@ -32,7 +32,7 @@ public class Pathfinding : MonoBehaviour {
         this.cellSize = cellSize;
 
         gridSystem = new GridSystem<PathNode>(width, height, cellSize, 
-            (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition));
+            (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition), terrainLayerMask);
         //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
         
         for(int x = 0; x < width; x++) {
@@ -40,7 +40,7 @@ public class Pathfinding : MonoBehaviour {
                 GridPosition gridPosition = new GridPosition(x,z);
                 Vector3 worldPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
                 float raycastOffsetDistance = 5f;
-                if(Physics.Raycast(worldPosition + Vector3.down * raycastOffsetDistance, Vector3.up,raycastOffsetDistance*2,obstaclesLayerMask)){
+                if(Physics.Raycast(worldPosition + Vector3.up * raycastOffsetDistance, Vector3.down,raycastOffsetDistance*2,obstaclesLayerMask)){
                     //TODO: Implement movement cost with colliders placed at world positions.
                     GetNode(x,z).SetIsWalkable(false);
                 }
