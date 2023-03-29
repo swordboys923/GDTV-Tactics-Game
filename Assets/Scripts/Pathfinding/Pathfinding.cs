@@ -33,7 +33,7 @@ public class Pathfinding : MonoBehaviour {
 
         gridSystem = new GridSystem<PathNode>(width, height, cellSize, 
             (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition), terrainLayerMask);
-        //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
         
         for(int x = 0; x < width; x++) {
             for(int z = 0; z < height; z++) {
@@ -91,6 +91,11 @@ public class Pathfinding : MonoBehaviour {
                     closedList.Add(neighborNode);
                     continue;
                 }
+                //FIXME: Clean this up. THis is only here to test working the height into the pathfinding.
+                if(Mathf.Abs(neighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)> 1) {
+                    closedList.Add(neighborNode);
+                    continue;
+                }
 
                 int tentativeGCost = currentNode.GetGCost() + CalculateDistance(currentNode.GetGridPosition(), neighborNode.GetGridPosition());
 
@@ -112,10 +117,15 @@ public class Pathfinding : MonoBehaviour {
 
     public int CalculateDistance(GridPosition a, GridPosition b){
         GridPosition gridPositionDistance = a - b;
+        int heightCostMultiplier = 1;
         int xDistnace = Mathf.Abs(gridPositionDistance.x);
         int zDistance = Mathf.Abs(gridPositionDistance.z);
+        int yDistance = Mathf.Abs(gridPositionDistance.y);
         int remaining = Mathf.Abs(xDistnace - zDistance);
-        return MOVE_DIAGONAL_COST * Mathf.Min(xDistnace,zDistance) + MOVE_STRAIGHT_COST * remaining;
+        if (yDistance > 1) {
+            heightCostMultiplier += Mathf.RoundToInt(yDistance);
+        }
+        return MOVE_DIAGONAL_COST * Mathf.Min(xDistnace,zDistance) + MOVE_STRAIGHT_COST * remaining * heightCostMultiplier;
     }
 
     private PathNode GetLowestFCostPathNode(List<PathNode> pathNodeList){
@@ -138,7 +148,7 @@ public class Pathfinding : MonoBehaviour {
         List<PathNode> neighborList = new List<PathNode>();
 
         GridPosition gridPosition = currentNode.GetGridPosition();
-
+        //TODO: Add in the height check here instead?
         if(gridPosition.x-1 >=0) {
             PathNode leftNeighborNode = GetNode(gridPosition.x -1, gridPosition.z);
             neighborList.Add(leftNeighborNode);
