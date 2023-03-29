@@ -7,12 +7,13 @@ public class Pathfinding : MonoBehaviour {
 
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
+    private const int MOVE_HEIGHT_COST = 20;
 
     [SerializeField] private Transform gridDebugObjectPrefab;
     [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private LayerMask terrainLayerMask;
     private int width;
-    private int height;
+    private int depth;
     private float cellSize;
     private GridSystem<PathNode> gridSystem;
 
@@ -26,29 +27,28 @@ public class Pathfinding : MonoBehaviour {
         Instance  = this;
     }
 
-    public void Setup(int width, int height, float cellSize){
+    public void Setup(int width, int depth, float cellSize){
         this.width = width;
-        this.height = height;
+        this.depth = depth;
         this.cellSize = cellSize;
 
-        gridSystem = new GridSystem<PathNode>(width, height, cellSize, 
+        gridSystem = new GridSystem<PathNode>(width, depth, cellSize, 
             (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition), terrainLayerMask);
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
         
         for(int x = 0; x < width; x++) {
-            for(int z = 0; z < height; z++) {
+            for(int z = 0; z < depth; z++) {
                 GridPosition gridPosition = new GridPosition(x,z);
                 Vector3 worldPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
                 float raycastOffsetDistance = 5f;
                 if(Physics.Raycast(worldPosition + Vector3.up * raycastOffsetDistance, Vector3.down,raycastOffsetDistance*2,obstaclesLayerMask)){
-                    //TODO: Implement movement cost with colliders placed at world positions.
                     GetNode(x,z).SetIsWalkable(false);
                 }
             }
         }
     }
 
-    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition, out int pathLength) {
+    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition, out int pathLength, int heightThreshold) {
         List<PathNode> openList = new List<PathNode>();
         List<PathNode> closedList = new List<PathNode>();
 
@@ -57,7 +57,6 @@ public class Pathfinding : MonoBehaviour {
 
         openList.Add(startNode);
 
-        //TODO: use the local width height?
         for(int x = 0; x < gridSystem.GetWidth(); x++) {
             for(int z = 0; z < gridSystem.GetDepth(); z++) {
                 GridPosition gridPosition = new GridPosition(x,z);
@@ -85,17 +84,12 @@ public class Pathfinding : MonoBehaviour {
             openList.Remove(currentNode);
             closedList.Add(currentNode);
 
-            foreach(PathNode neighborNode in GetNeighborList(currentNode)) {
+            foreach(PathNode neighborNode in GetNeighborList(currentNode, heightThreshold)) {
                 if(closedList.Contains(neighborNode)) continue;
                 if(!neighborNode.IsWalkable()){
                     closedList.Add(neighborNode);
                     continue;
                 }
-                // //FIXME: Clean this up. THis is only here to test working the height into the pathfinding.
-                // if(Mathf.Abs(neighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)> 1) {
-                //     closedList.Add(neighborNode);
-                //     continue;
-                // }
 
                 int tentativeGCost = currentNode.GetGCost() + CalculateDistance(currentNode.GetGridPosition(), neighborNode.GetGridPosition());
 
@@ -117,15 +111,17 @@ public class Pathfinding : MonoBehaviour {
 
     public int CalculateDistance(GridPosition a, GridPosition b){
         GridPosition gridPositionDistance = a - b;
-        int heightCostMultiplier = 1;
+        //int heightCostMultiplier = 1;
         int xDistnace = Mathf.Abs(gridPositionDistance.x);
         int zDistance = Mathf.Abs(gridPositionDistance.z);
         int yDistance = Mathf.Abs(gridPositionDistance.y);
         int remaining = Mathf.Abs(xDistnace - zDistance);
-        if (yDistance > 1) {
-            heightCostMultiplier += Mathf.RoundToInt(yDistance);
-        }
-        return MOVE_DIAGONAL_COST * Mathf.Min(xDistnace,zDistance) + MOVE_STRAIGHT_COST * remaining * heightCostMultiplier;
+        // if (yDistance > 1) {
+        //     heightCostMultiplier += Mathf.RoundToInt(yDistance);
+        // }
+        
+        //TODO: Play with this cost multiplier for height. I don't think it's really working at these numbers.
+        return MOVE_DIAGONAL_COST * Mathf.Min(xDistnace,zDistance) + MOVE_STRAIGHT_COST * remaining;
     }
 
     private PathNode GetLowestFCostPathNode(List<PathNode> pathNodeList){
@@ -144,45 +140,46 @@ public class Pathfinding : MonoBehaviour {
         return gridSystem.GetGridObject(new GridPosition(x,z));
     }
 
-    private List<PathNode> GetNeighborList(PathNode currentNode) {
+    private List<PathNode> GetNeighborList(PathNode currentNode, int heightThreshold) {
         List<PathNode> neighborList = new List<PathNode>();
 
         GridPosition gridPosition = currentNode.GetGridPosition();
-        //TODO: Add in the height check here instead?
+
         if(gridPosition.x-1 >=0) {
             PathNode leftNeighborNode = GetNode(gridPosition.x -1, gridPosition.z);
-            //FIXME: Magic Numbers in all of these height calculations. Abstract entire if statement out into a bool function.
-            if(Mathf.Abs(leftNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(leftNeighborNode);
+            if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, leftNeighborNode)) neighborList.Add(leftNeighborNode);
+
             if(gridPosition.z-1 >=0){
                 PathNode leftDownNeighborNode = GetNode(gridPosition.x -1, gridPosition.z -1);
-                if(Mathf.Abs(leftDownNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(leftDownNeighborNode);
+                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, leftDownNeighborNode)) neighborList.Add(leftDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode leftUpNeighborNode = GetNode(gridPosition.x -1, gridPosition.z+1);
-                if(Mathf.Abs(leftUpNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(leftUpNeighborNode);
+                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, leftUpNeighborNode)) neighborList.Add(leftUpNeighborNode);
             }
         }
 
         if(gridPosition.x+1 < gridSystem.GetWidth()){
             PathNode rightNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z);
-            if(Mathf.Abs(rightNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(rightNeighborNode);
+            if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, rightNeighborNode)) neighborList.Add(rightNeighborNode);
+
             if(gridPosition.z-1 >=0){
                 PathNode rightDownNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z-1);
-                if(Mathf.Abs(rightDownNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(rightDownNeighborNode);
+                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, rightDownNeighborNode)) neighborList.Add(rightDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode rightUpNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z+1);
-                if(Mathf.Abs(rightUpNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(rightUpNeighborNode);
+                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, rightUpNeighborNode)) neighborList.Add(rightUpNeighborNode);
             }       
         }
 
         if(gridPosition.z-1 >=0){
             PathNode downNeighborNode = GetNode(gridPosition.x, gridPosition.z - 1);
-            if(Mathf.Abs(downNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(downNeighborNode);
+            if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, downNeighborNode)) neighborList.Add(downNeighborNode);
         }
         if(gridPosition.z+1 < gridSystem.GetDepth()){
             PathNode upNeighborNode = GetNode(gridPosition.x, gridPosition.z + 1);
-            if(Mathf.Abs(upNeighborNode.GetGridPosition().y - currentNode.GetGridPosition().y)<= 1) neighborList.Add(upNeighborNode);
+            if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, upNeighborNode)) neighborList.Add(upNeighborNode);
         }
         
         return neighborList;
@@ -207,6 +204,9 @@ public class Pathfinding : MonoBehaviour {
         return gridPositionList;
     }
 
+    private bool IsNodeUnderHeightThreshold(int heightThreshold, PathNode startNode, PathNode destinationNode) {
+        return Mathf.Abs(destinationNode.GetGridPosition().y - startNode.GetGridPosition().y)<= heightThreshold;
+    }
     public void SetIsWalkableGridPosition(GridPosition gridPosition, bool isWalkable){
         gridSystem.GetGridObject(gridPosition).SetIsWalkable(isWalkable);
     }
@@ -214,12 +214,12 @@ public class Pathfinding : MonoBehaviour {
         return gridSystem.GetGridObject(gridPosition).IsWalkable();
     }
 
-    public bool HasPath(GridPosition startPosition, GridPosition endGridPosition){
-        return FindPath(startPosition, endGridPosition, out int pathLength) != null;
+    public bool HasPath(GridPosition startPosition, GridPosition endGridPosition, int heightThreshold = 1){
+        return FindPath(startPosition, endGridPosition, out int pathLength, heightThreshold) != null;
     }
 
-    public int GetPathLength(GridPosition startPosition, GridPosition endGridPosition){
-        FindPath(startPosition, endGridPosition, out int pathLength);
+    public int GetPathLength(GridPosition startPosition, GridPosition endGridPosition, int heightThreshold = 1) {
+        FindPath(startPosition, endGridPosition, out int pathLength, heightThreshold);
         return pathLength;
     }
 }

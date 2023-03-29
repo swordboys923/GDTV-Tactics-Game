@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour {
     [SerializeField] private bool isEnemy;
     [SerializeField] int actionActionPointsMax = 1;
     [SerializeField] int movementActionPointsMax = 1;
+    //FIXME: Temporary variable to test out the pathfinding in the MoveAction;
+    public int jump = 1;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private ActionResourceSystem resourceSystem;
