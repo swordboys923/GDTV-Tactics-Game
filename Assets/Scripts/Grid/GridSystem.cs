@@ -41,8 +41,6 @@ public class GridSystem<TGridObject>{
                     //FIXME: Magic number.
                     if(hit.point.y >= .5) {
                         gridPosition.UpdateGridPositionY((int)hit.point.y);
-                        Debug.Log((int)hit.point.y);
-                        Debug.Log(gridPosition.ToString());
                     }
                 }
                 gridObjectArray[x,z] = createGridObject(this, gridPosition);
