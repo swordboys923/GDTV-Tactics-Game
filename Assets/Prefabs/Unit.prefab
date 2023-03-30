@@ -196,6 +196,7 @@ MonoBehaviour:
   isEnemy: 0
   actionActionPointsMax: 1
   movementActionPointsMax: 1
+  jump: 1
 --- !u!65 &2283130197750824291
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -369,8 +370,8 @@ MonoBehaviour:
   - {fileID: 5552814445849840420}
   - {fileID: 3465264998833811446}
   - {fileID: 5045696243131554750}
-  - {fileID: 5937635422926401685}
   interactAction: {fileID: 6824689072217741393}
+  waitAction: {fileID: 5937635422926401685}
 --- !u!114 &9147877226753615444
 MonoBehaviour:
   m_ObjectHideFlags: 0

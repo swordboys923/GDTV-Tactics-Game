@@ -24,6 +24,7 @@ public class Unit : MonoBehaviour {
     private SpinAction spinAction;
     private ShootAction shootAction;
     private BaseAction[] baseActionArray;
+    private UnitStatSO unitStats;
     private int actionActionPoints;
     private int movementActionPoints;
 
