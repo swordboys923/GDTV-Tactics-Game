@@ -24,7 +24,6 @@ public class GridSystem<TGridObject>{
     }
 
     public GridSystem(int width, int depth, float cellSize, Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject, LayerMask terrainLayerMask) {
-        Debug.Log(terrainLayerMask);
         this.width = width;
         this.depth = depth;
         this.terrainLayerMask = terrainLayerMask;

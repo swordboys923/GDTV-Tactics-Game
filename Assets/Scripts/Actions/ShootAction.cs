@@ -82,8 +82,7 @@ public class ShootAction : BaseAction {
         }
     }
 
-    public override string GetActionName()
-    {
+    public override string GetActionName() {
         return "Shoot";
     }
     public override List<GridPosition> GetValidActionGridPositionList() {

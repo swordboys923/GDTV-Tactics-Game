@@ -70,6 +70,10 @@ public class Unit : MonoBehaviour {
         return unitActionSystem.GetAttackAction();
     }
 
+    public BaseAction GetWaitAction() {
+        return unitActionSystem.GetWaitAction();
+    }
+
     public ShootAction GetShootAction() {
         return shootAction;
     }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1eee81ab67bf14781772dfa530bba8, type: 3}
   m_Name: SwordActionData
   m_EditorClassIdentifier: 
-  actionCost: 80
-  actionBaseDamage: 100
+  actionCost: 0
+  actionBaseDamage: 10
+  actionBasePercentageBonusDamage: 0
   maxRange: 1
+  unitStatDamageBase: 0

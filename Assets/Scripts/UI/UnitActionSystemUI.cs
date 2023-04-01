@@ -44,6 +44,7 @@ public class UnitActionSystemUI : MonoBehaviour {
         CreateUnitMoveButton(currentTurnUnit);
         CreateUnitAttackButton(currentTurnUnit);
         CreateUnitSpecialActionButtons(currentTurnUnit);
+        CreateUnitWaitButton(currentTurnUnit);
         UpdatedSelectedVisual();
         SetActive(true);
     }
@@ -62,6 +63,11 @@ public class UnitActionSystemUI : MonoBehaviour {
         foreach(BaseAction baseAction in currentTurnUnit.GetSpecialActionArray()) {
             CreateButton(baseAction);
         }
+    }
+
+    private void CreateUnitWaitButton (Unit currentTurnUnit) {
+        BaseAction waitAction = currentTurnUnit.GetWaitAction();
+        CreateButton(waitAction);
     }
 
     private void CreateButton(BaseAction baseAction) {
@@ -86,7 +92,6 @@ public class UnitActionSystemUI : MonoBehaviour {
             SetActive(true);
         }
     }
-
 
     private void TurnManager_OnUnitTurnChanged(object sender, TurnManager.OnUnitTurnChangedEventArgs e) {
         CreateUnitActionButtons();
