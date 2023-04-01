@@ -151,11 +151,11 @@ public class Pathfinding : MonoBehaviour {
 
             if(gridPosition.z-1 >=0){
                 PathNode leftDownNeighborNode = GetNode(gridPosition.x -1, gridPosition.z -1);
-                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, leftDownNeighborNode)) neighborList.Add(leftDownNeighborNode);
+                if(currentNode.GetGridPosition().y - leftDownNeighborNode.GetGridPosition().y==0) neighborList.Add(leftDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode leftUpNeighborNode = GetNode(gridPosition.x -1, gridPosition.z+1);
-                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, leftUpNeighborNode)) neighborList.Add(leftUpNeighborNode);
+                if(currentNode.GetGridPosition().y - leftUpNeighborNode.GetGridPosition().y==0) neighborList.Add(leftUpNeighborNode);
             }
         }
 
@@ -165,11 +165,11 @@ public class Pathfinding : MonoBehaviour {
 
             if(gridPosition.z-1 >=0){
                 PathNode rightDownNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z-1);
-                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, rightDownNeighborNode)) neighborList.Add(rightDownNeighborNode);
+                if(currentNode.GetGridPosition().y - rightDownNeighborNode.GetGridPosition().y==0) neighborList.Add(rightDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode rightUpNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z+1);
-                if(IsNodeUnderHeightThreshold(heightThreshold, currentNode, rightUpNeighborNode)) neighborList.Add(rightUpNeighborNode);
+                if(currentNode.GetGridPosition().y - rightUpNeighborNode.GetGridPosition().y==0) neighborList.Add(rightUpNeighborNode);
             }       
         }
 
