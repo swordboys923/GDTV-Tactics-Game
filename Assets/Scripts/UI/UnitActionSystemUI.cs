@@ -27,6 +27,7 @@ public class UnitActionSystemUI : MonoBehaviour {
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
+
         
         CreateUnitActionButtons();
     }
@@ -83,6 +84,7 @@ public class UnitActionSystemUI : MonoBehaviour {
     private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
         CreateUnitActionButtons();
     }
+
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {
         SetActive(false);
     }

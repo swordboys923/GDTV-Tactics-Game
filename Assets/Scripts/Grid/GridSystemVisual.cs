@@ -48,6 +48,7 @@ public class GridSystemVisual : MonoBehaviour {
         LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
+        UnitActionManager.Instance.OnSelectedGridPositionChanged += UnitActionManager_OnSelectedGridPositionChanged;
 
         UpdateGridVisual();
     }
@@ -60,6 +61,7 @@ public class GridSystemVisual : MonoBehaviour {
 
     public void ShowGridPositionList(List<GridPosition> gridPositionList, GridVisualType gridVisualType) {
         foreach (var gridPosition in gridPositionList) {
+            if(!LevelGrid.Instance.IsValidGridPosition(gridPosition))continue;
             gridSystemVisualSingleArray[gridPosition.x, gridPosition.z].Show(GetGridVisualTypeMaterial(gridVisualType));
         }
     }
@@ -150,5 +152,11 @@ public class GridSystemVisual : MonoBehaviour {
 
     private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
         HideAllGridPositions();
+    }
+
+    private void UnitActionManager_OnSelectedGridPositionChanged(object sender, UnitActionManager.OnSelectedGridPositionChangedEventArgs e) {
+        UpdateGridVisual();
+        List<GridPosition> gridPositionList = new List<GridPosition>() {e.gridPosition};
+        ShowGridPositionList(gridPositionList, GridVisualType.Red);
     }
 }

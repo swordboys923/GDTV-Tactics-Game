@@ -9,12 +9,17 @@ public class UnitActionManager : MonoBehaviour {
     public static UnitActionManager Instance { get; private set; }
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
+    public event EventHandler<OnSelectedGridPositionChangedEventArgs> OnSelectedGridPositionChanged;
+    public class OnSelectedGridPositionChangedEventArgs : EventArgs {
+        public GridPosition gridPosition;
+    }
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
 
     [SerializeField] private Unit clickedOnUnit;
     [SerializeField] private LayerMask unitLayerMask;
     private Unit currentTurnUnit;
+    private GridPosition selectedGridPosition;
     
     private BaseAction selectedAction;
     private bool isBusy;
@@ -41,6 +46,13 @@ public class UnitActionManager : MonoBehaviour {
     }
 
     private void HandleSelectedAction() {
+        GridPosition cursorOverGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+        if(cursorOverGridPosition != selectedGridPosition) {
+            selectedGridPosition = cursorOverGridPosition;
+            OnSelectedGridPositionChanged?.Invoke(this, new OnSelectedGridPositionChangedEventArgs{
+                gridPosition = selectedGridPosition
+        });
+        }
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
