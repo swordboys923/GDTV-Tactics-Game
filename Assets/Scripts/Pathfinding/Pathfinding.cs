@@ -12,10 +12,13 @@ public class Pathfinding : MonoBehaviour {
     [SerializeField] private Transform gridDebugObjectPrefab;
     [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private LayerMask terrainLayerMask;
+    //TODO: testing bool, remove later
+    [SerializeField] private bool debugObject = false;
     private int width;
     private int depth;
     private float cellSize;
     private GridSystem<PathNode> gridSystem;
+    
 
  
     private void Awake() {
@@ -34,7 +37,7 @@ public class Pathfinding : MonoBehaviour {
 
         gridSystem = new GridSystem<PathNode>(width, depth, cellSize, 
             (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition), terrainLayerMask);
-        //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+        if(debugObject) gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
         
         for(int x = 0; x < width; x++) {
             for(int z = 0; z < depth; z++) {

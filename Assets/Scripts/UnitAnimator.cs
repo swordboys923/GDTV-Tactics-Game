@@ -24,7 +24,7 @@ public class UnitAnimator : MonoBehaviour {
     }
 
     private void Start() {
-        EquipRifle();
+        EquipSword();
     }
 
     private void SwordAction_OnSwordActionStarted(object sender, EventArgs e) {
@@ -33,7 +33,7 @@ public class UnitAnimator : MonoBehaviour {
     }
 
     private void SwordAction_OnSwordActionCompleted(object sender, EventArgs e){
-        EquipRifle();
+        // EquipRifle();
     }
 
 
