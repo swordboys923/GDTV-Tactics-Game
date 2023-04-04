@@ -46,15 +46,15 @@ public class UnitActionManager : MonoBehaviour {
     }
 
     private void HandleSelectedAction() {
-        GridPosition cursorOverGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-        if(cursorOverGridPosition != selectedGridPosition) {
-            selectedGridPosition = cursorOverGridPosition;
+        GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+        if(mouseGridPosition != selectedGridPosition) {
+            selectedGridPosition = mouseGridPosition;
             OnSelectedGridPositionChanged?.Invoke(this, new OnSelectedGridPositionChangedEventArgs{
                 gridPosition = selectedGridPosition
         });
         }
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
-            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
             if(!currentTurnUnit.TrySpendActionPointsToTakeAction(selectedAction)) return;
             SetBusy();

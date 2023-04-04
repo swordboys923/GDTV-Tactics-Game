@@ -18,6 +18,7 @@ public class GridSystemVisual : MonoBehaviour {
         Red,
         Redsoft,
         Yellow,
+        Purple,
     }
     [SerializeField] private Transform gridSystemVisualSinglePrefab;
     [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
@@ -34,9 +35,9 @@ public class GridSystemVisual : MonoBehaviour {
     }
     //TODO: At each position, I need to sample the grid at that position and find the height, then spawn the visual at that height.
     private void Start() {
-        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetHeight()];
+        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetDepth()];
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++) {
-            for (int z = 0; z < LevelGrid.Instance.GetHeight(); z++) {
+            for (int z = 0; z < LevelGrid.Instance.GetDepth(); z++) {
                 GridPosition gridPosition = LevelGrid.Instance.GetGridObjectGridPosition(new GridPosition(x,z));
                 Transform gridSystemVisualSingleTransform = Instantiate(gridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
 
@@ -157,6 +158,6 @@ public class GridSystemVisual : MonoBehaviour {
     private void UnitActionManager_OnSelectedGridPositionChanged(object sender, UnitActionManager.OnSelectedGridPositionChangedEventArgs e) {
         UpdateGridVisual();
         List<GridPosition> gridPositionList = new List<GridPosition>() {e.gridPosition};
-        ShowGridPositionList(gridPositionList, GridVisualType.Red);
+        ShowGridPositionList(gridPositionList, GridVisualType.Purple);
     }
 }

@@ -75,7 +75,12 @@ public class SwordAction : BaseAction
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-                if(!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
+                //Testing for orthogonal adjancency
+                if (testGridPosition.x != unitGridPosition.x && testGridPosition.z != unitGridPosition.z) continue;
+                //FIXME: Magic Number with the one below?
+                // Ensuring enemy is within one height differential 
+                if (Mathf.Abs(LevelGrid.Instance.GetGridObjectGridPosition(testGridPosition).y-unitGridPosition.y) > 1) continue;
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
