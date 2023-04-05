@@ -67,19 +67,19 @@ public class SwordAction : BaseAction
     public override List<GridPosition> GetValidActionGridPositionList() {
         int maxSwordDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = unit.GetGridPositionXYZ();
 
         for (int x = -maxSwordDistance; x <=maxSwordDistance; x++) {
             for(int z = -maxSwordDistance; z <= maxSwordDistance; z++) {
                 GridPosition offsetGridPosition = new GridPosition(x,z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition + offsetGridPosition);
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
                 //Testing for orthogonal adjancency
                 if (testGridPosition.x != unitGridPosition.x && testGridPosition.z != unitGridPosition.z) continue;
                 //FIXME: Magic Number with the one below?
                 // Ensuring enemy is within one height differential 
-                if (Mathf.Abs(LevelGrid.Instance.GetGridObjectGridPosition(testGridPosition).y-unitGridPosition.y) > 1) continue;
+                if (Mathf.Abs(testGridPosition.y-unitGridPosition.y) > 1) continue;
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
@@ -105,5 +105,9 @@ public class SwordAction : BaseAction
 
     public int GetMaxSwordDistance() {
         return actionDataSO.GetMaxRange();
+    }
+    //TODO: This needs to be refactored out ASAP. Only here to test the new feature in GridSystemVisual;
+    public int GetMaxSwordHeight() {
+        return 1;
     }
 }

@@ -82,12 +82,28 @@ public class GridSystemVisual : MonoBehaviour {
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
-    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType) {
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType) {
         List<GridPosition> gridPositionList = new List<GridPosition>();
-        for(int x = -range; x <= range; x++) {
-            for(int z = -range; z<= range; z++) {
+        for(int x = -horizontalRange; x <= horizontalRange; x++) {
+            for(int z = -horizontalRange; z<= horizontalRange; z++) {
                 GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+
+                gridPositionList.Add(testGridPosition);
+            }
+        }
+        ShowGridPositionList(gridPositionList, gridVisualType);
+    }
+
+    private void ShowGridPositionRangeCross(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType, int verticalRange = int.MaxValue) {
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        for(int x = -horizontalRange; x <= horizontalRange; x++) {
+            for(int z = -horizontalRange; z<= horizontalRange; z++) {
+                GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(gridPosition + new GridPosition(x,z));
+                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+                if(testGridPosition == gridPosition) continue;
+                if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
+                if(Mathf.Abs(testGridPosition.y - gridPosition.y) > verticalRange) continue;
 
                 gridPositionList.Add(testGridPosition);
             }
@@ -113,11 +129,11 @@ public class GridSystemVisual : MonoBehaviour {
                 break;
             case ShootAction shootAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRange(currentTurnUnit.GetGridPosition(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
+                ShowGridPositionRange(currentTurnUnit.GetGridPositionXZ(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
                 break;
             case SwordAction swordAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRangeSquare(currentTurnUnit.GetGridPosition(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft);
+                ShowGridPositionRangeCross(currentTurnUnit.GetGridPositionXYZ(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft, swordAction.GetMaxSwordHeight());
                 break;
             case InteractAction interactAction:
                 gridVisualType = GridVisualType.Blue;

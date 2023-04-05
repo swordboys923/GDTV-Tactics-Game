@@ -19,6 +19,7 @@ public class Pathfinding : MonoBehaviour {
     private float cellSize;
     private GridSystem<PathNode> gridSystem;
     
+    //BUG: Pathfinding doesn't take into consideration whether the tile is occupied already.
 
  
     private void Awake() {

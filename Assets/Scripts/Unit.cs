@@ -56,11 +56,13 @@ public class Unit : MonoBehaviour {
     }
     private void Update() {
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+
         if(newGridPosition != gridPosition) {
             GridPosition oldGridPosition = gridPosition;
             gridPosition = newGridPosition;
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
+        if(TurnManager.Instance.GetCurrentTurnUnit() == this) Debug.Log(newGridPosition);
     }
     public BaseAction GetMoveAction() {
         return unitActionSystem.GetMoveAction();
@@ -78,8 +80,12 @@ public class Unit : MonoBehaviour {
         return shootAction;
     }
 
-    public GridPosition GetGridPosition() {
+    public GridPosition GetGridPositionXZ() {
         return gridPosition;
+    }
+
+    public GridPosition GetGridPositionXYZ(){
+        return LevelGrid.Instance.GetGridObjectGridPosition(gridPosition);
     }
 
     public Vector3 GetWorldPosition() {
@@ -196,4 +202,5 @@ public class Unit : MonoBehaviour {
     public bool GetIsEnemy() {
         return isEnemy;
     }
+    
 }

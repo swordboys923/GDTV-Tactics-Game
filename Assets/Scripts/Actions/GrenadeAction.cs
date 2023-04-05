@@ -24,7 +24,7 @@ public class GrenadeAction : BaseAction
     public override List<GridPosition> GetValidActionGridPositionList() {
         int maxThrowDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = unit.GetGridPositionXZ();
 
         for (int x = -maxThrowDistance; x <=maxThrowDistance; x++) {
             for(int z = -maxThrowDistance; z <= maxThrowDistance; z++) {

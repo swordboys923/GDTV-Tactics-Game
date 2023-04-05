@@ -86,7 +86,7 @@ public class ShootAction : BaseAction {
         return "Shoot";
     }
     public override List<GridPosition> GetValidActionGridPositionList() {
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = unit.GetGridPositionXZ();
         return GetValidActionGridPositionList(unitGridPosition);
     }
     public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition) {
