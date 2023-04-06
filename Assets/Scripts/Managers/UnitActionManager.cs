@@ -47,6 +47,7 @@ public class UnitActionManager : MonoBehaviour {
 
     private void HandleSelectedAction() {
         GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+        Debug.Log(mouseGridPosition);
 
         if(mouseGridPosition != selectedGridPosition) {
             selectedGridPosition = mouseGridPosition;

@@ -49,12 +49,12 @@ public class MoveAction : BaseAction {
     public override List<GridPosition> GetValidActionGridPositionList() {
         int maxMoveDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-        GridPosition unitGridPosition = unit.GetGridPositionXZ();
+        GridPosition unitGridPosition = unit.GetGridPositionXYZ();
 
         for (int x = -maxMoveDistance; x <=maxMoveDistance; x++) {
             for(int z = -maxMoveDistance; z <= maxMoveDistance; z++) {
                 GridPosition offsetGridPosition = new GridPosition(x,z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition + offsetGridPosition);
 
                 if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
                 if(unitGridPosition == testGridPosition) continue;
@@ -68,6 +68,10 @@ public class MoveAction : BaseAction {
 
                 validGridPositionList.Add(testGridPosition);
             }
+        }
+
+        foreach(GridPosition gridPosition in validGridPositionList) {
+            Debug.Log("Move Action " + gridPosition);
         }
 
         return validGridPositionList;

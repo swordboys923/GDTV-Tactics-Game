@@ -62,7 +62,6 @@ public class Unit : MonoBehaviour {
             gridPosition = newGridPosition;
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
-        if(TurnManager.Instance.GetCurrentTurnUnit() == this) Debug.Log(newGridPosition);
     }
     public BaseAction GetMoveAction() {
         return unitActionSystem.GetMoveAction();
