@@ -29,7 +29,7 @@ public class ShootAction : BaseAction {
             case State.Aiming:
                 float rotateSpeed = 10f;
                 Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotateSpeed);
+                transform.forward = Vector3.Lerp(transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
                 break;
             case State.Shooting:
                 if (canShootBullet) {
