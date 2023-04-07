@@ -840,6 +840,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3128156861066461606, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: specialActionArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128156861066461606, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: specialActionArray.Array.data[3]
+      value: 
+      objectReference: {fileID: 641670015}
     - target: {fileID: 7043065377765357279, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
       propertyPath: resource
@@ -2111,6 +2121,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620208479}
   m_CullTransparentMesh: 1
+--- !u!114 &641670015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6824689072217741393, guid: 0cab55236d56b41ebbf45ed0190b9421,
+    type: 3}
+  m_PrefabInstance: {fileID: 268309415}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a6de574e8b047a5924e71cf7d245db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686641332
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,7 +5001,7 @@ MonoBehaviour:
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  debugObject: 1
+  debugObject: 0
 --- !u!4 &1668689019
 Transform:
   m_ObjectHideFlags: 0
@@ -5422,7 +5444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875229682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 6}
+  m_LocalPosition: {x: 12, y: 2, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
