@@ -64,22 +64,25 @@ public class SwordAction : BaseAction
         };
     }
 
+    //TODO: Experimenting with different ways to work with the Y height API. Perhaps I should ignore it completely and hide it until I specifically need it, like I have right now, instead of what is commented out. Might reduce complexity.
     public override List<GridPosition> GetValidActionGridPositionList() {
         int maxSwordDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-        GridPosition unitGridPosition = unit.GetGridPositionXYZ();
+        //GridPosition unitGridPosition = unit.GetGridPositionXYZ();
+        GridPosition unitGridPosition = unit.GetGridPositionXZ();
 
         for (int x = -maxSwordDistance; x <=maxSwordDistance; x++) {
             for(int z = -maxSwordDistance; z <= maxSwordDistance; z++) {
                 GridPosition offsetGridPosition = new GridPosition(x,z);
-                GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition + offsetGridPosition);
+                //GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition + offsetGridPosition);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
                 //Testing for orthogonal adjancency
                 if (testGridPosition.x != unitGridPosition.x && testGridPosition.z != unitGridPosition.z) continue;
                 //FIXME: Magic Number with the one below?
                 // Ensuring enemy is within one height differential 
-                if (Mathf.Abs(testGridPosition.y-unitGridPosition.y) > 1) continue;
+                if (Mathf.Abs(LevelGrid.Instance.GetGridObjectGridPosition(testGridPosition).y-LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition).y) > 1) continue;
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
