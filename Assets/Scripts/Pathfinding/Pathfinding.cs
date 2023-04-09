@@ -118,7 +118,7 @@ public class Pathfinding : MonoBehaviour {
         //int heightCostMultiplier = 1;
         int xDistnace = Mathf.Abs(gridPositionDistance.x);
         int zDistance = Mathf.Abs(gridPositionDistance.z);
-        int yDistance = Mathf.Abs(gridPositionDistance.y);
+        int yDistance = Mathf.Abs(gridPositionDistance.height);
         int remaining = Mathf.Abs(xDistnace - zDistance);
         // if (yDistance > 1) {
         //     heightCostMultiplier += Mathf.RoundToInt(yDistance);
@@ -155,11 +155,11 @@ public class Pathfinding : MonoBehaviour {
 
             if(gridPosition.z-1 >=0){
                 PathNode leftDownNeighborNode = GetNode(gridPosition.x -1, gridPosition.z -1);
-                if(currentNode.GetGridPosition().y - leftDownNeighborNode.GetGridPosition().y==0) neighborList.Add(leftDownNeighborNode);
+                if(currentNode.GetGridPosition().height - leftDownNeighborNode.GetGridPosition().height==0) neighborList.Add(leftDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode leftUpNeighborNode = GetNode(gridPosition.x -1, gridPosition.z+1);
-                if(currentNode.GetGridPosition().y - leftUpNeighborNode.GetGridPosition().y==0) neighborList.Add(leftUpNeighborNode);
+                if(currentNode.GetGridPosition().height - leftUpNeighborNode.GetGridPosition().height==0) neighborList.Add(leftUpNeighborNode);
             }
         }
 
@@ -169,11 +169,11 @@ public class Pathfinding : MonoBehaviour {
 
             if(gridPosition.z-1 >=0){
                 PathNode rightDownNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z-1);
-                if(currentNode.GetGridPosition().y - rightDownNeighborNode.GetGridPosition().y==0) neighborList.Add(rightDownNeighborNode);
+                if(currentNode.GetGridPosition().height - rightDownNeighborNode.GetGridPosition().height==0) neighborList.Add(rightDownNeighborNode);
             }
             if(gridPosition.z+1 < gridSystem.GetDepth()){
                 PathNode rightUpNeighborNode = GetNode(gridPosition.x + 1, gridPosition.z+1);
-                if(currentNode.GetGridPosition().y - rightUpNeighborNode.GetGridPosition().y==0) neighborList.Add(rightUpNeighborNode);
+                if(currentNode.GetGridPosition().height - rightUpNeighborNode.GetGridPosition().height==0) neighborList.Add(rightUpNeighborNode);
             }       
         }
 
@@ -209,7 +209,7 @@ public class Pathfinding : MonoBehaviour {
     }
 
     private bool IsNodeUnderHeightThreshold(int heightThreshold, PathNode startNode, PathNode destinationNode) {
-        return Mathf.Abs(destinationNode.GetGridPosition().y - startNode.GetGridPosition().y)<= heightThreshold;
+        return Mathf.Abs(destinationNode.GetGridPosition().height - startNode.GetGridPosition().height)<= heightThreshold;
     }
     public void SetIsWalkableGridPosition(GridPosition gridPosition, bool isWalkable){
         gridSystem.GetGridObject(gridPosition).SetIsWalkable(isWalkable);

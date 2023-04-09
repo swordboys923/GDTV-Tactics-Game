@@ -103,7 +103,7 @@ public class GridSystemVisual : MonoBehaviour {
                 if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
                 if(testGridPosition == gridPosition) continue;
                 if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
-                if(Mathf.Abs(testGridPosition.y - gridPosition.y) > verticalRange) continue;
+                if(Mathf.Abs(testGridPosition.height - gridPosition.height) > verticalRange) continue;
 
                 gridPositionList.Add(testGridPosition);
             }
