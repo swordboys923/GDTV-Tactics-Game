@@ -64,12 +64,10 @@ public class SwordAction : BaseAction
         };
     }
 
-    //TODO: Experimenting with different ways to work with the Y height API. Perhaps I should ignore it completely and hide it until I specifically need it, like I have right now, instead of what is commented out. Might reduce complexity.
     public override List<GridPosition> GetValidActionGridPositionList() {
         int maxSwordDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-        //GridPosition unitGridPosition = unit.GetGridPositionXYZ();
-        GridPosition unitGridPosition = unit.GetGridPositionXZ();
+        GridPosition unitGridPosition = unit.GetGridPosition();
 
         for (int x = -maxSwordDistance; x <=maxSwordDistance; x++) {
             for(int z = -maxSwordDistance; z <= maxSwordDistance; z++) {

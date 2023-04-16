@@ -129,11 +129,11 @@ public class GridSystemVisual : MonoBehaviour {
                 break;
             case ShootAction shootAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRange(currentTurnUnit.GetGridPositionXZ(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
+                ShowGridPositionRange(currentTurnUnit.GetGridPosition(),shootAction.GetMaxShootDistance(), GridVisualType.Redsoft);
                 break;
             case SwordAction swordAction:
                 gridVisualType = GridVisualType.Red;
-                ShowGridPositionRangeCross(currentTurnUnit.GetGridPositionXYZ(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft, swordAction.GetMaxSwordHeight());
+                ShowGridPositionRangeCross(currentTurnUnit.GetGridPosition(),swordAction.GetMaxSwordDistance(), GridVisualType.Redsoft, swordAction.GetMaxSwordHeight());
                 break;
             case InteractAction interactAction:
                 gridVisualType = GridVisualType.Blue;

@@ -79,13 +79,10 @@ public class Unit : MonoBehaviour {
         return shootAction;
     }
 
-    public GridPosition GetGridPositionXZ() {
+    public GridPosition GetGridPosition() {
         return gridPosition;
     }
 
-    public GridPosition GetGridPositionXYZ(){
-        return LevelGrid.Instance.GetGridObjectGridPosition(gridPosition);
-    }
 
     public Vector3 GetWorldPosition() {
         return transform.position;
