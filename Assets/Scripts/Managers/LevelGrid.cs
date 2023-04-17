@@ -14,6 +14,8 @@ public class LevelGrid : MonoBehaviour {
     [SerializeField] int height;
     [SerializeField] float cellSize;
     [SerializeField] LayerMask terrainLayerMask;
+    //TODO: Remove eventually. Debug variable only.
+    [SerializeField] bool turnOnDebug = false;
     private GridSystem<GridObject> gridSystem;
     
     private void Awake() {
@@ -25,7 +27,8 @@ public class LevelGrid : MonoBehaviour {
         Instance  = this;
 
         gridSystem = new GridSystem<GridObject>(width, height, cellSize, (GridSystem<GridObject> g, GridPosition gridPosition) =>  new GridObject(g, gridPosition), terrainLayerMask);
-        // gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+
+        if(turnOnDebug) gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
 
     private void Start() {
