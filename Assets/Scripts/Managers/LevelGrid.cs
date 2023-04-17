@@ -81,4 +81,11 @@ public class LevelGrid : MonoBehaviour {
     public GridPosition GetGridObjectGridPosition(GridPosition gridPosition){
         return gridSystem.GetGridObject(gridPosition).GetGridPosition();
     }
+
+    public int GetAbsGridPositionHeightDifference(GridPosition a, GridPosition b) {
+        int aHeight = GetGridObjectGridPosition(a).height;
+        int bHeight = GetGridObjectGridPosition(b).height;
+
+        return Mathf.Abs(aHeight-bHeight);
+    }
 }

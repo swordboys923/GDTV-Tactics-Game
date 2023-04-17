@@ -82,12 +82,14 @@ public class GridSystemVisual : MonoBehaviour {
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
-    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType) {
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType, int verticalRange = int.MaxValue) {
         List<GridPosition> gridPositionList = new List<GridPosition>();
         for(int x = -horizontalRange; x <= horizontalRange; x++) {
             for(int z = -horizontalRange; z<= horizontalRange; z++) {
                 GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+                if(testGridPosition == gridPosition) continue;
+                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
 
                 gridPositionList.Add(testGridPosition);
             }
@@ -99,11 +101,11 @@ public class GridSystemVisual : MonoBehaviour {
         List<GridPosition> gridPositionList = new List<GridPosition>();
         for(int x = -horizontalRange; x <= horizontalRange; x++) {
             for(int z = -horizontalRange; z<= horizontalRange; z++) {
-                GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(gridPosition + new GridPosition(x,z));
+                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
                 if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
                 if(testGridPosition == gridPosition) continue;
                 if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
-                if(Mathf.Abs(testGridPosition.height - gridPosition.height) > verticalRange) continue;
+                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
 
                 gridPositionList.Add(testGridPosition);
             }

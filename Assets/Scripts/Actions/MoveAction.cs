@@ -70,10 +70,6 @@ public class MoveAction : BaseAction {
             }
         }
 
-        foreach(GridPosition gridPosition in validGridPositionList) {
-            Debug.Log("Move Action " + gridPosition);
-        }
-
         return validGridPositionList;
     }
 
