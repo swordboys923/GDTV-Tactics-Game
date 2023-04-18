@@ -95,6 +95,11 @@ public class Pathfinding : MonoBehaviour {
                     continue;
                 }
 
+                if(LevelGrid.Instance.HasAnyUnitOnGridPosition(neighborNode.GetGridPosition())) {
+                    closedList.Add(neighborNode);
+                    continue;
+                }
+
                 int tentativeGCost = currentNode.GetGCost() + CalculateDistance(currentNode.GetGridPosition(), neighborNode.GetGridPosition());
 
                 if(tentativeGCost < neighborNode.GetGCost()) {
