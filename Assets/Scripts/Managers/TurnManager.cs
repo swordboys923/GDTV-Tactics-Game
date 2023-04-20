@@ -69,18 +69,15 @@ public class TurnManager : MonoBehaviour {
     }
 
     private void SetNextCurrentTurnUnit () {
-        if (turnOrderList.Count() == 1) {
+        RemoveUnitFromTurnList(currentTurnUnit);
+        if (turnOrderList.Count() <= 0) {
             NextTurn();
             turnOrderList = GenerateTurnList();
-            SetNextCurrentTurnUnit();
-        } else {
-            RemoveUnitFromTurnList(currentTurnUnit);
-            currentTurnUnit = turnOrderList[0];
-            OnUnitTurnChanged?.Invoke(this, new OnUnitTurnChangedEventArgs {
-                currentTurnUnit = currentTurnUnit,
-            });
-
         }
+        currentTurnUnit = turnOrderList[0];
+        OnUnitTurnChanged?.Invoke(this, new OnUnitTurnChangedEventArgs {
+            currentTurnUnit = currentTurnUnit,
+        });
     }
 
 
