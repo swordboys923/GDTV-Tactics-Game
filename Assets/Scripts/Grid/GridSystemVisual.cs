@@ -142,7 +142,7 @@ public class GridSystemVisual : MonoBehaviour {
                 break;
         }
         if (selectedAction){
-            ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+            ShowGridPositionList(selectedAction.GetActionGridPositionRangeList(), gridVisualType);
         }
     }
 

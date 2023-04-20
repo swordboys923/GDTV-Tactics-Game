@@ -24,7 +24,7 @@ public class WaitAction : BaseAction {
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList() {
+    public override List<GridPosition> GetActionGridPositionRangeList() {
         GridPosition unitGridPosition = unit.GetGridPosition();
 
         return new List<GridPosition> {unitGridPosition};

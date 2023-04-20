@@ -46,7 +46,7 @@ public class MoveAction : BaseAction {
         ActionStart(onActionComplete);
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList() {
+    public override List<GridPosition> GetActionGridPositionRangeList() {
         int maxMoveDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();

@@ -64,7 +64,18 @@ public class SwordAction : BaseAction
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList() {
+    public override bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        List<GridPosition> validGridPositionList = GetActionGridPositionRangeList();
+        if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(gridPosition)) return false;
+
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        if(targetUnit.IsEnemy() == unit.IsEnemy()) return false;
+        return validGridPositionList.Contains(gridPosition);
+    }
+
+    public override List<GridPosition> GetActionGridPositionRangeList() {
         int maxSwordDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
@@ -72,7 +83,6 @@ public class SwordAction : BaseAction
         for (int x = -maxSwordDistance; x <=maxSwordDistance; x++) {
             for(int z = -maxSwordDistance; z <= maxSwordDistance; z++) {
                 GridPosition offsetGridPosition = new GridPosition(x,z);
-                //GridPosition testGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(unitGridPosition + offsetGridPosition);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
@@ -80,11 +90,12 @@ public class SwordAction : BaseAction
                 if (testGridPosition.x != unitGridPosition.x && testGridPosition.z != unitGridPosition.z) continue;
                 // Ensuring enemy is within one height differential 
                 if (LevelGrid.Instance.GetAbsGridPositionHeightDifference(testGridPosition, unitGridPosition) > GetMaxSwordHeight()) continue;
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
+                if (testGridPosition == unitGridPosition) continue;
+                // if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
 
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                // Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
-                if(targetUnit.IsEnemy() == unit.IsEnemy()) continue;
+                // if(targetUnit.IsEnemy() == unit.IsEnemy()) continue;
 
                 validGridPositionList.Add(testGridPosition);
             }

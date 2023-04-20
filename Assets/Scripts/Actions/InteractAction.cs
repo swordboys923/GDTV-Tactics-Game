@@ -20,7 +20,7 @@ public class InteractAction : BaseAction
         };
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList() {
+    public override List<GridPosition> GetActionGridPositionRangeList() {
         int maxInteractDistance = actionDataSO.GetMaxRange();
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();

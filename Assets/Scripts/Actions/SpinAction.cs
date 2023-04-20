@@ -26,7 +26,7 @@ public class SpinAction : BaseAction{
         return "Spin";
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList() {
+    public override List<GridPosition> GetActionGridPositionRangeList() {
         GridPosition unitGridPosition = unit.GetGridPosition();
 
         return new List<GridPosition> {unitGridPosition};

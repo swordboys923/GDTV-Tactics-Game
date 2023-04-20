@@ -27,14 +27,14 @@ public abstract class BaseAction : MonoBehaviour {
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
    
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition){
-        List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
+        List<GridPosition> validGridPositionList = GetActionGridPositionRangeList();
         return validGridPositionList.Contains(gridPosition);
     }
     public virtual int GetActionResourceCost() {
         return actionDataSO.GetActionCost();
     }
 
-    public abstract List<GridPosition> GetValidActionGridPositionList();
+    public abstract List<GridPosition> GetActionGridPositionRangeList();
 
 
     protected void ActionStart(Action onActionComplete) {
@@ -65,7 +65,7 @@ public abstract class BaseAction : MonoBehaviour {
     public EnemyAIAction GetBestEnemyAIAction(){
         List<EnemyAIAction> enemyAIActionList = new List<EnemyAIAction>();
 
-        List<GridPosition> validActionGridPositionList = GetValidActionGridPositionList();
+        List<GridPosition> validActionGridPositionList = GetActionGridPositionRangeList();
         foreach(GridPosition gridPosition in validActionGridPositionList){
             EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
             enemyAIActionList.Add(enemyAIAction);
