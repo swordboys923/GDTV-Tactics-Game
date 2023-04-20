@@ -67,6 +67,7 @@ public abstract class BaseAction : MonoBehaviour {
 
         List<GridPosition> validActionGridPositionList = GetActionGridPositionRangeList();
         foreach(GridPosition gridPosition in validActionGridPositionList){
+            if(!IsValidActionGridPosition(gridPosition)) continue;
             EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
             enemyAIActionList.Add(enemyAIAction);
         }

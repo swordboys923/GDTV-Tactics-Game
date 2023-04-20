@@ -79,7 +79,6 @@ public class EnemyAI : MonoBehaviour {
                     bestBaseAction = baseAction;
                 }
             }
-            print(bestBaseAction + " " + bestEnemyAIAction);
         }
 
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction)){
