@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class FireAction : BaseAction {
 
+    public FireAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
+
     public override string GetActionName() {
         return "Fire";
     }

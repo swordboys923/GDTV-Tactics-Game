@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenadeAction : BaseAction
-{
+public class GrenadeAction : BaseAction {
+
+    public GrenadeAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
+
     [SerializeField] private Transform grenadeProjectilePrefab;
     
     private void Update() {
@@ -43,9 +47,10 @@ public class GrenadeAction : BaseAction
         return validGridPositionList;
     }
 
+    //FIXME
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete){
-        Transform grenadeProjectileTransform = Instantiate(grenadeProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
-        grenadeProjectileTransform.GetComponent<GrenadeProjectile>().Setup(gridPosition,OnGrenadeBehaviorComplete);
+        // Transform grenadeProjectileTransform = Instantiate(grenadeProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
+        // grenadeProjectileTransform.GetComponent<GrenadeProjectile>().Setup(gridPosition,OnGrenadeBehaviorComplete);
         
         ActionStart(onActionComplete);
     }

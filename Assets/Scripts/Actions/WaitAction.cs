@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaitAction : BaseAction {
+
+    public WaitAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
+    
     public static event EventHandler<OnAnyWaitEventArgs> OnAnyWait;
     public class OnAnyWaitEventArgs : EventArgs {
         public Unit unit;

@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour {
+    // FIXME
 
-    [SerializeField] private BaseAction moveAction;
-    [SerializeField] private BaseAction attackAction;
-    [SerializeField] private BaseAction[] specialActionArray;
-    [SerializeField] private BaseAction interactAction;
-    [SerializeField] private BaseAction waitAction;
+    [SerializeField] private ActionDataSO moveActionSO;
+    [SerializeField] private ActionDataSO attackActionSO;
+    [SerializeField] private ActionDataSO[] specialActionSOArray;
+    [SerializeField] private ActionDataSO interactActionSO;
+    [SerializeField] private ActionDataSO waitActionSO;
+    private ActionDataSO[] baseActionSOArray;
+    private BaseAction moveAction;
+    private BaseAction attackAction;
+    private BaseAction[] specialActionArray;
+    private BaseAction interactAction;
+    private BaseAction waitAction;
     private BaseAction[] baseActionArray;
 
-    private void Start() {
-        baseActionArray = CreateBaseActionArray();
 
+    private void Start() {
+        baseActionSOArray = CreateBaseActionSOArray();
+
+    }
+
+    private ActionDataSO[] CreateBaseActionSOArray() {
+        List<ActionDataSO> baseActionSOList = new List<ActionDataSO>();
+        baseActionSOList.Add(moveActionSO);
+        baseActionSOList.Add(attackActionSO);
+        foreach(ActionDataSO actionSO in specialActionSOArray) {
+            baseActionSOList.Add(actionSO);
+        }
+        baseActionSOList.Add(waitActionSO);
+        return baseActionSOList.ToArray();
     }
 
     private BaseAction[] CreateBaseActionArray() {
@@ -25,6 +44,30 @@ public class UnitActionSystem : MonoBehaviour {
         }
         baseActionList.Add(waitAction);
         return baseActionList.ToArray();
+    }
+
+    public ActionDataSO[] GetBaseActionSOArray() {
+        return baseActionSOArray;
+    }
+
+    public ActionDataSO[] GetSpecialActionSOArray() {
+        return specialActionSOArray;
+    } 
+
+    public ActionDataSO GetMoveActionSO() {
+        return moveActionSO;
+    }
+
+    public ActionDataSO GetAttackActionSO() {
+        return attackActionSO;
+    }
+
+    public ActionDataSO GetInteractActionSO() {
+        return interactActionSO;
+    }
+
+    public ActionDataSO GetWaitActionSO() {
+        return waitActionSO;
     }
 
     public BaseAction[] GetBaseActionArray() {

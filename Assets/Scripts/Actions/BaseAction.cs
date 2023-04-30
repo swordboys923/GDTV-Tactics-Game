@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class BaseAction : MonoBehaviour {
+public abstract class BaseAction {
+
+    public BaseAction(Unit unit, ActionDataSO actionDataSO) {
+        this.unit = unit;
+        this.actionDataSO = actionDataSO;
+    }
 
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler<BaseActionEventArgs> OnAnyActionCompleted;
@@ -18,10 +23,6 @@ public abstract class BaseAction : MonoBehaviour {
     }
 
     [SerializeField] protected ActionDataSO actionDataSO;
-
-    protected virtual void Awake() {
-        unit = GetComponent<Unit>();
-    }
 
     public abstract string GetActionName();
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);

@@ -42,7 +42,7 @@ public class UnitActionManager : MonoBehaviour {
         if(!TurnManager.Instance.IsPlayerTurn()) return;
         if(EventSystem.current.IsPointerOverGameObject()) return;
         // if(TryHandleUnitSelection()) return;
-        if(selectedAction) HandleSelectedAction();
+        if(selectedAction != null) HandleSelectedAction();
     }
 
     private void HandleSelectedAction() {
@@ -98,7 +98,7 @@ public class UnitActionManager : MonoBehaviour {
 
     private void SetCurrentTurnUnit(Unit unit) {
         currentTurnUnit = unit;
-        SetSelectedAction(unit.GetMoveAction());
+        //SetSelectedAction(unit.GetMoveAction());
     }
 
     public BaseAction GetSelectedAction() {

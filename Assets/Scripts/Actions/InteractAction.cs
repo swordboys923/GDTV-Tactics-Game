@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractAction : BaseAction
-{
+public class InteractAction : BaseAction {
+
+    public InteractAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
+    
     private void Update() {
         if(!isActive) return;
 

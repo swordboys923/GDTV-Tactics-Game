@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootAction : BaseAction {
+
+    public ShootAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
     public event EventHandler<OnShootEventArgs> OnShoot;
     public static event EventHandler<OnShootEventArgs> OnAnyShoot;
     public class OnShootEventArgs : EventArgs {
@@ -29,7 +33,7 @@ public class ShootAction : BaseAction {
             case State.Aiming:
                 float rotateSpeed = 10f;
                 Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
+                unit.transform.forward = Vector3.Lerp(unit.transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
                 break;
             case State.Shooting:
                 if (canShootBullet) {

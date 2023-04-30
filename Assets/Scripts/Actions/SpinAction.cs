@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpinAction : BaseAction{
+    public SpinAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
 
     private float totalSpinAmount;
     private void Update(){
         if(!isActive) return;
         
         float spinAddAmount = 360f * Time.deltaTime;
-        transform.eulerAngles += new Vector3(0,spinAddAmount,0);
+        unit.transform.eulerAngles += new Vector3(0,spinAddAmount,0);
         totalSpinAmount += spinAddAmount;
         if(totalSpinAmount >= 360f) {
             ActionComplete();

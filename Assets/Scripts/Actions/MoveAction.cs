@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class MoveAction : BaseAction {
 
+    public MoveAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
+
     public EventHandler OnStartMoving;
     public EventHandler OnStopMoving;
     private List<Vector3> positionList;
@@ -14,16 +18,16 @@ public class MoveAction : BaseAction {
         if (!isActive) return;
 
         Vector3 targetPosition = positionList[currentPositionIndex];
-        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+        Vector3 moveDirection = (targetPosition - unit.transform.position).normalized;
 
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z), Time.deltaTime * rotateSpeed);
+        unit.transform.forward = Vector3.Slerp(unit.transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z), Time.deltaTime * rotateSpeed);
         
 
         float stoppingDistance = .1f;
-        if(Vector3.Distance(transform.position, targetPosition) > stoppingDistance) {
+        if(Vector3.Distance(unit.transform.position, targetPosition) > stoppingDistance) {
             float moveSpeed = 4f;
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            unit.transform.position += moveDirection * moveSpeed * Time.deltaTime;
         } else {
             currentPositionIndex++;
             if(currentPositionIndex >= positionList.Count){

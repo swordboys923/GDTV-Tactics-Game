@@ -141,7 +141,7 @@ public class GridSystemVisual : MonoBehaviour {
                 gridVisualType = GridVisualType.Blue;
                 break;
         }
-        if (selectedAction){
+        if (selectedAction != null){
             ShowGridPositionList(selectedAction.GetActionGridPositionRangeList(), gridVisualType);
         }
     }

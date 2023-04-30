@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordAction : BaseAction
-{
+public class SwordAction : BaseAction {
+
+    public SwordAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+
+    }
     public static event EventHandler OnAnySwordHit;
     public event EventHandler OnSwordActionStarted;
     public event EventHandler OnSwordActionCompleted;
@@ -25,7 +28,7 @@ public class SwordAction : BaseAction
             case State.SwingingSwordBeforeHit:
                 float rotateSpeed = 10f;
                 Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
+                unit.transform.forward = Vector3.Lerp(unit.transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
                 break;
             case State.SwingingSwordAfterHit:
                 break;

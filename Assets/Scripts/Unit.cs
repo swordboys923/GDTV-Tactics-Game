@@ -35,10 +35,10 @@ public class Unit : MonoBehaviour {
         resourceSystem = GetComponent<ActionResourceSystem>();
         staminaSystem = GetComponent<StaminaSystem>();
         resolveSystem = GetComponent<ResolveSystem>();
-        moveAction = GetComponent<MoveAction>();
-        spinAction = GetComponent<SpinAction>();
-        shootAction = GetComponent<ShootAction>();
-        baseActionArray = GetComponents<BaseAction>();
+        // moveAction = GetComponent<MoveAction>();
+        // spinAction = GetComponent<SpinAction>();
+        // shootAction = GetComponent<ShootAction>();
+        // baseActionArray = GetComponents<BaseAction>();
         unitActionSystem = GetComponent<UnitActionSystem>();
     }
     private void Start() {
