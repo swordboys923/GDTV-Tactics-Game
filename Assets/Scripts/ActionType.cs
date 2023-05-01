@@ -6,5 +6,5 @@ public enum ActionType {
     Movement,
     Interact,
     Wait,
-    
+    Test,
 }

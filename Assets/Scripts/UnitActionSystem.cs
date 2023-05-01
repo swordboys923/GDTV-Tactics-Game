@@ -23,13 +23,12 @@ public class UnitActionSystem : MonoBehaviour {
 
     private void Awake() {
         unit = GetComponent<Unit>();
-        baseActionSOArray = CreateBaseActionSOArray();
         InitializeActions();
+        InitializeArrays();
     }
 
 
     private void Start() {
-        
 
     }
 
@@ -37,11 +36,16 @@ public class UnitActionSystem : MonoBehaviour {
         moveAction = AbilityFactory.CreateAbility(unit,moveActionSO);
         attackAction = AbilityFactory.CreateAbility(unit,attackActionSO);
         specialActionArray = new BaseAction[specialActionSOArray.Length];
-        for (int i = 0; i < specialActionArray.Length-1; i++) {
+        for (int i = 0; i < specialActionArray.Length; i++) {
             specialActionArray[i] = AbilityFactory.CreateAbility(unit,specialActionSOArray[i]);
         }
         interactAction = AbilityFactory.CreateAbility(unit,interactActionSO);
         waitAction = AbilityFactory.CreateAbility(unit,waitActionSO);
+    }
+
+    private void InitializeArrays() {
+        baseActionSOArray = CreateBaseActionSOArray();
+        baseActionArray = CreateBaseActionArray();
     }
 
     private ActionDataSO[] CreateBaseActionSOArray() {

@@ -14,9 +14,6 @@ public class GrenadeAction : BaseAction {
     private void Update() {
         if(!isActive) return;
     }
-    public override string GetActionName() {
-        return "Grenade";
-    }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction{

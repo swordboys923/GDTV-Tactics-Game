@@ -56,10 +56,6 @@ public class SwordAction : BaseAction {
         }
     }
 
-    public override string GetActionName() {
-        return "Sword";
-    }
-
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction{
             gridPosition = gridPosition,

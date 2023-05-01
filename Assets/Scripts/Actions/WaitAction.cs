@@ -18,9 +18,6 @@ public class WaitAction : BaseAction {
     private void Update() {
         if (!isActive) return;
     }
-    public override string GetActionName() {
-        return "Wait";
-    }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction {

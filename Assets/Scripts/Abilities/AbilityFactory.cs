@@ -11,6 +11,12 @@ public static class AbilityFactory {
                 return new SwordAction(unit, actionDataSO);
             case ActionType.Range:
                 return new ShootAction(unit, actionDataSO);
+            case ActionType.Interact:
+                return new InteractAction(unit, actionDataSO);
+            case ActionType.Wait:
+                return new WaitAction(unit, actionDataSO);
+            case ActionType.Test:
+                return new SpinAction(unit, actionDataSO);
             default:
                 Debug.LogError("Invalid ability type: " + actionDataSO.GetActionType());
                 return null;

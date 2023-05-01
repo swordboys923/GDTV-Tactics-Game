@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[Serializable]
 public abstract class BaseAction {
 
     public BaseAction(Unit unit, ActionDataSO actionDataSO) {
@@ -24,7 +24,9 @@ public abstract class BaseAction {
 
     [SerializeField] protected ActionDataSO actionDataSO;
 
-    public abstract string GetActionName();
+    public virtual string GetActionName() {
+        return actionDataSO.GetActionName();
+    }
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
    
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition){

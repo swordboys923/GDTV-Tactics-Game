@@ -86,9 +86,6 @@ public class ShootAction : BaseAction {
         }
     }
 
-    public override string GetActionName() {
-        return "Shoot";
-    }
 
     public override bool IsValidActionGridPosition(GridPosition gridPosition)
     {

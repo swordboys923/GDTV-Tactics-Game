@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1eee81ab67bf14781772dfa530bba8, type: 3}
   m_Name: FireActionData
   m_EditorClassIdentifier: 
+  actionType: 3
+  actionName: Fire
   actionCost: 0
   actionBaseDamage: 0
   actionBasePercentageBonusDamage: 0

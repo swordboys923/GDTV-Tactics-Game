@@ -13,9 +13,6 @@ public class InteractAction : BaseAction {
         if(!isActive) return;
 
     }
-    public override string GetActionName() {
-        return "Interact";
-    }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         return new EnemyAIAction {

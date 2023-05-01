@@ -9,9 +9,6 @@ public class FireAction : BaseAction {
 
     }
 
-    public override string GetActionName() {
-        return "Fire";
-    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         ActionStart(onActionComplete);

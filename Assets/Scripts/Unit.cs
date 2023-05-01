@@ -23,7 +23,6 @@ public class Unit : MonoBehaviour {
     private MoveAction moveAction;
     private SpinAction spinAction;
     private ShootAction shootAction;
-    private BaseAction[] baseActionArray;
     private UnitStatSO unitStats;
     private int actionActionPoints;
     private int movementActionPoints;
@@ -50,7 +49,7 @@ public class Unit : MonoBehaviour {
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
 
-        foreach(BaseAction baseAction in baseActionArray){
+        foreach(BaseAction baseAction in unitActionSystem.GetBaseActionArray()){
             baseAction.OnActionComplete += BaseAction_OnActionComplete;
         }
     }
