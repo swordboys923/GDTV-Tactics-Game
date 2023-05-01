@@ -10,6 +10,9 @@ public class UnitActionSystem : MonoBehaviour {
     [SerializeField] private ActionDataSO[] specialActionSOArray;
     [SerializeField] private ActionDataSO interactActionSO;
     [SerializeField] private ActionDataSO waitActionSO;
+    
+    private Unit unit;
+
     private ActionDataSO[] baseActionSOArray;
     private BaseAction moveAction;
     private BaseAction attackAction;
@@ -18,10 +21,27 @@ public class UnitActionSystem : MonoBehaviour {
     private BaseAction waitAction;
     private BaseAction[] baseActionArray;
 
+    private void Awake() {
+        unit = GetComponent<Unit>();
+        baseActionSOArray = CreateBaseActionSOArray();
+        InitializeActions();
+    }
+
 
     private void Start() {
-        baseActionSOArray = CreateBaseActionSOArray();
+        
 
+    }
+
+    private void InitializeActions() {
+        moveAction = AbilityFactory.CreateAbility(unit,moveActionSO);
+        attackAction = AbilityFactory.CreateAbility(unit,attackActionSO);
+        specialActionArray = new BaseAction[specialActionSOArray.Length];
+        for (int i = 0; i < specialActionArray.Length-1; i++) {
+            specialActionArray[i] = AbilityFactory.CreateAbility(unit,specialActionSOArray[i]);
+        }
+        interactAction = AbilityFactory.CreateAbility(unit,interactActionSO);
+        waitAction = AbilityFactory.CreateAbility(unit,waitActionSO);
     }
 
     private ActionDataSO[] CreateBaseActionSOArray() {
