@@ -10,6 +10,9 @@ public class UnitAnimator : MonoBehaviour {
     [SerializeField] private Transform swordTransform;
     private UnitActionSystem unitActionSystem;
 
+    //FIXME: Need to refactor the animations since I've removed the monobehavior actions and can't engage the getcomponent
+    // Perhaps storing some reference to the animation in the action scriptable object?
+    // But that doesn't resolve the action specific animation and timing triggers that don't correspond to OnActionStart/OnActionStop (OnShoot, OnStopMoving, etc.)
     private void Awake() {
         unitActionSystem = GetComponent<UnitActionSystem>();
         MoveAction moveAction = (MoveAction)unitActionSystem.GetMoveAction();
