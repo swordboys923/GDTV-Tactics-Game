@@ -30,6 +30,13 @@ public abstract class BaseAction {
     public virtual string GetActionName() {
         return actionDataSO.GetActionName();
     }
+    public virtual ActionType GetActionType() {
+        return actionDataSO.GetActionType();
+    }
+
+    public virtual string GetAnimationString() {
+        return actionDataSO.GetAnimationString();
+    }
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
     public abstract void Update();
    

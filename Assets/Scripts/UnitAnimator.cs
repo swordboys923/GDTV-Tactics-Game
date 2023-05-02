@@ -10,32 +10,36 @@ public class UnitAnimator : MonoBehaviour {
     [SerializeField] private Transform swordTransform;
     private UnitActionSystem unitActionSystem;
 
-    //FIXME: Need to refactor the animations since I've removed the monobehavior actions and can't engage the getcomponent
-    // Perhaps storing some reference to the animation in the action scriptable object?
-    // But that doesn't resolve the action specific animation and timing triggers that don't correspond to OnActionStart/OnActionStop (OnShoot, OnStopMoving, etc.)
-    private void Awake() {
+    private void Start() {
         unitActionSystem = GetComponent<UnitActionSystem>();
-        MoveAction moveAction = (MoveAction)unitActionSystem.GetMoveAction();
-        if(moveAction != null) {
-            moveAction.OnStartMoving += MoveAction_OnStartMoving;
-            moveAction.OnStopMoving += MoveAction_OnStopMoving;
+        foreach(BaseAction action in unitActionSystem.GetBaseActionArray()){
+            SubscribeToAnimEvent(action, action.GetActionType());
         }
-        // if(TryGetComponent<ShootAction>(out ShootAction shootAction)) {
-        //     shootAction.OnShoot += ShootAction_OnShoot;
-        // }
-        // if(TryGetComponent<SwordAction>(out SwordAction swordAction)) {
-        //     swordAction.OnSwordActionStarted += SwordAction_OnSwordActionStarted;
-        //     swordAction.OnSwordActionCompleted += SwordAction_OnSwordActionCompleted;
-        // }
+        EquipSword();
     }
 
-    private void Start() {
-        EquipSword();
+    private void SubscribeToAnimEvent(BaseAction action, ActionType actionType)  {
+        switch (actionType){
+            case ActionType.Movement:
+                MoveAction moveAction = action as MoveAction;
+                moveAction.OnStartMoving += MoveAction_OnStartMoving;
+                moveAction.OnStopMoving += MoveAction_OnStopMoving;
+                break;
+            case ActionType.Melee:
+                SwordAction swordAction = action as SwordAction;
+                swordAction.OnSwordActionStarted += SwordAction_OnSwordActionStarted;
+                swordAction.OnSwordActionCompleted += SwordAction_OnSwordActionCompleted;
+                break;
+            default:
+                break;
+        }
     }
 
     private void SwordAction_OnSwordActionStarted(object sender, EventArgs e) {
         EquipSword();
-        animator.SetTrigger("swordSlash");
+        BaseAction action = sender as BaseAction;
+        
+        animator.SetTrigger(action.GetAnimationString());
     }
 
     private void SwordAction_OnSwordActionCompleted(object sender, EventArgs e){
@@ -44,14 +48,17 @@ public class UnitAnimator : MonoBehaviour {
 
 
     private void MoveAction_OnStartMoving(object sender, EventArgs e) {
-        animator.SetBool("isWalking", true);
+        BaseAction action = sender as BaseAction;
+        animator.SetBool(action.GetAnimationString(), true);
     }
     private void MoveAction_OnStopMoving(object sender, EventArgs e) {
-        animator.SetBool("isWalking", false);
+        BaseAction action = sender as BaseAction;
+        animator.SetBool(action.GetAnimationString(), false);
     }
 
     private void ShootAction_OnShoot (object sender, ShootAction.OnShootEventArgs e) {
-        animator.SetTrigger("shoot");
+        BaseAction action = sender as BaseAction;
+        animator.SetTrigger(action.GetAnimationString());
         Transform bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 

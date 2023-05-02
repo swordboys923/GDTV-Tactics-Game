@@ -12,6 +12,7 @@ public class ActionDataSO : ScriptableObject {
     [SerializeField] int actionBasePercentageBonusDamage;
     [SerializeField] int maxRange;
     [SerializeField] UnitStat unitStatDamageBase;
+    [SerializeField] string animationString;
 
     public string GetActionName() {
         return actionName;
@@ -39,6 +40,10 @@ public class ActionDataSO : ScriptableObject {
 
     public ActionType GetActionType() {
         return actionType;
+    }
+
+    public string GetAnimationString() {
+        return animationString;
     }
 }
 
