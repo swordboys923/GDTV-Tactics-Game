@@ -19,7 +19,7 @@ public class SwordAction : BaseAction {
     private float stateTimer;
     private Unit targetUnit;
 
-    private void Update() {
+    public override void Update() {
         if(!isActive) return;
 
         stateTimer -= Time.deltaTime;

@@ -58,7 +58,8 @@ public class UnitActionManager : MonoBehaviour {
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
             if(!currentTurnUnit.TrySpendActionPointsToTakeAction(selectedAction)) return;
             SetBusy();
-            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+            currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
+            // selectedAction.TakeAction(mouseGridPosition, ClearBusy);
             OnActionStarted?.Invoke(this,EventArgs.Empty);
         }
     }
@@ -98,7 +99,7 @@ public class UnitActionManager : MonoBehaviour {
 
     private void SetCurrentTurnUnit(Unit unit) {
         currentTurnUnit = unit;
-        //SetSelectedAction(unit.GetMoveAction());
+        SetSelectedAction(unit.GetMoveAction());
     }
 
     public BaseAction GetSelectedAction() {

@@ -9,7 +9,7 @@ public class SpinAction : BaseAction{
     }
 
     private float totalSpinAmount;
-    private void Update(){
+    public override void Update() {
         if(!isActive) return;
         
         float spinAddAmount = 360f * Time.deltaTime;

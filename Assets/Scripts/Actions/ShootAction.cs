@@ -24,7 +24,7 @@ public class ShootAction : BaseAction {
     private Unit targetUnit;
     private bool canShootBullet;
 
-    private void Update(){
+    public override void Update() {
         if(!isActive) return;
 
         stateTimer -= Time.deltaTime;

@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,17 +19,31 @@ public class UnitActionSystem : MonoBehaviour {
     private BaseAction[] specialActionArray;
     private BaseAction interactAction;
     private BaseAction waitAction;
+    
     private BaseAction[] baseActionArray;
+    private BaseAction currentAction;
+    
+    //FIXME: this is a bandaid because of the EnemyAI. Need to remove reliance on ShootAction
+    private BaseAction shootAction;
+    [SerializeField] ActionDataSO shootActionSO;
 
     private void Awake() {
         unit = GetComponent<Unit>();
         InitializeActions();
         InitializeArrays();
+        shootAction = AbilityFactory.CreateAbility(unit,shootActionSO);
     }
 
+    private void Update() {
+        if(currentAction == null) return;
+        if(!currentAction.GetIsActive()) return;
+        currentAction.Update();
+    }
 
-    private void Start() {
-
+    public void TakeAction(BaseAction action, GridPosition mouseGridPosition, Action onActionComplete) {
+        currentAction = action;
+        currentAction.OnActionComplete += CurrentAction_OnActionComplete;
+        action.TakeAction(mouseGridPosition, onActionComplete);
     }
 
     private void InitializeActions() {
@@ -109,6 +123,11 @@ public class UnitActionSystem : MonoBehaviour {
     public BaseAction GetAttackAction() {
         return attackAction;
     }
+    
+    //FIXME: this is a bandaid because of the EnemyAI. Need to remove reliance on ShootAction
+    public BaseAction GetShootAction() {
+        return shootAction;
+    }
 
     public BaseAction GetInteractAction() {
         return interactAction;
@@ -116,5 +135,9 @@ public class UnitActionSystem : MonoBehaviour {
 
     public BaseAction GetWaitAction() {
         return waitAction;
+    }
+
+    private void CurrentAction_OnActionComplete(object sender, EventArgs e) {
+        currentAction = null;
     }
 }

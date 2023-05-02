@@ -24,10 +24,14 @@ public abstract class BaseAction {
 
     [SerializeField] protected ActionDataSO actionDataSO;
 
+    public virtual bool GetIsActive() {
+        return isActive;
+    }
     public virtual string GetActionName() {
         return actionDataSO.GetActionName();
     }
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
+    public abstract void Update();
    
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition){
         List<GridPosition> validGridPositionList = GetActionGridPositionRangeList();

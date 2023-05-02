@@ -9,7 +9,7 @@ public class InteractAction : BaseAction {
 
     }
     
-    private void Update() {
+    public override void Update() {
         if(!isActive) return;
 
     }

@@ -11,7 +11,7 @@ public class GrenadeAction : BaseAction {
 
     [SerializeField] private Transform grenadeProjectilePrefab;
     
-    private void Update() {
+    public override void Update() {
         if(!isActive) return;
     }
 

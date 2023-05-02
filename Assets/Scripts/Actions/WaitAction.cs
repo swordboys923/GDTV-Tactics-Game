@@ -15,7 +15,7 @@ public class WaitAction : BaseAction {
     }
 
 
-    private void Update() {
+    public override void Update() {
         if (!isActive) return;
     }
 

@@ -14,7 +14,7 @@ public class MoveAction : BaseAction {
     private List<Vector3> positionList;
     private int currentPositionIndex;
 
-    private void Update() {
+    public override void Update() {
         if (!isActive) return;
 
         Vector3 targetPosition = positionList[currentPositionIndex];

@@ -74,8 +74,9 @@ public class Unit : MonoBehaviour {
         return unitActionSystem.GetWaitAction();
     }
 
+    //FIXME: this is a bandaid because of the EnemyAI. Need to remove reliance on ShootAction
     public ShootAction GetShootAction() {
-        return shootAction;
+        return (ShootAction)unitActionSystem.GetShootAction();
     }
 
     public GridPosition GetGridPosition() {
@@ -113,6 +114,10 @@ public class Unit : MonoBehaviour {
             actionPoints = actionActionPoints;
         }
         return resourceSystem.HasSufficientResource(baseAction.GetActionResourceCost()) && actionPoints > 0;
+    }
+
+    public void TakeAction(BaseAction action, GridPosition mouseGridPosition, Action onActionComplete) {
+        unitActionSystem.TakeAction(action, mouseGridPosition, onActionComplete);
     }
 
     public int GetActionPoints() {

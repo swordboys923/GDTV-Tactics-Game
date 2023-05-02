@@ -9,7 +9,9 @@ public class FireAction : BaseAction {
 
     }
 
-
+    public override void Update() {
+        
+    }
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
         ActionStart(onActionComplete);
     }
