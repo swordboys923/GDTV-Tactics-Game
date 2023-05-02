@@ -19,3 +19,4 @@ MonoBehaviour:
   actionBasePercentageBonusDamage: 0
   maxRange: 0
   unitStatDamageBase: 0
+  animationString: fire

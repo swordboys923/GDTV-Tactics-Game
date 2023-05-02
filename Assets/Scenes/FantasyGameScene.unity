@@ -3643,6 +3643,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2115536541247420097, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: actionActionPointsMax
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2115536541247420098, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
       propertyPath: m_RootOrder

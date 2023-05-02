@@ -19,3 +19,4 @@ MonoBehaviour:
   actionBasePercentageBonusDamage: 0
   maxRange: 7
   unitStatDamageBase: 0
+  animationString: shoot

@@ -19,3 +19,4 @@ MonoBehaviour:
   actionBasePercentageBonusDamage: 0
   maxRange: 4
   unitStatDamageBase: 0
+  animationString: isWalking
