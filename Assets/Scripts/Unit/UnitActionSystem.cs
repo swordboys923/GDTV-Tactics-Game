@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour {
-    // FIXME
+    [SerializeField] int actionActionPointsMax = 1;
+    [SerializeField] int movementActionPointsMax = 1;
 
     [SerializeField] private ActionDataSO moveActionSO;
     [SerializeField] private ActionDataSO attackActionSO;
@@ -12,6 +13,8 @@ public class UnitActionSystem : MonoBehaviour {
     [SerializeField] private ActionDataSO waitActionSO;
     
     private Unit unit;
+    private int actionActionPoints;
+    private int movementActionPoints;
 
     private ActionDataSO[] baseActionSOArray;
     private BaseAction moveAction;
@@ -29,15 +32,34 @@ public class UnitActionSystem : MonoBehaviour {
 
     private void Awake() {
         unit = GetComponent<Unit>();
+        actionActionPoints = actionActionPointsMax;
+        movementActionPoints = movementActionPointsMax;
         InitializeActions();
         InitializeArrays();
         shootAction = AbilityFactory.CreateAbility(unit,shootActionSO);
+    }
+
+    private void Start() {
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
     }
 
     private void Update() {
         if(currentAction == null) return;
         if(!currentAction.GetIsActive()) return;
         currentAction.Update();
+    }
+
+    public bool HasEnoughActionPointsForAction(BaseAction baseAction) {
+        int actionPoints;
+
+        if (baseAction is MoveAction){
+            actionPoints = movementActionPoints;
+        } else if (baseAction is WaitAction) {
+            return true;
+        } else {
+            actionPoints = actionActionPoints;
+        }
+        return actionPoints > 0;
     }
 
     public void TakeAction(BaseAction action, GridPosition mouseGridPosition, Action onActionComplete) {
@@ -138,6 +160,22 @@ public class UnitActionSystem : MonoBehaviour {
     }
 
     private void CurrentAction_OnActionComplete(object sender, EventArgs e) {
+        currentAction.OnActionComplete -= CurrentAction_OnActionComplete;
+        if(currentAction is WaitAction) {
+            currentAction = null;
+            return;
+        }
+
+        if(currentAction is MoveAction){
+            movementActionPoints--;
+        } else {
+            actionActionPoints--;
+        }
         currentAction = null;
+    }
+
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+        actionActionPoints = actionActionPointsMax;
+        movementActionPoints = movementActionPointsMax;
     }
 }

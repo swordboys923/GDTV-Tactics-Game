@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction)){
+        if (bestEnemyAIAction != null && enemyUnit.TrySpendResourceCostToTakeAction(bestBaseAction)){
             enemyUnit.TakeAction(bestBaseAction,bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         } else {
