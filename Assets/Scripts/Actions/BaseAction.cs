@@ -34,6 +34,13 @@ public abstract class BaseAction {
         return actionDataSO.GetActionType();
     }
 
+    public virtual int GetEffectRange() {
+        return actionDataSO.GetEffectRange();
+    }
+    public virtual EffectShape GetEffectShape() {
+        return actionDataSO.GetEffectShape();
+    }
+
     public virtual string GetAnimationString() {
         return actionDataSO.GetAnimationString();
     }

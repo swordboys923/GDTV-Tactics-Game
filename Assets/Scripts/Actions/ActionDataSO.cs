@@ -16,6 +16,10 @@ public class ActionDataSO : ScriptableObject {
     [SerializeField] int maxRange;
     [SerializeField] UnitStat unitStatScalingAttribute;
 
+    [Header("Ability Effect Data")]
+    [SerializeField] int effectRange;
+    [SerializeField] EffectShape effectShape;
+
     [Header("Ability Animation Data")]
     [SerializeField] string animationString;
 
@@ -49,6 +53,13 @@ public class ActionDataSO : ScriptableObject {
 
     public string GetAnimationString() {
         return animationString;
+    }
+
+    public int GetEffectRange() {
+        return effectRange;
+    }
+    public EffectShape GetEffectShape() {
+        return effectShape;
     }
 }
 

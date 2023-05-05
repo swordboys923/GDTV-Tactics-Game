@@ -64,13 +64,26 @@ public class GridSystem<TGridObject>{
                 GridPosition gridPosition = new GridPosition(x,z);
                 Transform debugTranform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTranform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition, out TGridObject tGridObject));
             }
         }
     }
 
     public TGridObject GetGridObject(GridPosition gridPosition) {
+        if(!IsValidGridPosition(gridPosition)) {
+            return default(TGridObject);
+        }
         return gridObjectArray[gridPosition.x, gridPosition.z];
+    } 
+
+    //TODO: Play with this. Need to prevent null checks for clicking on tiles outside of the grid.
+    public TGridObject GetGridObject(GridPosition gridPosition, out TGridObject tGridObject) {
+        if(!IsValidGridPosition(gridPosition)) {
+            tGridObject = default(TGridObject);
+            return tGridObject;
+        }
+        tGridObject = gridObjectArray[gridPosition.x, gridPosition.z];
+        return tGridObject;
     } 
 
     public bool IsValidGridPosition(GridPosition gridPosition) {
