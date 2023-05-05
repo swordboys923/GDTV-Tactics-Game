@@ -17,6 +17,9 @@ MonoBehaviour:
   actionCost: 0
   actionBaseDamage: 0
   actionBasePercentageBonusDamage: 0
+  unitStatScalingAttribute: 0
   maxRange: 0
-  unitStatDamageBase: 0
+  maxHeight: 0
+  effectRange: 1
+  effectShape: 2
   animationString: fire

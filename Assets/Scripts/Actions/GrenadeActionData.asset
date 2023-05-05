@@ -17,5 +17,9 @@ MonoBehaviour:
   actionCost: 20
   actionBaseDamage: 30
   actionBasePercentageBonusDamage: 0
+  unitStatScalingAttribute: 0
   maxRange: 7
-  unitStatDamageBase: 0
+  maxHeight: 0
+  effectRange: 1
+  effectShape: 0
+  animationString: 

@@ -17,6 +17,9 @@ MonoBehaviour:
   actionCost: 0
   actionBaseDamage: 10
   actionBasePercentageBonusDamage: 0
+  unitStatScalingAttribute: 0
   maxRange: 1
-  unitStatDamageBase: 0
+  maxHeight: 1
+  effectRange: 0
+  effectShape: 3
   animationString: swordSlash
