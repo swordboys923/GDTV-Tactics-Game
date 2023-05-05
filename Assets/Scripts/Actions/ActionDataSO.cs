@@ -13,10 +13,11 @@ public class ActionDataSO : ScriptableObject {
     [SerializeField] int actionCost;
     [SerializeField] int actionBaseDamage;
     [SerializeField] int actionBasePercentageBonusDamage;
-    [SerializeField] int maxRange;
     [SerializeField] UnitStat unitStatScalingAttribute;
 
     [Header("Ability Effect Data")]
+    [SerializeField] int maxRange;
+    [SerializeField] int maxHeight = int.MaxValue;
     [SerializeField] int effectRange;
     [SerializeField] EffectShape effectShape;
 
@@ -41,6 +42,10 @@ public class ActionDataSO : ScriptableObject {
 
     public int GetMaxRange() {
         return maxRange;
+    }
+
+    public int GetMaxHeight() {
+        return maxHeight;
     }
 
     public UnitStat GetUnitStatScalingAttribute() {

@@ -82,18 +82,10 @@ public class LevelGrid : MonoBehaviour {
     }
 
     public GridPosition GetGridObjectGridPosition(GridPosition gridPosition){
-        GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        if(gridObject != null) {
-            return gridObject.GetGridPosition();
-        }
-        //FIXME: Inelegant solution to prevent null results from GridSystem GetGridObject
-        return new GridPosition(0,0);
+        return gridSystem.GetGridObject(gridPosition).GetGridPosition();
     }
 
     public int GetAbsGridPositionHeightDifference(GridPosition a, GridPosition b) {
-        if(!IsValidGridPosition(GetGridObjectGridPosition(a))) return 0;
-        if(!IsValidGridPosition(GetGridObjectGridPosition(b))) return 0;
-        
         int aHeight = GetGridObjectGridPosition(a).height;
         int bHeight = GetGridObjectGridPosition(b).height;
 

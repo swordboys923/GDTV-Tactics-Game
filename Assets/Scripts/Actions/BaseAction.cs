@@ -34,6 +34,10 @@ public abstract class BaseAction {
         return actionDataSO.GetActionType();
     }
 
+    public virtual int GetMaxHeight() {
+        return actionDataSO.GetMaxHeight();
+    }
+
     public virtual int GetEffectRange() {
         return actionDataSO.GetEffectRange();
     }

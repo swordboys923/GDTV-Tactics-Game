@@ -88,13 +88,8 @@ public class SwordAction : BaseAction {
                 //Testing for orthogonal adjancency
                 if (testGridPosition.x != unitGridPosition.x && testGridPosition.z != unitGridPosition.z) continue;
                 // Ensuring enemy is within one height differential 
-                if (LevelGrid.Instance.GetAbsGridPositionHeightDifference(testGridPosition, unitGridPosition) > GetMaxSwordHeight()) continue;
+                if (LevelGrid.Instance.GetAbsGridPositionHeightDifference(testGridPosition, unitGridPosition) > GetMaxHeight()) continue;
                 if (testGridPosition == unitGridPosition) continue;
-                // if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue;
-
-                // Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-
-                // if(targetUnit.IsEnemy() == unit.IsEnemy()) continue;
 
                 validGridPositionList.Add(testGridPosition);
             }
@@ -111,13 +106,5 @@ public class SwordAction : BaseAction {
 
         OnSwordActionStarted?.Invoke(this, EventArgs.Empty);
         ActionStart(onActionComplete);
-    }
-
-    public int GetMaxSwordDistance() {
-        return actionDataSO.GetMaxRange();
-    }
-    //TODO: This needs to be refactored out ASAP. Only here to test the new feature in GridSystemVisual;
-    public int GetMaxSwordHeight() {
-        return 1;
     }
 }
