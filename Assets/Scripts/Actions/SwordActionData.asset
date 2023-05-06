@@ -20,6 +20,6 @@ MonoBehaviour:
   unitStatScalingAttribute: 0
   maxRange: 1
   maxHeight: 1
-  effectRange: 0
+  effectRange: 1
   effectShape: 3
   animationString: swordSlash
