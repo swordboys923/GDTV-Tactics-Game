@@ -35,7 +35,6 @@ public class UnitActionSystem : MonoBehaviour {
         actionActionPoints = actionActionPointsMax;
         movementActionPoints = movementActionPointsMax;
         InitializeActions();
-        InitializeArrays();
         shootAction = AbilityFactory.CreateAbility(unit,shootActionSO);
     }
 
@@ -77,6 +76,7 @@ public class UnitActionSystem : MonoBehaviour {
         }
         interactAction = AbilityFactory.CreateAbility(unit,interactActionSO);
         waitAction = AbilityFactory.CreateAbility(unit,waitActionSO);
+        InitializeArrays();
     }
 
     private void InitializeArrays() {
