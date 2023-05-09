@@ -16,7 +16,8 @@ public class FireAction : BaseAction {
     private State state;
     private float stateTimer;
     private Unit targetUnit;
-    private bool canShootBullet;
+    private bool canCastSpell;
+    private GridPosition centerEffectGridPosition;
 
     public override void Update() {
         if(!isActive) return;
@@ -25,10 +26,21 @@ public class FireAction : BaseAction {
         
         switch(state) {
             case State.Charging:
+                Debug.Log("Charging! " + centerEffectGridPosition);
                 break;
             case State.Casting:
+                Debug.Log("Casting!");
+                foreach(GridPosition gridPosition in ShowGridPositionRangeCross(centerEffectGridPosition,GetEffectRange())) {
+                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+                    Debug.Log(targetUnit);
+                    if(canCastSpell && targetUnit && unit.IsEnemy() != targetUnit.IsEnemy()) {
+                        targetUnit.Damage(GetDamageAmount());
+                    }
+                }
+                canCastSpell = false;
                 break;
             case State.Cooloff:
+                Debug.Log("Cooling Off!");
                 break;
         }
 
@@ -49,7 +61,7 @@ public class FireAction : BaseAction {
             case State.Casting:
                 if (stateTimer <=0f) {
                     state = State.Cooloff;
-                    float cooloffStateTime = .5f;
+                    float cooloffStateTime = .1f;
                     stateTimer = cooloffStateTime;
                 }
                 break;
@@ -62,6 +74,8 @@ public class FireAction : BaseAction {
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+        canCastSpell = true;
+        centerEffectGridPosition = gridPosition;
         ActionStart(onActionComplete);
     }
 
@@ -93,4 +107,21 @@ public class FireAction : BaseAction {
             actionValue = 0,
         };
     }
+
+    //TODO: Refactor this into a static method to unify the GridVisual with GridEffects?
+    private GridPosition[] ShowGridPositionRangeCross(GridPosition gridPosition, int horizontalRange,int verticalRange = int.MaxValue) {
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        for(int x = -horizontalRange; x <= horizontalRange; x++) {
+            for(int z = -horizontalRange; z<= horizontalRange; z++) {
+                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
+                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+                if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
+                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
+
+                gridPositionList.Add(testGridPosition);
+            }
+        }
+        return gridPositionList.ToArray();
+    }
+
 }

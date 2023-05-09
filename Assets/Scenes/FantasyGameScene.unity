@@ -2529,17 +2529,17 @@ PrefabInstance:
     - target: {fileID: 7479518595363535232, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535232, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535232, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535232, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
@@ -2640,7 +2640,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6850829, y: 1}
+    m_SensorSize: {x: 2.5454545, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3760,6 +3760,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3128156861066461606, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: specialActionSOArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128156861066461606, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: specialActionSOArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ffa0f6eff7880f34191eee1ee455aa64,
+        type: 2}
     - target: {fileID: 7043065377765357279, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
       propertyPath: resource

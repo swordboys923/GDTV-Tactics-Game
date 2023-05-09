@@ -15,11 +15,11 @@ MonoBehaviour:
   actionType: 3
   actionName: Fire
   actionCost: 0
-  actionBaseDamage: 0
+  actionBaseDamage: 20
   actionBasePercentageBonusDamage: 0
   unitStatScalingAttribute: 0
-  maxRange: 0
-  maxHeight: 0
+  maxRange: 7
+  maxHeight: 2
   effectRange: 1
   effectShape: 2
   animationString: fire
