@@ -9,6 +9,10 @@ public class FireAction : BaseAction {
 
     }
 
+    public event EventHandler OnSpellCharging;
+    public event EventHandler OnSpellCasting;
+    public event EventHandler OnSpellCooling;
+
     private enum State {
         Charging, Casting, Cooloff
     }
@@ -17,7 +21,8 @@ public class FireAction : BaseAction {
     private float stateTimer;
     private Unit targetUnit;
     private bool canCastSpell;
-    private GridPosition centerEffectGridPosition;
+    //private GridPosition centerEffectGridPosition;
+    private List<Unit> targetUnitList;
 
     public override void Update() {
         if(!isActive) return;
@@ -26,13 +31,13 @@ public class FireAction : BaseAction {
         
         switch(state) {
             case State.Charging:
+                // OnSpellCharging?.Invoke(this, EventArgs.Empty);
                 break;
             case State.Casting:
-                foreach(GridPosition gridPosition in GridPositionShapes.GetGridPositionRangeCross(centerEffectGridPosition,GetEffectRange(),true)) {
-                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-                    Debug.Log(targetUnit);
-                    if(canCastSpell && targetUnit && unit.IsEnemy() != targetUnit.IsEnemy()) {
-                        targetUnit.Damage(GetDamageAmount());
+                if(canCastSpell){
+                    //Should this be in take Action?
+                    foreach(Unit unit in targetUnitList) {
+                        unit.Damage(GetDamageAmount());
                     }
                 }
                 canCastSpell = false;
@@ -49,6 +54,7 @@ public class FireAction : BaseAction {
     private void NextState(){
         switch(state) {
             case State.Charging:
+                OnSpellCharging?.Invoke(this, EventArgs.Empty);
                 if (stateTimer <=0f) {
                     state = State.Casting;
                     float shootingStateTime = .1f;
@@ -56,6 +62,7 @@ public class FireAction : BaseAction {
                 }
                 break;
             case State.Casting:
+                OnSpellCasting?.Invoke(this, EventArgs.Empty);
                 if (stateTimer <=0f) {
                     state = State.Cooloff;
                     float cooloffStateTime = .1f;
@@ -63,6 +70,7 @@ public class FireAction : BaseAction {
                 }
                 break;
             case State.Cooloff:
+                OnSpellCooling?.Invoke(this, EventArgs.Empty);
                 if (stateTimer <=0f) {
                     ActionComplete();
                 }
@@ -71,8 +79,12 @@ public class FireAction : BaseAction {
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+        targetUnitList = GetTargetUnitList(gridPosition);
+
         canCastSpell = true;
-        centerEffectGridPosition = gridPosition;
+        stateTimer = .2f;
+        state = State.Charging;
+        
         ActionStart(onActionComplete);
     }
 
@@ -96,6 +108,38 @@ public class FireAction : BaseAction {
         }
 
         return validGridPositionList;
+    }
+
+    private List<Unit> GetTargetUnitList(GridPosition gridPosition) {
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        List<Unit> _targetUnitList = new List<Unit>();
+        EffectShape effectShape = GetEffectShape();
+        switch(effectShape) {
+            case EffectShape.Circle:
+                Debug.Log(EffectShape.Circle);
+                gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeCircle(gridPosition,GetEffectRange(),true));
+                break;
+            case EffectShape.Square:
+                Debug.Log(EffectShape.Square);
+                gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeSquare(gridPosition,GetEffectRange(),true));
+                break;
+            case EffectShape.Cross:
+                Debug.Log(EffectShape.Cross);
+                gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeCross(gridPosition,GetEffectRange(),true));
+                break;
+            case EffectShape.Single:
+                Debug.Log(EffectShape.Single);
+                gridPositionList.Add(gridPosition);
+                break;
+                
+        }
+        foreach(GridPosition position in gridPositionList) {
+            Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+            if(targetUnit && unit.IsEnemy() != targetUnit.IsEnemy()) {
+                _targetUnitList.Add(targetUnit);
+            }
+        }
+        return _targetUnitList;
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
