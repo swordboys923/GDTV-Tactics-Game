@@ -33,7 +33,6 @@ public class GridSystemVisual : MonoBehaviour {
         }
         Instance  = this;
     }
-    //TODO: At each position, I need to sample the grid at that position and find the height, then spawn the visual at that height.
     private void Start() {
         gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetDepth()];
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++) {
@@ -68,54 +67,21 @@ public class GridSystemVisual : MonoBehaviour {
         }
     }
 
-    private void ShowGridPositionRangeCircle(GridPosition gridPosition, int range, GridVisualType gridVisualType,int verticalRange = int.MaxValue) {
+    private void ShowGridPositionRangeCircle(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType,int verticalRange = int.MaxValue) {
         if (!LevelGrid.Instance.IsValidGridPosition(gridPosition)) return;
-        List<GridPosition> gridPositionList = new List<GridPosition>();
-        for(int x = -range; x <= range; x++) {
-            for(int z = -range; z<= range; z++) {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if(testDistance > range) continue;
-
-                gridPositionList.Add(testGridPosition);
-            }
-        }
+        List<GridPosition> gridPositionList = GridPositionShapes.GetGridPositionRangeCircle(gridPosition,horizontalRange);
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
     private void ShowGridPositionRangeSquare(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType, int verticalRange = int.MaxValue) {
         if (!LevelGrid.Instance.IsValidGridPosition(gridPosition)) return;
-        List<GridPosition> gridPositionList = new List<GridPosition>();
-        for(int x = -horizontalRange; x <= horizontalRange; x++) {
-            for(int z = -horizontalRange; z<= horizontalRange; z++) {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
-                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-                if(testGridPosition == gridPosition) continue;
-                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
-
-                gridPositionList.Add(testGridPosition);
-            }
-        }
+        List<GridPosition> gridPositionList = GridPositionShapes.GetGridPositionRangeSquare(gridPosition,horizontalRange);
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
     private void ShowGridPositionRangeCross(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType, int verticalRange = int.MaxValue) {
         if (!LevelGrid.Instance.IsValidGridPosition(gridPosition)) return;
-        // List<GridPosition> gridPositionList = new List<GridPosition>();
-        // for(int x = -horizontalRange; x <= horizontalRange; x++) {
-        //     for(int z = -horizontalRange; z<= horizontalRange; z++) {
-        //         GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
-        //         if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-        //         if(testGridPosition == gridPosition) continue;
-        //         if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
-        //         if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
-
-        //         gridPositionList.Add(testGridPosition);
-        //     }
-        // }
-        //TODO: Bool condition hidden in this method. Need to expose a "include center position" in ability?
-        List<GridPosition> gridPositionList = GridPositionShapes.GetGridPositionRangeCross(gridPosition,horizontalRange,true);
+        List<GridPosition> gridPositionList = GridPositionShapes.GetGridPositionRangeCross(gridPosition,horizontalRange);
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
@@ -147,14 +113,16 @@ public class GridSystemVisual : MonoBehaviour {
                 gridVisualType = GridVisualType.Blue;
                 break;
         }
-        
+        List<GridPosition> actionGridPositionRangeList = selectedAction.GetActionGridPositionRangeList();
         if (selectedAction != null){
-            ShowGridPositionList(selectedAction.GetActionGridPositionRangeList(), gridVisualType);
+            ShowGridPositionList(actionGridPositionRangeList, gridVisualType);
         }
 
         // Show Action Effect Range
-        GridVisualType effectGridVisualType;
         GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+        if (!actionGridPositionRangeList.Contains(mouseGridPosition)) return;
+
+        GridVisualType effectGridVisualType;
         effectGridVisualType = GridVisualType.Purple;
         switch(selectedAction.GetEffectShape()) {
             default:
@@ -206,6 +174,6 @@ public class GridSystemVisual : MonoBehaviour {
     private void UnitActionManager_OnSelectedGridPositionChanged(object sender, UnitActionManager.OnSelectedGridPositionChangedEventArgs e) {
         UpdateGridVisual();
         List<GridPosition> gridPositionList = new List<GridPosition>() {e.gridPosition};
-        ShowGridPositionList(gridPositionList, GridVisualType.Purple);
+        ShowGridPositionList(gridPositionList, GridVisualType.Blue);
     }
 }

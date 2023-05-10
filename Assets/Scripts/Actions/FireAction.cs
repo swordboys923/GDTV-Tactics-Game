@@ -26,11 +26,9 @@ public class FireAction : BaseAction {
         
         switch(state) {
             case State.Charging:
-                Debug.Log("Charging! " + centerEffectGridPosition);
                 break;
             case State.Casting:
-                Debug.Log("Casting!");
-                foreach(GridPosition gridPosition in ShowGridPositionRangeCross(centerEffectGridPosition,GetEffectRange())) {
+                foreach(GridPosition gridPosition in GridPositionShapes.GetGridPositionRangeCross(centerEffectGridPosition,GetEffectRange(),true)) {
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
                     Debug.Log(targetUnit);
                     if(canCastSpell && targetUnit && unit.IsEnemy() != targetUnit.IsEnemy()) {
@@ -40,7 +38,6 @@ public class FireAction : BaseAction {
                 canCastSpell = false;
                 break;
             case State.Cooloff:
-                Debug.Log("Cooling Off!");
                 break;
         }
 
@@ -107,21 +104,4 @@ public class FireAction : BaseAction {
             actionValue = 0,
         };
     }
-
-    //TODO: Refactor this into a static method to unify the GridVisual with GridEffects?
-    private GridPosition[] ShowGridPositionRangeCross(GridPosition gridPosition, int horizontalRange,int verticalRange = int.MaxValue) {
-        List<GridPosition> gridPositionList = new List<GridPosition>();
-        for(int x = -horizontalRange; x <= horizontalRange; x++) {
-            for(int z = -horizontalRange; z<= horizontalRange; z++) {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
-                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-                if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
-                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
-
-                gridPositionList.Add(testGridPosition);
-            }
-        }
-        return gridPositionList.ToArray();
-    }
-
 }

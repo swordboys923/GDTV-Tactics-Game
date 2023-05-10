@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GridPositionShapes {
 
-public static List<GridPosition> GetGridPositionRangeCircle(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition, int verticalRange = int.MaxValue) {
+public static List<GridPosition> GetGridPositionRangeCircle(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition = true, int verticalRange = int.MaxValue) {
         
         List<GridPosition> gridPositionList = new List<GridPosition>();
         if (!LevelGrid.Instance.IsValidGridPosition(sourceGridPosition)) return gridPositionList;
@@ -25,7 +25,7 @@ public static List<GridPosition> GetGridPositionRangeCircle(GridPosition sourceG
         return gridPositionList;
     }
 
-public static List<GridPosition> GetGridPositionRangeSquare(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition, int verticalRange = int.MaxValue) {
+public static List<GridPosition> GetGridPositionRangeSquare(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition = true, int verticalRange = int.MaxValue) {
         List<GridPosition> gridPositionList = new List<GridPosition>();
         if (!LevelGrid.Instance.IsValidGridPosition(sourceGridPosition)) return gridPositionList;
         for(int x = -horizontalRange; x <= horizontalRange; x++) {
@@ -41,7 +41,7 @@ public static List<GridPosition> GetGridPositionRangeSquare(GridPosition sourceG
         return gridPositionList;
     }
 
-public static List<GridPosition> GetGridPositionRangeCross(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition, int verticalRange = int.MaxValue) {
+public static List<GridPosition> GetGridPositionRangeCross(GridPosition sourceGridPosition, int horizontalRange, bool includeSourceGridPosition = true, int verticalRange = int.MaxValue) {
         List<GridPosition> gridPositionList = new List<GridPosition>();
         if (!LevelGrid.Instance.IsValidGridPosition(sourceGridPosition)) return gridPositionList;        
         for(int x = -horizontalRange; x <= horizontalRange; x++) {
