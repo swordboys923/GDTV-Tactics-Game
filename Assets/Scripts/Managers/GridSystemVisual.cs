@@ -102,18 +102,20 @@ public class GridSystemVisual : MonoBehaviour {
 
     private void ShowGridPositionRangeCross(GridPosition gridPosition, int horizontalRange, GridVisualType gridVisualType, int verticalRange = int.MaxValue) {
         if (!LevelGrid.Instance.IsValidGridPosition(gridPosition)) return;
-        List<GridPosition> gridPositionList = new List<GridPosition>();
-        for(int x = -horizontalRange; x <= horizontalRange; x++) {
-            for(int z = -horizontalRange; z<= horizontalRange; z++) {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
-                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
-                if(testGridPosition == gridPosition) continue;
-                if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
-                if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
+        // List<GridPosition> gridPositionList = new List<GridPosition>();
+        // for(int x = -horizontalRange; x <= horizontalRange; x++) {
+        //     for(int z = -horizontalRange; z<= horizontalRange; z++) {
+        //         GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
+        //         if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+        //         if(testGridPosition == gridPosition) continue;
+        //         if(testGridPosition.x != gridPosition.x && testGridPosition.z != gridPosition.z) continue;
+        //         if(LevelGrid.Instance.GetAbsGridPositionHeightDifference(gridPosition,testGridPosition) > verticalRange) continue;
 
-                gridPositionList.Add(testGridPosition);
-            }
-        }
+        //         gridPositionList.Add(testGridPosition);
+        //     }
+        // }
+        //TODO: Bool condition hidden in this method. Need to expose a "include center position" in ability?
+        List<GridPosition> gridPositionList = GridPositionShapes.GetGridPositionRangeCross(gridPosition,horizontalRange,true);
         ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
