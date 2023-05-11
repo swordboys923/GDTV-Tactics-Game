@@ -30,9 +30,32 @@ public class UnitAnimator : MonoBehaviour {
                 swordAction.OnSwordActionStarted += SwordAction_OnSwordActionStarted;
                 swordAction.OnSwordActionCompleted += SwordAction_OnSwordActionCompleted;
                 break;
+            case ActionType.Spell:
+                FireAction fireAction = action as FireAction;
+                fireAction.OnSpellCharging += FireAction_OnSpellCharging;
+                fireAction.OnSpellCasting += FireAction_OnSpellCasting;
+                fireAction.OnSpellCooling += FireAction_OnSpellCooling;
+                break;
             default:
                 break;
         }
+    }
+
+    private void FireAction_OnSpellCharging(object sender, EventArgs e) {
+        Debug.Log("FireActionCharging!");
+        BaseAction action = sender as BaseAction;
+        string chargingString = action.GetAnimationString() + "Charging";
+        animator.SetTrigger(chargingString);
+    }
+
+    private void FireAction_OnSpellCasting(object sender, EventArgs e) {
+        BaseAction action = sender as BaseAction;
+        string chargingString = action.GetAnimationString() + "Casting";
+    }
+
+    private void FireAction_OnSpellCooling(object sender, EventArgs e) {
+        BaseAction action = sender as BaseAction;
+        string chargingString = action.GetAnimationString() + "Cooling";
     }
 
     private void SwordAction_OnSwordActionStarted(object sender, EventArgs e) {
