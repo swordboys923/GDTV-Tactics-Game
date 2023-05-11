@@ -20,6 +20,7 @@ public class ActionDataSO : ScriptableObject {
     [SerializeField] int maxHeight = int.MaxValue;
     [SerializeField] int effectRange;
     [SerializeField] EffectShape effectShape;
+    [SerializeField] GameObject effectVFX;
 
     [Header("Ability Animation Data")]
     [SerializeField] string animationString;
@@ -65,6 +66,10 @@ public class ActionDataSO : ScriptableObject {
     }
     public EffectShape GetEffectShape() {
         return effectShape;
+    }
+
+    public GameObject GetEffectVFX() {
+        return effectVFX;
     }
 }
 

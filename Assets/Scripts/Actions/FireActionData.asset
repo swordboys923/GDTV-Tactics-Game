@@ -22,4 +22,6 @@ MonoBehaviour:
   maxHeight: 2
   effectRange: 1
   effectShape: 2
+  effectVFX: {fileID: 6080676156040012045, guid: 6b2f80aebf0604585b951bc39bff1ce9,
+    type: 3}
   animationString: fire

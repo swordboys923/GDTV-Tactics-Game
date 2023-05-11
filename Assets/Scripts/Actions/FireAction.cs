@@ -19,7 +19,7 @@ public class FireAction : BaseAction {
 
     private State state;
     private float stateTimer;
-    private Unit targetUnit;
+    private GridPosition targetGridPosition;
     private bool canCastSpell;
     //private GridPosition centerEffectGridPosition;
     private List<Unit> targetUnitList;
@@ -31,18 +31,22 @@ public class FireAction : BaseAction {
         
         switch(state) {
             case State.Charging:
-                // OnSpellCharging?.Invoke(this, EventArgs.Empty);
+                float rotateSpeed = 10f;
+                Vector3 aimDirection = (LevelGrid.Instance.GetWorldPosition(targetGridPosition) - unit.GetWorldPosition()).normalized;
+                unit.transform.forward = Vector3.Lerp(unit.transform.forward, new Vector3(aimDirection.x, 0, aimDirection.z), Time.deltaTime * rotateSpeed);
                 break;
             case State.Casting:
+                break;
+            case State.Cooloff:
                 if(canCastSpell){
+                    GameObject effectVFX = GetEffectVFX();
+                    GameObject.Instantiate(effectVFX,LevelGrid.Instance.GetWorldPosition(targetGridPosition), Quaternion.identity);
                     //Should this be in take Action?
                     foreach(Unit unit in targetUnitList) {
                         unit.Damage(GetDamageAmount());
                     }
                 }
                 canCastSpell = false;
-                break;
-            case State.Cooloff:
                 break;
         }
 
@@ -57,8 +61,8 @@ public class FireAction : BaseAction {
                 OnSpellCharging?.Invoke(this, EventArgs.Empty);
                 if (stateTimer <=0f) {
                     state = State.Casting;
-                    float shootingStateTime = .1f;
-                    stateTimer = shootingStateTime;
+                    float castingStateTime = .8f;
+                    stateTimer = castingStateTime;
                 }
                 break;
             case State.Casting:
@@ -79,7 +83,8 @@ public class FireAction : BaseAction {
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
-        targetUnitList = GetTargetUnitList(gridPosition);
+        targetGridPosition = gridPosition;
+        targetUnitList = GetTargetUnitList(targetGridPosition);
 
         canCastSpell = true;
         stateTimer = .2f;

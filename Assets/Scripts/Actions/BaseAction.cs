@@ -45,6 +45,10 @@ public abstract class BaseAction {
         return actionDataSO.GetEffectShape();
     }
 
+    public virtual GameObject GetEffectVFX() {
+        return actionDataSO.GetEffectVFX();
+    }
+
     public virtual string GetAnimationString() {
         return actionDataSO.GetAnimationString();
     }
