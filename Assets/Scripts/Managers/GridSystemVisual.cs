@@ -89,7 +89,16 @@ public class GridSystemVisual : MonoBehaviour {
         HideAllGridPositions();
         Unit currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         BaseAction selectedAction = UnitActionManager.Instance.GetSelectedAction();
+        if(selectedAction == null) return;
+        List<GridPosition> actionGridPositionRangeList = selectedAction.GetActionGridPositionRangeList();
 
+        ShowActionRange(selectedAction, actionGridPositionRangeList);
+
+        ShowActionEffectRange(selectedAction, actionGridPositionRangeList);
+
+    }
+
+    private void ShowActionRange(BaseAction selectedAction, List<GridPosition> actionGridPositionRangeList) {
         // Show Action Range
         GridVisualType gridVisualType;
         switch (selectedAction) {
@@ -113,35 +122,34 @@ public class GridSystemVisual : MonoBehaviour {
                 gridVisualType = GridVisualType.Blue;
                 break;
         }
-        List<GridPosition> actionGridPositionRangeList = selectedAction.GetActionGridPositionRangeList();
-        if (selectedAction != null){
-            ShowGridPositionList(actionGridPositionRangeList, gridVisualType);
-        }
 
+        ShowGridPositionList(actionGridPositionRangeList, gridVisualType);
+    }
+
+    private void ShowActionEffectRange(BaseAction selectedAction, List<GridPosition> actionGridPositionRangeList) {
         // Show Action Effect Range
         GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
         if (!actionGridPositionRangeList.Contains(mouseGridPosition)) return;
 
         GridVisualType effectGridVisualType;
         effectGridVisualType = GridVisualType.Purple;
-        switch(selectedAction.GetEffectShape()) {
+        switch (selectedAction.GetEffectShape()) {
             default:
             case EffectShape.Square:
                 // effectGridVisualType = GridVisualType.Purple;
                 //TODO: Need to refactor out the 1 and put a height variable in the actionDataSO
-                ShowGridPositionRangeSquare(mouseGridPosition,selectedAction.GetEffectRange(),effectGridVisualType,selectedAction.GetMaxHeight());
+                ShowGridPositionRangeSquare(mouseGridPosition, selectedAction.GetEffectRange(), effectGridVisualType, selectedAction.GetMaxHeight());
                 break;
             case EffectShape.Circle:
                 //TODO: Need to refactor out the 1 and put a height variable in the actionDataSO
-                ShowGridPositionRangeCircle(mouseGridPosition,selectedAction.GetEffectRange(),effectGridVisualType,selectedAction.GetMaxHeight());
+                ShowGridPositionRangeCircle(mouseGridPosition, selectedAction.GetEffectRange(), effectGridVisualType, selectedAction.GetMaxHeight());
                 break;
             case EffectShape.Cross:
-                ShowGridPositionRangeCross(mouseGridPosition,selectedAction.GetEffectRange(),effectGridVisualType,selectedAction.GetMaxHeight());
+                ShowGridPositionRangeCross(mouseGridPosition, selectedAction.GetEffectRange(), effectGridVisualType, selectedAction.GetMaxHeight());
                 break;
             case EffectShape.Single:
                 break;
         }
-
     }
 
     private void UnitActionManager_OnSelectedActionChanged(object sender, EventArgs e) {
