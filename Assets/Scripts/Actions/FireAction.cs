@@ -38,11 +38,10 @@ public class FireAction : BaseAction {
             case State.Casting:
                 break;
             case State.Cooloff:
-                if(canCastSpell){
-                    GameObject effectVFX = GetEffectVFX();
-                    GameObject.Instantiate(effectVFX,LevelGrid.Instance.GetWorldPosition(targetGridPosition), Quaternion.identity);
+                if(canCastSpell) {
+                    InstantiateEffectVFX();
                     //Should this be in take Action?
-                    foreach(Unit unit in targetUnitList) {
+                    foreach (Unit unit in targetUnitList) {
                         unit.Damage(GetDamageAmount());
                     }
                 }
@@ -53,6 +52,11 @@ public class FireAction : BaseAction {
         if (stateTimer <=0f) {
             NextState();    
         }
+    }
+
+    private void InstantiateEffectVFX() {
+        GameObject effectVFX = GetEffectVFX();
+        GameObject.Instantiate(effectVFX, LevelGrid.Instance.GetWorldPosition(targetGridPosition), Quaternion.identity);
     }
 
     private void NextState(){

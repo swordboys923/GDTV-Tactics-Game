@@ -167,7 +167,7 @@ public class GridSystemVisual : MonoBehaviour {
             }
         }
 
-        Debug.LogError("Could not find GridVisualTypeMaterial for GridVIsualType " + gridVisualType);
+        Debug.LogError("Could not find GridVisualTypeMaterial for GridVisualType " + gridVisualType);
         return null;
     }
 
