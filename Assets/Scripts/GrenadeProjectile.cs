@@ -30,7 +30,7 @@ public class GrenadeProjectile : MonoBehaviour {
             Collider[] colliderArray = Physics.OverlapSphere(targetPosition, damageRadius);
             foreach (Collider col in colliderArray){
                 if(col.TryGetComponent<Unit>(out Unit targetUnit)){
-                    targetUnit.Damage(30);
+                    targetUnit.ProcessHealthChange(30);
                 }
                 if(col.TryGetComponent<DestructibleCrate>(out DestructibleCrate crate)) {
                     crate.Damage();

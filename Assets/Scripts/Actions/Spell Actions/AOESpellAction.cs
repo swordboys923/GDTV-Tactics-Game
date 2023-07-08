@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireAction : BaseAction {
+public class AOESpellAction : BaseAction {
 
-    public FireAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
+    public AOESpellAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
 
     }
 
@@ -42,7 +42,7 @@ public class FireAction : BaseAction {
                     InstantiateEffectVFX();
                     //Should this be in take Action?
                     foreach (Unit unit in targetUnitList) {
-                        unit.Damage(GetDamageAmount());
+                        unit.ProcessHealthChange(GetDamageAmount());
                     }
                 }
                 canCastSpell = false;

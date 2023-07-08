@@ -97,8 +97,8 @@ public class Unit : MonoBehaviour {
         return isEnemy;
     }
 
-    public void Damage(int damageAmount) {
-        healthSystem.Damage(damageAmount);
+    public void ProcessHealthChange(int healthChangeAmount) {
+        healthSystem.ProcessHealthChange(healthChangeAmount);
     }
 
     private void SpendResourcePoints(int amount) {

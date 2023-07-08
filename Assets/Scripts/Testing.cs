@@ -9,12 +9,12 @@ public class Testing : MonoBehaviour {
     [SerializeField] int range;
     [SerializeField] Unit unit;
     List<GridPosition> gridPositionList;
-    FireAction fireAction;
+    AOESpellAction fireAction;
 
     private void Start() {
         foreach(BaseAction baseAction in unit.GetBaseActionArray()) {
-            if(baseAction is FireAction) {
-                FireAction fireAction = (FireAction) baseAction;
+            if(baseAction is AOESpellAction) {
+                AOESpellAction fireAction = (AOESpellAction) baseAction;
                 fireAction.OnSpellCharging += FireAction_OnSpellCharging;
                 fireAction.OnSpellCasting += FireAction_OnSpellCasting;
                 fireAction.OnSpellCooling += FireAction_OnSpellCooling;

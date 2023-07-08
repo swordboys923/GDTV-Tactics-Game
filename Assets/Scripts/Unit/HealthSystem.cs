@@ -14,10 +14,13 @@ public class HealthSystem : MonoBehaviour {
         healthMax = health;
     }
 
-    public void Damage(int damageAmount) {
-        health -= damageAmount;
+    public void ProcessHealthChange(int healthChangeAmount) {
+        health -= healthChangeAmount;
         if(health < 0) {
             health = 0;
+        }
+        if(health > healthMax) {
+            health = healthMax;
         }
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
         OnAnyHealthChanged?.Invoke(this,EventArgs.Empty);

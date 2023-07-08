@@ -6,7 +6,7 @@ public static class AbilityFactory {
             case ActionType.Movement:
                 return new MoveAction(unit, actionDataSO);
             case ActionType.Spell:
-                return new FireAction(unit, actionDataSO);
+                return new AOESpellAction(unit, actionDataSO);
             case ActionType.Melee:
                 return new SwordAction(unit, actionDataSO);
             case ActionType.Range:

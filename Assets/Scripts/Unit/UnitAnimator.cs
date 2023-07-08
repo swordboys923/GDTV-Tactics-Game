@@ -31,7 +31,7 @@ public class UnitAnimator : MonoBehaviour {
                 swordAction.OnSwordActionCompleted += SwordAction_OnSwordActionCompleted;
                 break;
             case ActionType.Spell:
-                FireAction fireAction = action as FireAction;
+                AOESpellAction fireAction = action as AOESpellAction;
                 fireAction.OnSpellCharging += FireAction_OnSpellCharging;
                 fireAction.OnSpellCasting += FireAction_OnSpellCasting;
                 fireAction.OnSpellCooling += FireAction_OnSpellCooling;
