@@ -86,7 +86,7 @@ public class Unit : MonoBehaviour {
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
         return resourceSystem.HasSufficientResource(baseAction.GetActionResourceCost()) &&
-            unitActionSystem.HasEnoughActionPointsForAction(baseAction);
+            unitActionSystem.HasSufficientActionPoints(baseAction);
     }
 
     public void TakeAction(BaseAction action, GridPosition mouseGridPosition, Action onActionComplete) {

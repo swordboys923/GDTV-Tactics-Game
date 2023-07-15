@@ -48,7 +48,7 @@ public class UnitActionSystem : MonoBehaviour {
         currentAction.Update();
     }
 
-    public bool HasEnoughActionPointsForAction(BaseAction baseAction) {
+    public bool HasSufficientActionPoints(BaseAction baseAction) {
         int actionPoints;
 
         if (baseAction is MoveAction){
