@@ -65,7 +65,6 @@ public abstract class BaseAction {
 
     public abstract List<GridPosition> GetActionGridPositionRangeList();
 
-
     protected void ActionStart(Action onActionComplete) {
         isActive = true;
         this.onActionComplete = onActionComplete;

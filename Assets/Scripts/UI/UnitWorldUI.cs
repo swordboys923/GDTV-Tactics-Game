@@ -9,10 +9,12 @@ public class UnitWorldUI : MonoBehaviour {
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private Image staminaImage;
     [SerializeField] private Color[] staminaImageColorArray;
+    [SerializeField] private StaminaSystem staminaSystem;
     int staminaIndex = 0;
 
     private void Start() {
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
+        staminaSystem.OnStaminaChanged += StaminaSystem_OnStaminaChanged;
 
         UpdateHealthBar();
         staminaIndex = 0;
@@ -27,8 +29,8 @@ public class UnitWorldUI : MonoBehaviour {
         UpdateHealthBar();
     }
 
-    public void StaminaSystem_OnStaminaChanged(/*object sender, EventArgs e*/) {
-        if (staminaIndex == 2) return;
+    public void StaminaSystem_OnStaminaChanged(object sender, EventArgs e) {
+        if (staminaIndex == 2) return; //TODO: Fix this
         staminaIndex++;
         staminaImage.color = staminaImageColorArray[staminaIndex];
     }

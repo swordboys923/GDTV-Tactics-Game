@@ -14,10 +14,13 @@ public class StaminaSystem : MonoBehaviour{
         staminaMax = stamina;
     }
 
-    public void LoseStamina(int lossAmount) {
+    public void ChangeStamina(int lossAmount) {
         stamina -= lossAmount;
         if(stamina < 0) {
             stamina = 0;
+        }
+        if(stamina > staminaMax) {
+            stamina = staminaMax;
         }
         OnStaminaChanged?.Invoke(this, EventArgs.Empty);
         // OnAnyStaminaChanged?.Invoke(this,EventArgs.Empty);
@@ -42,4 +45,6 @@ public class StaminaSystem : MonoBehaviour{
     public int GetStaminaMax() {
         return staminaMax;
     }
+
+
 }
