@@ -159,6 +159,22 @@ public class UnitActionSystem : MonoBehaviour {
         return waitAction;
     }
 
+    public void ProcessActionPoints() {
+
+    }
+
+    public void ProcessResolveCost(){
+
+    }
+
+    public void ProcessStaminaCost(){
+
+    }
+
+    public void ProcessResourceCost() {
+
+    }
+
     private void CurrentAction_OnActionComplete(object sender, EventArgs e) {
         currentAction.OnActionComplete -= CurrentAction_OnActionComplete;
         if(currentAction is WaitAction) {

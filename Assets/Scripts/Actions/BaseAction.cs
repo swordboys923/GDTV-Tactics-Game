@@ -13,10 +13,16 @@ public abstract class BaseAction {
 
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler<BaseActionEventArgs> OnAnyActionCompleted;
-    public event EventHandler OnActionComplete;
+    public event EventHandler<ActionResourceEventArgs> OnActionComplete;
     protected Unit unit;
     protected bool isActive;
     protected Action onActionComplete;
+
+    public class ActionResourceEventArgs: EventArgs {
+        public int resourceCost;
+        public int staminaCost;
+        public int resolveCost;
+    }
 
     public class BaseActionEventArgs: EventArgs {
         public Unit actingUnit;
@@ -65,6 +71,14 @@ public abstract class BaseAction {
 
     public abstract List<GridPosition> GetActionGridPositionRangeList();
 
+    public virtual int GetActionStaminaCost() {
+        return 5;
+    }
+
+    public virtual int GetActionResolveCost() {
+        return 5;
+    }
+
     protected void ActionStart(Action onActionComplete) {
         isActive = true;
         this.onActionComplete = onActionComplete;
@@ -80,7 +94,11 @@ public abstract class BaseAction {
         isActive = false;
         onActionComplete();
 
-        OnActionComplete?.Invoke(this,EventArgs.Empty);
+        OnActionComplete?.Invoke(this,new ActionResourceEventArgs {
+            resourceCost = 0,
+            staminaCost = GetActionStaminaCost(),
+            resolveCost = GetActionResolveCost()
+        });
         OnAnyActionCompleted?.Invoke(this, new BaseActionEventArgs{
             actingUnit = unit
         });

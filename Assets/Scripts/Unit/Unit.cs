@@ -27,6 +27,7 @@ public class Unit : MonoBehaviour {
         resolveSystem = GetComponent<ResolveSystem>();
         unitActionSystem = GetComponent<UnitActionSystem>();
     }
+    
     private void Start() {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
