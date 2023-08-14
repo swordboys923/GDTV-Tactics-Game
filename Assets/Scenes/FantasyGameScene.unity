@@ -1107,7 +1107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.29313365, y: -0.21178234, z: 0.0667585, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1182,18 +1182,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &369882416 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4159755083546599270, guid: 0cab55236d56b41ebbf45ed0190b9421,
-    type: 3}
-  m_PrefabInstance: {fileID: 268309415}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9688a2a43782a4b56ae4394582d70536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,7 +1409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047e24cb7555548f18b429fcdba1f877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitWorldUI: {fileID: 369882416}
 --- !u!4 &480643899
 Transform:
   m_ObjectHideFlags: 0
@@ -2655,7 +2642,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.313282, y: 1}
+    m_SensorSize: {x: 3.5952382, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2671,7 +2658,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735450109}
-  m_LocalRotation: {x: 0.29313365, y: -0.21178234, z: 0.0667585, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

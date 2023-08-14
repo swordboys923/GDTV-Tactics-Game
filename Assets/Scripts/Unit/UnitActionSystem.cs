@@ -159,34 +159,39 @@ public class UnitActionSystem : MonoBehaviour {
         return waitAction;
     }
 
-    public void ProcessActionPoints() {
-
-    }
-
-    public void ProcessResolveCost(){
-
-    }
-
-    public void ProcessStaminaCost(){
-
-    }
-
-    public void ProcessResourceCost() {
-
-    }
-
-    private void CurrentAction_OnActionComplete(object sender, EventArgs e) {
-        currentAction.OnActionComplete -= CurrentAction_OnActionComplete;
+    public void ProcessActionPoints(BaseAction currentAction, int actionPoints) {
         if(currentAction is WaitAction) {
             currentAction = null;
             return;
         }
 
         if(currentAction is MoveAction){
-            movementActionPoints--;
+            movementActionPoints-=actionPoints;
         } else {
-            actionActionPoints--;
+            actionActionPoints-=actionPoints;
         }
+    }
+
+    //TODO: Should we do this or should I send events back up to the unit?
+    public void ProcessResolveCost(int resolveCost){
+        unit.ProcessResolveCost(resolveCost);
+    }
+
+    public void ProcessStaminaCost(int staminaCost){
+        unit.ProcessStaminaCost(staminaCost);
+    }
+
+    public void ProcessResourceCost(int resourceCost) {
+        unit.ProcessResoureCost(resourceCost);
+    }
+
+    private void CurrentAction_OnActionComplete(object sender, BaseAction.ActionResourceEventArgs e) {
+        currentAction.OnActionComplete -= CurrentAction_OnActionComplete;
+        //FIXME: Work the ActionPoints into the AbilityDataSO
+        ProcessActionPoints(currentAction, 1);
+        ProcessResolveCost(1);
+        ProcessStaminaCost(1);
+        ProcessResourceCost(1);
         currentAction = null;
     }
 

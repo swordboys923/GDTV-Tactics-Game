@@ -153,4 +153,15 @@ public class Unit : MonoBehaviour {
         return isEnemy;
     }
     
+    public void ProcessResoureCost(int resourceCost) {
+        //TODO: Implement
+    }
+
+    public void ProcessStaminaCost(int resourceCost) {
+        //TODO: Implement
+    }
+
+    public void ProcessResolveCost(int resourceCost) {
+        //TODO: Implement
+    }
 }
