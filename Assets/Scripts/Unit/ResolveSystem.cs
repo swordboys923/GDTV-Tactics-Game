@@ -14,7 +14,7 @@ public class ResolveSystem : MonoBehaviour {
         resolveMax = resolve;
     }
 
-    public void LoseResolve(int lossAmount) {
+    public void ProcessResolveChange(int lossAmount) {
         resolve -= lossAmount;
         if(resolve < 0) {
             resolve = 0;

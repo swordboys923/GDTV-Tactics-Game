@@ -14,7 +14,7 @@ public class StaminaSystem : MonoBehaviour{
         staminaMax = stamina;
     }
 
-    public void ChangeStamina(int lossAmount) {
+    public void ProcessStaminaChange(int lossAmount) {
         stamina -= lossAmount;
         if(stamina < 0) {
             stamina = 0;

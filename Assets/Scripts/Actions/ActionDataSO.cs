@@ -10,10 +10,14 @@ public class ActionDataSO : ScriptableObject {
     [SerializeField] string actionName;
 
     [Header("Ability Use Data")]
-    [SerializeField] int actionCost;
+    [SerializeField] int actionResourceCost;
+    [SerializeField] int actionStaminaCost;
+    [Range(-100,100)]
+    [SerializeField] int actionResolveCost;
     [SerializeField] int actionBaseDamage;
     [SerializeField] int actionBasePercentageBonusDamage;
     [SerializeField] UnitStat unitStatScalingAttribute;
+    
 
     [Header("Ability Effect Data")]
     [SerializeField] int maxRange;
@@ -29,8 +33,14 @@ public class ActionDataSO : ScriptableObject {
         return actionName;
     }
 
-    public int GetActionCost() {
-        return actionCost;
+    public int GetActionResourceCost() {
+        return actionResourceCost;
+    }
+    public int GetActionStaminaCost() {
+        return actionStaminaCost;
+    }
+    public int GetActionResolveCost() {
+        return actionResolveCost;
     }
 
     public int GetBaseActionDamage() {

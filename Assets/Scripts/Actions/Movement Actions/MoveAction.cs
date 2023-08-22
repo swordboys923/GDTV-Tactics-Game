@@ -77,6 +77,11 @@ public class MoveAction : BaseAction {
         return validGridPositionList;
     }
 
+    public override int GetActionStaminaCost() {
+        return positionList.Count;
+    }
+
+
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         int targetCountAtGridPosition = unit.GetShootAction().GetTargetCountAtPosition(gridPosition);

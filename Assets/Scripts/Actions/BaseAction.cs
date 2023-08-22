@@ -66,17 +66,17 @@ public abstract class BaseAction {
         return validGridPositionList.Contains(gridPosition);
     }
     public virtual int GetActionResourceCost() {
-        return actionDataSO.GetActionCost();
+        return actionDataSO.GetActionResourceCost();
     }
 
     public abstract List<GridPosition> GetActionGridPositionRangeList();
 
     public virtual int GetActionStaminaCost() {
-        return 5;
+        return actionDataSO.GetActionStaminaCost();
     }
 
     public virtual int GetActionResolveCost() {
-        return 5;
+        return actionDataSO.GetActionResolveCost();
     }
 
     protected void ActionStart(Action onActionComplete) {

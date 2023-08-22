@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour {
+
     [SerializeField] int actionActionPointsMax = 1;
     [SerializeField] int movementActionPointsMax = 1;
 
@@ -174,15 +175,15 @@ public class UnitActionSystem : MonoBehaviour {
 
     //TODO: Should we do this or should I send events back up to the unit?
     public void ProcessResolveCost(int resolveCost){
-        unit.ProcessResolveCost(resolveCost);
+        unit.ProcessResolveChange(resolveCost);
     }
 
     public void ProcessStaminaCost(int staminaCost){
-        unit.ProcessStaminaCost(staminaCost);
+        unit.ProcessStaminaChange(staminaCost);
     }
 
     public void ProcessResourceCost(int resourceCost) {
-        unit.ProcessResoureCost(resourceCost);
+        unit.ProcessResoureChange(resourceCost);
     }
 
     private void CurrentAction_OnActionComplete(object sender, BaseAction.ActionResourceEventArgs e) {
