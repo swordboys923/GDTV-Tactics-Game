@@ -10,7 +10,8 @@ public class UnitStatsUI : MonoBehaviour {
     [SerializeField] private Image healthBarImage;
     [SerializeField] private TextMeshProUGUI manaText;
     [SerializeField] private Image manaBarImage;
-    [SerializeField] private TextMeshProUGUI experienceText;
+    [SerializeField] private TextMeshProUGUI staminaText;
+    [SerializeField] private Image staminaBarImage;
     [SerializeField] private TextMeshProUGUI unitName;
 
     private Unit currentTurnUnit;
@@ -19,6 +20,7 @@ public class UnitStatsUI : MonoBehaviour {
         // UnitActionManager.Instance.OnSelectedUnitChanged += UnitActionManager_OnSelectedUnitChanged;
         HealthSystem.OnAnyHealthChanged += HealthSystem_OnAnyHealthChanged;
         ActionResourceSystem.OnAnyResourceChanged += ActionResourceSystem_OnAnyResourceChanged;
+        StaminaSystem.OnAnyStaminaChanged += StaminaSystem_OnAnyStaminaChanged;
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
         currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         UpdateAllUI();
@@ -32,6 +34,10 @@ public class UnitStatsUI : MonoBehaviour {
         UpdateAllUI();
     }
 
+    private void StaminaSystem_OnAnyStaminaChanged(object sender, EventArgs e){
+        UpdateAllUI();
+    }
+  
 
     // private void UnitActionManager_OnSelectedUnitChanged(object sender, EventArgs e) {
     //     UnitActionManager unitActionManager = sender as UnitActionManager;
@@ -49,6 +55,7 @@ public class UnitStatsUI : MonoBehaviour {
             unitName.text = currentTurnUnit.name.ToString();
             UpdateHealth();
             UpdateResource();
+            UpdateStamina();
         }
     }
 
@@ -66,5 +73,11 @@ public class UnitStatsUI : MonoBehaviour {
         manaBarImage.fillAmount = currentTurnUnit.GetResourceNormalized();
     }
 
+    private void UpdateStamina() {
+        int staminaPoints = currentTurnUnit.GetStamina();
+        int staminaMax = currentTurnUnit.GetStaminaMax();
+        staminaText.text = $"{staminaPoints}/{staminaMax} ST";
+        staminaBarImage.fillAmount = currentTurnUnit.GetResourceNormalized();
+    }
 
 }

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 1
   actionName: Shoot
-  actionCost: 20
+  actionResourceCost: 20
+  actionStaminaCost: 0
+  actionResolveCost: 0
   actionBaseDamage: 40
   actionBasePercentageBonusDamage: 0
   unitStatScalingAttribute: 0
@@ -22,4 +24,5 @@ MonoBehaviour:
   maxHeight: 0
   effectRange: 1
   effectShape: 3
+  effectVFX: {fileID: 0}
   animationString: shoot

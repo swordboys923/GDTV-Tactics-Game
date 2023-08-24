@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 4
   actionName: Move
-  actionCost: 0
+  actionResourceCost: 0
+  actionStaminaCost: 1
+  actionResolveCost: 0
   actionBaseDamage: 0
   actionBasePercentageBonusDamage: 0
   unitStatScalingAttribute: 0
@@ -22,4 +24,5 @@ MonoBehaviour:
   maxHeight: 0
   effectRange: 0
   effectShape: 3
+  effectVFX: {fileID: 0}
   animationString: isWalking

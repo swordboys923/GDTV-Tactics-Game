@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StaminaSystem : MonoBehaviour{
 
-    // public static event EventHandler OnAnyStaminaChanged;
+    public static event EventHandler OnAnyStaminaChanged;
     public event EventHandler OnStaminaDrained;
     public event EventHandler OnStaminaChanged;
     [SerializeField] private int stamina = 100;

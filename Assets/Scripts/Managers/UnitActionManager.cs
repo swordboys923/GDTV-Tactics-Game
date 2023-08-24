@@ -56,7 +56,7 @@ public class UnitActionManager : MonoBehaviour {
         }
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
-            if(!currentTurnUnit.TrySpendResourceCostToTakeAction(selectedAction)) return;
+            if(!currentTurnUnit.CanSpendActionPointsToTakeAction(selectedAction)) return;
             SetBusy();
             currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
             // selectedAction.TakeAction(mouseGridPosition, ClearBusy);

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 15325197}
   - component: {fileID: 15325196}
   m_Layer: 5
-  m_Name: XPText
+  m_Name: StaminaText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100/100 XP
+  m_text: 100/100 ST
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -1107,7 +1107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.21178235, z: 0.06675849, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1867,7 +1867,8 @@ MonoBehaviour:
   healthBarImage: {fileID: 1522607979}
   manaText: {fileID: 499342662}
   manaBarImage: {fileID: 1746628547}
-  experienceText: {fileID: 15325196}
+  staminaText: {fileID: 15325196}
+  staminaBarImage: {fileID: 1558112021}
   unitName: {fileID: 620208481}
 --- !u!1 &581477456
 GameObject:
@@ -2642,7 +2643,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.5952382, y: 1}
+    m_SensorSize: {x: 2.2716537, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2658,7 +2659,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735450109}
-  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.21178235, z: 0.06675849, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4151,7 +4152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129774792}
   m_Layer: 5
-  m_Name: XPUI
+  m_Name: StaminaUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

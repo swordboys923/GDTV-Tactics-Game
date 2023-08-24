@@ -78,7 +78,17 @@ public class MoveAction : BaseAction {
     }
 
     public override int GetActionStaminaCost() {
-        return positionList.Count;
+        int cost = 0;
+        int staminaCostPerGridPosition = actionDataSO.GetActionStaminaCost();
+        int heightMultiplier = 2;
+        for(int i = 1; i < positionList.Count; i++) {
+            if(positionList[i-1].y == positionList[i].y) {
+                cost += staminaCostPerGridPosition;
+            } else if (positionList[i-1].y < positionList[i].y) {
+                cost += staminaCostPerGridPosition * heightMultiplier;
+            }
+        }
+        return cost;
     }
 
 

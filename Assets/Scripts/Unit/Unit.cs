@@ -78,13 +78,6 @@ public class Unit : MonoBehaviour {
         return unitActionSystem.GetSpecialActionArray();
     }
 
-    public bool TrySpendResourceCostToTakeAction(BaseAction baseAction) {
-        if(CanSpendActionPointsToTakeAction(baseAction)) {
-            SpendResourcePoints(baseAction.GetActionResourceCost());
-            return true;
-        }
-        return false;
-    }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
         return resourceSystem.HasSufficientResource(baseAction.GetActionResourceCost()) &&
             unitActionSystem.HasSufficientActionPoints(baseAction);

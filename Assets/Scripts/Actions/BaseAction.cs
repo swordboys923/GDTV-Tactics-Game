@@ -95,7 +95,7 @@ public abstract class BaseAction {
         onActionComplete();
 
         OnActionComplete?.Invoke(this,new ActionResourceEventArgs {
-            resourceCost = 0,
+            resourceCost = GetActionResourceCost(),
             staminaCost = GetActionStaminaCost(),
             resolveCost = GetActionResolveCost()
         });

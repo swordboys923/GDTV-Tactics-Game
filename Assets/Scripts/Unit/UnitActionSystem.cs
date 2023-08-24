@@ -191,8 +191,8 @@ public class UnitActionSystem : MonoBehaviour {
         //FIXME: Work the ActionPoints into the AbilityDataSO
         ProcessActionPoints(currentAction, 1);
         ProcessResolveCost(1);
-        ProcessStaminaCost(1);
-        ProcessResourceCost(1);
+        ProcessStaminaCost(e.staminaCost);
+        ProcessResourceCost(e.resourceCost);
         currentAction = null;
     }
 
