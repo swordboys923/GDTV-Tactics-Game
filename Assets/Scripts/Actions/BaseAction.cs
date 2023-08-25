@@ -87,7 +87,14 @@ public abstract class BaseAction {
     }
 
     protected int GetDamageAmount() {
-        return actionDataSO.GetBaseActionDamage();
+        int baseDamangeAmount = actionDataSO.GetBaseActionDamage();
+        float stamina = unit.GetStaminaNormalized();
+        float rollToHit = UnityEngine.Random.Range(0f,1.1f);
+        if(rollToHit > stamina) {
+            return 0;
+        }
+        
+        return baseDamangeAmount;
     }
 
     protected void ActionComplete() {

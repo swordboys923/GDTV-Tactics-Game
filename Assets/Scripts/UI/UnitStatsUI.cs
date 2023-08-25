@@ -77,7 +77,7 @@ public class UnitStatsUI : MonoBehaviour {
         int staminaPoints = currentTurnUnit.GetStamina();
         int staminaMax = currentTurnUnit.GetStaminaMax();
         staminaText.text = $"{staminaPoints}/{staminaMax} ST";
-        staminaBarImage.fillAmount = currentTurnUnit.GetResourceNormalized();
+        staminaBarImage.fillAmount = currentTurnUnit.GetStaminaNormalized();
     }
 
 }

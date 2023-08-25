@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour {
 
     [SerializeField] private bool isEnemy;
 
-    //FIXME: Temporary variable to test out the pathfinding in the MoveAction;
+    // FIXME: Temporary variable to test out the pathfinding in the MoveAction;
     public int jump = 1;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
