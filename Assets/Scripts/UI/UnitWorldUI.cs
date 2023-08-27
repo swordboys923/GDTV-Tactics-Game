@@ -6,7 +6,7 @@ using TMPro;
 public class UnitWorldUI : MonoBehaviour {
     [SerializeField] private Image healthBarImage;
     [SerializeField] private HealthSystem healthSystem;
-    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshPro healthText;
 
     private void Start() {
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
