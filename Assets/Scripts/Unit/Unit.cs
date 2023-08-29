@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Unit : MonoBehaviour {
@@ -12,6 +13,9 @@ public class Unit : MonoBehaviour {
 
     // FIXME: Temporary variable to test out the pathfinding in the MoveAction;
     public int jump = 1;
+    //FIXME: Temporary variable to test unit UI
+    public Sprite backgroundImage;
+    public Sprite uiImage;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private ActionResourceSystem resourceSystem;
@@ -144,6 +148,14 @@ public class Unit : MonoBehaviour {
 
     public bool GetIsEnemy() {
         return isEnemy;
+    }
+
+    public Sprite GetBackgroundImage(){
+        return backgroundImage;
+    }
+    
+    public Sprite GetForegroundImage() {
+        return uiImage;
     }
     
     public void ProcessResoureChange(int resourceCost) {

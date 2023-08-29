@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 3
   actionName: Fire
-  actionCost: 0
+  actionResourceCost: 0
+  actionStaminaCost: 0
+  actionResolveCost: 0
   actionBaseDamage: 20
   actionBasePercentageBonusDamage: 0
   unitStatScalingAttribute: 0

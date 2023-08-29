@@ -56,6 +56,7 @@ public class AOESpellAction : BaseAction {
 
     private void InstantiateEffectVFX() {
         GameObject effectVFX = GetEffectVFX();
+        if (!effectVFX) return;
         GameObject.Instantiate(effectVFX, LevelGrid.Instance.GetWorldPosition(targetGridPosition), Quaternion.identity);
     }
 

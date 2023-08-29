@@ -19,9 +19,9 @@ public class UnitWorldUI : MonoBehaviour {
         healthBarImage.fillAmount = healthSystem.GetHealthNormalized();
     }
 
-    private void HealthSystem_OnHealthChanged(object sender, EventArgs e) {
+    private void HealthSystem_OnHealthChanged(object sender, HealthSystem.OnHealthChangedEventArgs e) {
         UpdateHealthBar();
-        DisplayHealthNumbers(30);
+        DisplayHealthNumbers(e.changeAmount);
     }
 
     private void DisplayHealthNumbers(int amount) {
