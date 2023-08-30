@@ -14,7 +14,11 @@ public class UnitActionManager : MonoBehaviour {
         public GridPosition gridPosition;
     }
     public event EventHandler<bool> OnBusyChanged;
-    public event EventHandler OnActionStarted;
+    public event EventHandler<OnActionChosenEventArgs> OnActionChosen;
+    public class OnActionChosenEventArgs : EventArgs {
+        public GridPosition gridPosition;
+        public Unit unit;
+    }
 
     [SerializeField] private Unit clickedOnUnit;
     [SerializeField] private LayerMask unitLayerMask;
@@ -57,10 +61,14 @@ public class UnitActionManager : MonoBehaviour {
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
             if(!currentTurnUnit.CanSpendActionPointsToTakeAction(selectedAction)) return;
-            SetBusy();
-            currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
-            // selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-            OnActionStarted?.Invoke(this,EventArgs.Empty);
+            OnActionChosen.Invoke(this, new OnActionChosenEventArgs {
+                gridPosition = selectedGridPosition,
+                unit = currentTurnUnit,
+            });
+            // SetBusy();
+            // currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
+            // // selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+            // OnActionStarted?.Invoke(this,EventArgs.Empty);
         }
     }
 

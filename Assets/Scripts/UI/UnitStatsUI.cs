@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 //TODO: Keep working on this script;
 public class UnitStatsUI : MonoBehaviour {
-    [SerializeField] private Sprite profileImageBackground;
-    [SerializeField] private Sprite profileImageForeground;
+    [SerializeField] private Image profileImageBackground;
+    [SerializeField] private Image profileImageForeground;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Image healthBarImage;
     [SerializeField] private TextMeshProUGUI manaText;
@@ -63,8 +63,8 @@ public class UnitStatsUI : MonoBehaviour {
     }
 
     private void UpdateUnitImage() {
-        profileImageBackground = currentTurnUnit.GetBackgroundImage();
-        profileImageForeground = currentTurnUnit.GetForegroundImage();
+        profileImageBackground.sprite = currentTurnUnit.GetBackgroundImage();
+        profileImageForeground.sprite = currentTurnUnit.GetForegroundImage();
     }
 
     private void UpdateHealth() {
