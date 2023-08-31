@@ -1200,7 +1200,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.29313365, y: -0.21178235, z: 0.06675849, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1310,8 +1310,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 243, y: -123.00001}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 212.91064, y: -123.00001}
+  m_SizeDelta: {x: 260.1786, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &338218603
 MonoBehaviour:
@@ -1333,7 +1333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage: 999'
+  m_text: 'Damage: 999 - 999'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 200, y: 30}
-  m_Spacing: {x: 15, y: 15}
+  m_Spacing: {x: 45, y: 15}
   m_Constraint: 1
   m_ConstraintCount: 2
 --- !u!1 &410087039
@@ -2966,7 +2966,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735450109}
-  m_LocalRotation: {x: 0.29313365, y: -0.21178235, z: 0.06675849, w: 0.929927}
+  m_LocalRotation: {x: 0.29313365, y: -0.2117823, z: 0.06675848, w: 0.929927}
   m_LocalPosition: {x: 10.581434, y: 7, z: -1.6177077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4262,7 +4262,7 @@ PrefabInstance:
     - target: {fileID: 7479518595363535233, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
@@ -4386,6 +4386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1103721455}
   - component: {fileID: 1103721456}
+  - component: {fileID: 1103721457}
   m_Layer: 5
   m_Name: ActionConfirmationUI
   m_TagString: Untagged
@@ -4429,6 +4430,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1103721457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103721454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec6b98de577db84b8da33c49f48bde7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accuracyChance: {fileID: 1826827302}
+  damagePrediction: {fileID: 338218603}
 --- !u!1 &1122104999
 GameObject:
   m_ObjectHideFlags: 0
@@ -7414,7 +7429,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5237245279833458174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 520346918}
+        m_TargetAssemblyTypeName: UnitActionManager, Assembly-CSharp
+        m_MethodName: DeclineAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &5237245279833458170
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7678,7 +7705,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8886296745784562801}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 520346918}
+        m_TargetAssemblyTypeName: UnitActionManager, Assembly-CSharp
+        m_MethodName: TakeAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8886296745784562807
 MonoBehaviour:
   m_ObjectHideFlags: 0

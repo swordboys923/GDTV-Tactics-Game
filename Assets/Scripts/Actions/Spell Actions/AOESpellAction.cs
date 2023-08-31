@@ -126,19 +126,15 @@ public class AOESpellAction : BaseAction {
         EffectShape effectShape = GetEffectShape();
         switch(effectShape) {
             case EffectShape.Circle:
-                Debug.Log(EffectShape.Circle);
                 gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeCircle(gridPosition,GetEffectRange(),true));
                 break;
             case EffectShape.Square:
-                Debug.Log(EffectShape.Square);
                 gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeSquare(gridPosition,GetEffectRange(),true));
                 break;
             case EffectShape.Cross:
-                Debug.Log(EffectShape.Cross);
                 gridPositionList.AddRange(GridPositionShapes.GetGridPositionRangeCross(gridPosition,GetEffectRange(),true));
                 break;
             case EffectShape.Single:
-                Debug.Log(EffectShape.Single);
                 gridPositionList.Add(gridPosition);
                 break;
                 

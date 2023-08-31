@@ -79,6 +79,14 @@ public abstract class BaseAction {
         return actionDataSO.GetActionResolveCost();
     }
 
+    public virtual int GetPercentToHit() {
+        return (int)(unit.GetStaminaNormalized() * 100);
+    }
+
+    public virtual Tuple<int, int> GetDamageRange() {
+        return new Tuple<int, int> (actionDataSO.GetBaseActionDamage(), actionDataSO.GetBaseActionDamage());
+    }
+
     protected void ActionStart(Action onActionComplete) {
         isActive = true;
         this.onActionComplete = onActionComplete;
