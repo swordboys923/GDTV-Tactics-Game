@@ -78,8 +78,8 @@ public class UnitActionManager : MonoBehaviour {
     public void TakeAction(){
         OnActionStarted.Invoke(this, EventArgs.Empty);
         currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
-        selectedAction.TakeAction(mouseGridPosition, ClearBusy);
     }
+
     //Called by the Decline button on the ActionConfirmationUI
     public void DeclineAction() {
         OnActionCancelled.Invoke(this, EventArgs.Empty);

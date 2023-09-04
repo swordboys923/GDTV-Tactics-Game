@@ -41,7 +41,6 @@ public class MoveAction : BaseAction {
         List<GridPosition> pathGridPositionList = Pathfinding.Instance.FindPath(unit.GetGridPosition(),gridPosition, out int pathLength, unit.jump);
         currentPositionIndex = 0;
         positionList = new List<Vector3>();
-        Debug.Log(pathGridPositionList);
         foreach(GridPosition pathGridPosition in pathGridPositionList){
             GridPosition gridObjectGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(pathGridPosition);
             positionList.Add(LevelGrid.Instance.GetWorldPosition(gridObjectGridPosition));

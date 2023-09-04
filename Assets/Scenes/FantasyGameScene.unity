@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18388382, g: 0.2288326, b: 0.3019561, a: 1}
+  m_IndirectSpecularColor: {r: 0.18388343, g: 0.22883223, b: 0.301955, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2981,7 +2981,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.5956607, y: 1}
+    m_SensorSize: {x: 1.9600444, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4475,6 +4475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accuracyChance: {fileID: 1826827302}
   damagePrediction: {fileID: 338218603}
+  confirmButton: {fileID: 8886296745784562806}
+  declineButton: {fileID: 5237245279833458169}
 --- !u!1 &1122104999
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,7 +7318,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACTION
+  m_text: Decline
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -7491,19 +7493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5237245279833458174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 520346918}
-        m_TargetAssemblyTypeName: UnitActionManager, Assembly-CSharp
-        m_MethodName: DeclineAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!224 &5237245279833458170
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7767,19 +7757,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8886296745784562801}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 520346918}
-        m_TargetAssemblyTypeName: UnitActionManager, Assembly-CSharp
-        m_MethodName: TakeAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8886296745784562807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7833,7 +7811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACTION
+  m_text: Confirm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
