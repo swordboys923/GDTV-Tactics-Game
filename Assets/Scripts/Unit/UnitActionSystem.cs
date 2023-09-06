@@ -78,8 +78,16 @@ public class UnitActionSystem : MonoBehaviour {
         interactAction = AbilityFactory.CreateAbility(unit,interactActionSO);
         waitAction = AbilityFactory.CreateAbility(unit,waitActionSO);
         InitializeArrays();
+        SubscribeToUndoEvents();
     }
-
+    private void SubscribeToUndoEvents() {
+        foreach (BaseAction baseAction in baseActionArray) {
+            if(baseAction is IUndo iUndo) {
+                iUndo.OnUndo += IUndo_OnUndo;
+                Debug.Log(baseAction.GetActionName());
+            }
+        }
+    }
     private void InitializeArrays() {
         baseActionSOArray = CreateBaseActionSOArray();
         baseActionArray = CreateBaseActionArray();
@@ -199,5 +207,10 @@ public class UnitActionSystem : MonoBehaviour {
     private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
         actionActionPoints = actionActionPointsMax;
         movementActionPoints = movementActionPointsMax;
+    }
+
+    private void IUndo_OnUndo(object sender, BaseAction baseAction) {
+        //FIXME: WOrk the ActionPoints into the AbilityDataSO
+        ProcessActionPoints(baseAction,-1);
     }
 }

@@ -10,6 +10,7 @@ public class ActionConfirmationUI : MonoBehaviour {
 
     [SerializeField] TextMeshProUGUI accuracyChance;
     [SerializeField] TextMeshProUGUI damagePrediction;
+    [SerializeField] TextMeshProUGUI actionConfirmText;
     [SerializeField] Button confirmButton;
     [SerializeField] Button declineButton;
 
@@ -28,6 +29,19 @@ public class ActionConfirmationUI : MonoBehaviour {
 
     private void UnitActionManager_OnActionChosen(object sender, UnitActionManager.OnActionChosenEventArgs e) {
         gameObject.SetActive(!this.isActiveAndEnabled);
+        if(e.action is MoveAction) {
+            actionConfirmText.text = "Move here?";
+            accuracyChance.text = "";
+            damagePrediction.text = "";
+            return;
+        }
+        if(e.action is WaitAction) {
+            actionConfirmText.text = "Wait here?";
+            accuracyChance.text = "";
+            damagePrediction.text = "";
+            return;
+        }
+        actionConfirmText.text = $"Perform {e.action.GetActionName()}?";
         accuracyChance.text = $"Chance to hit: {e.action.GetPercentToHit()}";
         damagePrediction.text = $"Damage: {e.action.GetDamageRange().Item1} - {e.action.GetDamageRange().Item2}";
     }

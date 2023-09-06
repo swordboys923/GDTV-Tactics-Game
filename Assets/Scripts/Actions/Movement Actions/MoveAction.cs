@@ -3,16 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : BaseAction {
+public class MoveAction : BaseAction, IUndo {
 
     public MoveAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
 
     }
 
-    public EventHandler OnStartMoving;
-    public EventHandler OnStopMoving;
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
+    public event EventHandler<BaseAction> OnUndo;
     private List<Vector3> positionList;
     private int currentPositionIndex;
+
+    private GridPosition startingGridPosition;
 
     public override void Update() {
         if (!isActive) return;
@@ -38,12 +41,12 @@ public class MoveAction : BaseAction {
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+        startingGridPosition = unit.GetGridPosition();
         List<GridPosition> pathGridPositionList = Pathfinding.Instance.FindPath(unit.GetGridPosition(),gridPosition, out int pathLength, unit.jump);
         currentPositionIndex = 0;
         positionList = new List<Vector3>();
         foreach(GridPosition pathGridPosition in pathGridPositionList){
-            GridPosition gridObjectGridPosition = LevelGrid.Instance.GetGridObjectGridPosition(pathGridPosition);
-            positionList.Add(LevelGrid.Instance.GetWorldPosition(gridObjectGridPosition));
+            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
         OnStartMoving?.Invoke(this,EventArgs.Empty);
         ActionStart(onActionComplete);
@@ -90,13 +93,17 @@ public class MoveAction : BaseAction {
         return cost;
     }
 
-
-
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition) {
         int targetCountAtGridPosition = unit.GetShootAction().GetTargetCountAtPosition(gridPosition);
         return new EnemyAIAction {
             gridPosition = gridPosition,
             actionValue = targetCountAtGridPosition * 10,
         };
+    }
+
+    public void Undo() {
+        if(startingGridPosition == null) return;
+        unit.transform.position = LevelGrid.Instance.GetWorldPosition(startingGridPosition);
+        OnUndo?.Invoke(this,this);
     }
 }
