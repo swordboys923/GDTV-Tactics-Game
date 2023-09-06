@@ -43,6 +43,7 @@ public class UnitActionManager : MonoBehaviour {
         //SetSelectedUnit(selectedUnit);
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
         // BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
     }
     private void Update() {
         if(isBusy) return;
@@ -64,7 +65,7 @@ public class UnitActionManager : MonoBehaviour {
         if(InputManager.Instance.IsMouseButtonDownThisFrame()){
             if(!selectedAction.IsValidActionGridPosition(mouseGridPosition)) return;
             if(!currentTurnUnit.CanSpendActionPointsToTakeAction(selectedAction)) return;
-            OnActionChosen.Invoke(this, new OnActionChosenEventArgs {
+            OnActionChosen?.Invoke(this, new OnActionChosenEventArgs {
                 gridPosition = selectedGridPosition,
                 unit = currentTurnUnit,
                 action = selectedAction,
@@ -76,13 +77,13 @@ public class UnitActionManager : MonoBehaviour {
 
     //Called by the Confirmation button on the ActionConfirmationUI
     public void TakeAction(){
-        OnActionStarted.Invoke(this, EventArgs.Empty);
+        OnActionStarted?.Invoke(this, EventArgs.Empty);
         currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
     }
 
     //Called by the Decline button on the ActionConfirmationUI
     public void DeclineAction() {
-        OnActionCancelled.Invoke(this, EventArgs.Empty);
+        OnActionCancelled?.Invoke(this, EventArgs.Empty);
         ClearBusy();
     }
 
@@ -132,6 +133,7 @@ public class UnitActionManager : MonoBehaviour {
     }
 
     public void SetSelectedAction(BaseAction baseAction) {
+        if (!currentTurnUnit.CanSpendActionPointsToTakeAction(baseAction)) return;
         selectedAction = baseAction;
         OnSelectedActionChanged?.Invoke(this,EventArgs.Empty);
     }
@@ -148,4 +150,13 @@ public class UnitActionManager : MonoBehaviour {
     // private void BaseAction_OnAnyActionStarted(object sender, EventArgs e) {
     //     SetSelectedAction(null);
     // }
+
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e) {
+        foreach (BaseAction action in currentTurnUnit.GetBaseActionArray()) {
+            if (currentTurnUnit.CanSpendActionPointsToTakeAction(action)){
+                SetSelectedAction(action);
+                return;
+            }
+        }
+    }
 }

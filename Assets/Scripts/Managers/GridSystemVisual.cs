@@ -90,6 +90,7 @@ public class GridSystemVisual : MonoBehaviour {
         Unit currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
         BaseAction selectedAction = UnitActionManager.Instance.GetSelectedAction();
         if(selectedAction == null) return;
+        if(!currentTurnUnit.CanSpendActionPointsToTakeAction(selectedAction)) return;
         List<GridPosition> actionGridPositionRangeList = selectedAction.GetActionGridPositionRangeList();
 
         ShowActionRange(selectedAction, actionGridPositionRangeList);

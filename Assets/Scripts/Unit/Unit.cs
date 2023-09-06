@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour {
 
     // FIXME: Temporary variable to test out the pathfinding in the MoveAction;
     public int jump = 1;
-    //FIXME: Temporary variable to test unit UI
+    //FIXME: Temporary variables to test unit UI
     public Sprite backgroundImage;
     public Sprite uiImage;
     private GridPosition gridPosition;

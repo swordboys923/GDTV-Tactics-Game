@@ -17,8 +17,7 @@ public class GridObject {
         unitList = new List<Unit>();
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         string unitString = "";
         foreach (Unit unit in unitList) {
             unitString += unit + "\n";
