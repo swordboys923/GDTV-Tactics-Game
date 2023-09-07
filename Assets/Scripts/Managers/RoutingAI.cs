@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoutingAI : MonoBehaviour {
@@ -11,40 +13,76 @@ public class RoutingAI : MonoBehaviour {
         Busy,
     }
 
-    List<GridPosition> routingPath;
+    public static event EventHandler OnAnyRoutingComplete;
+
+    Unit currentTurnUnit;
 
     private State state;
     private float timer;
 
+    private void Awake() {
+        state = State.WaitingForUnitTurn;
+    }
     private void Start() {
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
+        // OnAnyRoutingComplete +=
     }
 
-    private void Update() {
+    void Update() {
+        if(!TurnManager.Instance.GetCurrentTurnUnit().GetIsRouting()) return;
+        
         switch(state){
             case State.WaitingForUnitTurn:
                 break;
             case State.TakingTurn:
                 timer -= Time.deltaTime;
-                // if (timer <=0f) {
-                //     if(TryTakeEnemyAIAction(SetStateTakingTurn)) {
-                //         state = State.Busy;
-                //     } else{
-                //         // TODO: Here the enemy needs to end their turn. i.e. take the Wait Action.
-                //         // Right now, am accomplishing this by making the Wait Action a low value, always free option, which seems to accomplish the desired result.
-                //     }
-                // }
+                if (timer <=0f) {
+                    TryTakeRoutingUnitAction(SetStateTakingTurn);
+                    state = State.Busy;
+                }
                 break;
             case State.Busy:
                 break;
         }
     }
 
-    private void TurnManager_OnUnitTurnChanged(object sender, EventArgs e) {
-        Unit unit = TurnManager.Instance.GetCurrentTurnUnit();
-        // if(!unit.GetIsRouting()) return;
-        int pathLength;
-        List<GridPosition> path = Pathfinding.Instance.FindPath(unit.GetGridPosition(),LevelGrid.Instance.GetRoutingGridPosition(unit.GetFaction()), out pathLength, unit.jump);
+    private void SetStateTakingTurn() {
+        timer = .5f;
+        state = State.TakingTurn;
+    }
+
+
+    private void TryTakeRoutingUnitAction(Action onRoutingAIActionComplete) {
+        currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
+        if(!currentTurnUnit.GetIsRouting()) return;
+        if(currentTurnUnit.GetGridPosition() == LevelGrid.Instance.GetRoutingGridPosition(currentTurnUnit.GetFaction())) {
+            Debug.Log("Unit has routed");
+            currentTurnUnit.TakeAction(currentTurnUnit.GetWaitAction(),currentTurnUnit.GetGridPosition(),onRoutingAIActionComplete);
+            return;
+        }
+        if(!currentTurnUnit.CanSpendActionPointsToTakeAction(currentTurnUnit.GetMoveAction())) {
+            currentTurnUnit.TakeAction(currentTurnUnit.GetWaitAction(),currentTurnUnit.GetGridPosition(),onRoutingAIActionComplete);
+            return;
+        }
+        List<GridPosition> path = Pathfinding.Instance.FindPath(currentTurnUnit.GetGridPosition(),LevelGrid.Instance.GetRoutingGridPosition(currentTurnUnit.GetFaction()), out int pathLength, currentTurnUnit.jump);
+        path.Reverse();
         Debug.Log(path.Count);
+
+        List<GridPosition> unitMovementGridPositionList = currentTurnUnit.GetMoveAction().GetActionGridPositionRangeList();
+        foreach(GridPosition gridPosition in path) {
+            if (unitMovementGridPositionList.Contains(gridPosition)) {
+                currentTurnUnit.TakeAction(currentTurnUnit.GetMoveAction(),gridPosition,onRoutingAIActionComplete);
+
+                //unit.TakeAction(unit.GetWaitAction(),unit.GetGridPosition(), ()=> {});
+                return;
+            }
+        }
+    }
+
+    private void TurnManager_OnUnitTurnChanged(object sender, EventArgs e) {
+        if(!TurnManager.Instance.IsPlayerTurn()) {
+            state = State.TakingTurn;
+            timer = 2f;
+        }
     }
 }

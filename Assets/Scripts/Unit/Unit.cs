@@ -40,6 +40,7 @@ public class Unit : MonoBehaviour {
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         healthSystem.OnDead += HealthSystem_OnDead;
+        resolveSystem.OnResolveBroken += ResolveSystem_OnResolveBroken;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -86,6 +87,7 @@ public class Unit : MonoBehaviour {
     }
 
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction) {
+        if(isRouting && baseAction is not MoveAction) return false;
         return resourceSystem.HasSufficientResource(baseAction.GetActionResourceCost()) &&
             unitActionSystem.HasSufficientActionPoints(baseAction);
     }
@@ -111,6 +113,10 @@ public class Unit : MonoBehaviour {
         Destroy(gameObject);
 
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ResolveSystem_OnResolveBroken(object sender, EventArgs e) {
+        isRouting = true;
     }
 
     public float GetHealthNormalized() {

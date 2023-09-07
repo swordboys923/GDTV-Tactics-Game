@@ -18,7 +18,6 @@ public class LevelGrid : MonoBehaviour {
     [SerializeField] bool turnOnDebug = false;
     [SerializeField] Vector3 routingPositionVector3;
     [SerializeField] RoutingCoords[] routingCoords;
-    private GridPosition routingGridPosition;
     private GridSystem<GridObject> gridSystem;
     private Dictionary<Faction,GridPosition> routingCoordsDict = new Dictionary<Faction, GridPosition>();
     
@@ -32,19 +31,13 @@ public class LevelGrid : MonoBehaviour {
 
         gridSystem = new GridSystem<GridObject>(width, height, cellSize, (GridSystem<GridObject> g, GridPosition gridPosition) =>  new GridObject(g, gridPosition), terrainLayerMask);
 
-        routingGridPosition = gridSystem.GetGridPosition(routingPositionVector3);
-        if (routingGridPosition == null || !gridSystem.IsValidGridPosition(routingGridPosition)) {
-            Debug.LogError($"No routing GridPosition at Vector3: {routingPositionVector3}");
-        }
-
-        if(turnOnDebug) gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
 
     private void Start() {
         Pathfinding.Instance.Setup(width, height, cellSize);
         
         foreach(RoutingCoords routingCoord in routingCoords) {
-            routingGridPosition = gridSystem.GetGridPosition(routingCoord.routingCoords);
+            GridPosition routingGridPosition = gridSystem.GetGridPosition(routingCoord.routingCoords);
             if (routingGridPosition == null || !gridSystem.IsValidGridPosition(routingGridPosition)) {
                 Debug.LogError($"No routing GridPosition at Vector3: {routingPositionVector3}");
                 continue;

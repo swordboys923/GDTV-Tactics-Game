@@ -108,7 +108,7 @@ public abstract class BaseAction {
     protected void ActionComplete() {
         isActive = false;
         onActionComplete();
-
+        Debug.Log(this.GetActionName());
         OnActionComplete?.Invoke(this,new ActionResourceEventArgs {
             resourceCost = GetActionResourceCost(),
             staminaCost = GetActionStaminaCost(),

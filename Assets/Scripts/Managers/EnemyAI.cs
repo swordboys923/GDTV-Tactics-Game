@@ -25,11 +25,12 @@ public class EnemyAI : MonoBehaviour {
     }
     void Update() {
         if(TurnManager.Instance.IsPlayerTurn()) return;
+        if(TurnManager.Instance.GetCurrentTurnUnit().GetIsRouting()) return;
         //TODO: Testing Code -- Remove.
         if (turnOffAI) {
             Unit enemyUnit = TurnManager.Instance.GetCurrentTurnUnit();
             BaseAction waitAction = enemyUnit.GetBaseActionArray()[^1];
-            enemyUnit.TakeAction(waitAction,enemyUnit.GetGridPosition(),() => Debug.Log("Done with enemy turn"));
+            enemyUnit.TakeAction(waitAction,enemyUnit.GetGridPosition(),SetStateTakingTurn);
         }
         
         switch(state){

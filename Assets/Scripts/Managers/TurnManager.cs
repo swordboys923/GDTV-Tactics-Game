@@ -35,6 +35,7 @@ public class TurnManager : MonoBehaviour {
 
     private void OnEnable() {
         WaitAction.OnAnyWait += WaitAction_OnAnyWait;
+        RoutingAI.OnAnyRoutingComplete += RoutingAI_OnAnyRoutingComplete;
     }
 
     public List<Unit> GetTurnOrderList() {
@@ -91,6 +92,10 @@ public class TurnManager : MonoBehaviour {
             return;
         }
 
+        SetNextCurrentTurnUnit();
+    }
+
+    private void RoutingAI_OnAnyRoutingComplete(object sender, EventArgs e) {
         SetNextCurrentTurnUnit();
     }
 

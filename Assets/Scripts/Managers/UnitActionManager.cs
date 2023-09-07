@@ -48,7 +48,7 @@ public class UnitActionManager : MonoBehaviour {
     private void Update() {
         if(isBusy) return;
         if(!TurnManager.Instance.IsPlayerTurn()) return;
-        if(TurnManager.Instance.GetCurrentTurnUnit().GetIsRouting()) return;
+        if(currentTurnUnit.GetIsRouting()) return;
         if(EventSystem.current.IsPointerOverGameObject()) return;
         // if(TryHandleUnitSelection()) return;
         if(selectedAction != null) HandleSelectedAction();
