@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour {
     public static event EventHandler OnAnyUnitDead;
 
     [SerializeField] private bool isEnemy;
+    [SerializeField] private bool isRouting = false;
+    [SerializeField] private Faction faction;
 
     // FIXME: Temporary variable to test out the pathfinding in the MoveAction;
     public int jump = 1;
@@ -23,7 +25,7 @@ public class Unit : MonoBehaviour {
     private StaminaSystem staminaSystem;
     private ResolveSystem resolveSystem;
     private UnitStatSO unitStats;
-    [SerializeField]private bool isRouting = false;
+    
 
     private void Awake() {
         healthSystem = GetComponent<HealthSystem>();
@@ -173,5 +175,9 @@ public class Unit : MonoBehaviour {
 
     public bool GetIsRouting() {
         return isRouting;
+    }
+
+    public Faction GetFaction() {
+        return faction;
     }
 }

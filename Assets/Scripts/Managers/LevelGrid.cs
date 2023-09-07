@@ -17,10 +17,10 @@ public class LevelGrid : MonoBehaviour {
     //TODO: Remove eventually. Debug variable only.
     [SerializeField] bool turnOnDebug = false;
     [SerializeField] Vector3 routingPositionVector3;
+    [SerializeField] RoutingCoords[] routingCoords;
     private GridPosition routingGridPosition;
     private GridSystem<GridObject> gridSystem;
-
-    [SerializeField] RoutingCoords[] routingCoords;
+    private Dictionary<Faction,GridPosition> routingCoordsDict = new Dictionary<Faction, GridPosition>();
     
     private void Awake() {
         if (Instance != null) {
@@ -42,6 +42,15 @@ public class LevelGrid : MonoBehaviour {
 
     private void Start() {
         Pathfinding.Instance.Setup(width, height, cellSize);
+        
+        foreach(RoutingCoords routingCoord in routingCoords) {
+            routingGridPosition = gridSystem.GetGridPosition(routingCoord.routingCoords);
+            if (routingGridPosition == null || !gridSystem.IsValidGridPosition(routingGridPosition)) {
+                Debug.LogError($"No routing GridPosition at Vector3: {routingPositionVector3}");
+                continue;
+            }
+            routingCoordsDict.Add(routingCoord.faction,routingGridPosition);
+        }
     }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit) {
@@ -101,6 +110,10 @@ public class LevelGrid : MonoBehaviour {
         int bHeight = GetGridObjectGridPosition(b).height;
 
         return Mathf.Abs(aHeight-bHeight);
+    }
+
+    public GridPosition GetRoutingGridPosition(Faction faction) {
+        return routingCoordsDict[faction];
     }
 }
 
