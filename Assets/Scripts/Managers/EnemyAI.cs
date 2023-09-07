@@ -11,6 +11,9 @@ public class EnemyAI : MonoBehaviour {
         Busy,
     }
 
+    //TODO: Testing code, remove.
+    [SerializeField] bool turnOffAI;
+
     private State state;
     private float timer;
 
@@ -22,6 +25,12 @@ public class EnemyAI : MonoBehaviour {
     }
     void Update() {
         if(TurnManager.Instance.IsPlayerTurn()) return;
+        //TODO: Testing Code -- Remove.
+        if (turnOffAI) {
+            Unit enemyUnit = TurnManager.Instance.GetCurrentTurnUnit();
+            BaseAction waitAction = enemyUnit.GetBaseActionArray()[^1];
+            enemyUnit.TakeAction(waitAction,enemyUnit.GetGridPosition(),() => Debug.Log("Done with enemy turn"));
+        }
         
         switch(state){
             case State.WaitingForEnemyTurn:
@@ -54,6 +63,7 @@ public class EnemyAI : MonoBehaviour {
         }
     }
 
+    //TODO: Cycles through all enemies? Shouldn't I just use the current turn enemy?
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete) {
         foreach(Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList()){
             if(TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete)) return true;

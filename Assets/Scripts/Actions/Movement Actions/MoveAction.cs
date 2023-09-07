@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : BaseAction, IUndo {
+public class MoveAction : BaseAction {
 
     public MoveAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
 
@@ -11,7 +11,6 @@ public class MoveAction : BaseAction, IUndo {
 
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
-    public event EventHandler<BaseAction> OnUndo;
     private List<Vector3> positionList;
     private int currentPositionIndex;
 
@@ -99,11 +98,5 @@ public class MoveAction : BaseAction, IUndo {
             gridPosition = gridPosition,
             actionValue = targetCountAtGridPosition * 10,
         };
-    }
-
-    public void Undo() {
-        if(startingGridPosition == null) return;
-        unit.transform.position = LevelGrid.Instance.GetWorldPosition(startingGridPosition);
-        OnUndo?.Invoke(this,this);
     }
 }

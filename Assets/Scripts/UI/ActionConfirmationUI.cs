@@ -36,7 +36,7 @@ public class ActionConfirmationUI : MonoBehaviour {
             return;
         }
         if(e.action is WaitAction) {
-            actionConfirmText.text = "Wait here?";
+            actionConfirmText.text = $"End {e.unit.name}'s turn?";
             accuracyChance.text = "";
             damagePrediction.text = "";
             return;

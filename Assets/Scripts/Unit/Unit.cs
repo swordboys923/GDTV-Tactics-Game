@@ -23,6 +23,7 @@ public class Unit : MonoBehaviour {
     private StaminaSystem staminaSystem;
     private ResolveSystem resolveSystem;
     private UnitStatSO unitStats;
+    [SerializeField]private bool isRouting = false;
 
     private void Awake() {
         healthSystem = GetComponent<HealthSystem>();
@@ -168,5 +169,9 @@ public class Unit : MonoBehaviour {
 
     public void ProcessResolveChange(int resolveCost) {
         resolveSystem.ProcessResolveChange(resolveCost);
+    }
+
+    public bool GetIsRouting() {
+        return isRouting;
     }
 }

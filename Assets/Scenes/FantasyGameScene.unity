@@ -599,6 +599,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   turnOnDebug: 0
+  routingPositionVector3: {x: 0, y: 0, z: 0}
+  routingCoords:
+  - faction: 1000000000
+    routingCoords: {x: 0, y: 0, z: 0}
 --- !u!4 &58354748
 Transform:
   m_ObjectHideFlags: 0
@@ -850,6 +854,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 07feb1795ef9a3b408cb1d541bd3f983,
         type: 3}
+    - target: {fileID: 2115536541247420097, guid: 0cab55236d56b41ebbf45ed0190b9421,
+        type: 3}
+      propertyPath: isRouting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2115536541247420097, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
       propertyPath: backgroundImage
@@ -2918,7 +2927,7 @@ PrefabInstance:
     - target: {fileID: 7479518595363535233, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
@@ -2986,7 +2995,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2649403, y: 1}
+    m_SensorSize: {x: 3.5956607, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4433,7 +4442,7 @@ PrefabInstance:
     - target: {fileID: 7479518595363535233, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
@@ -5268,6 +5277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984e166fb49ef46d2bf482dfb0e8e2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnOffAI: 1
 --- !u!4 &1453684151
 Transform:
   m_ObjectHideFlags: 0

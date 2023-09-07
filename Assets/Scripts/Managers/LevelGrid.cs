@@ -16,7 +16,11 @@ public class LevelGrid : MonoBehaviour {
     [SerializeField] LayerMask terrainLayerMask;
     //TODO: Remove eventually. Debug variable only.
     [SerializeField] bool turnOnDebug = false;
+    [SerializeField] Vector3 routingPositionVector3;
+    private GridPosition routingGridPosition;
     private GridSystem<GridObject> gridSystem;
+
+    [SerializeField] RoutingCoords[] routingCoords;
     
     private void Awake() {
         if (Instance != null) {
@@ -27,6 +31,11 @@ public class LevelGrid : MonoBehaviour {
         Instance  = this;
 
         gridSystem = new GridSystem<GridObject>(width, height, cellSize, (GridSystem<GridObject> g, GridPosition gridPosition) =>  new GridObject(g, gridPosition), terrainLayerMask);
+
+        routingGridPosition = gridSystem.GetGridPosition(routingPositionVector3);
+        if (routingGridPosition == null || !gridSystem.IsValidGridPosition(routingGridPosition)) {
+            Debug.LogError($"No routing GridPosition at Vector3: {routingPositionVector3}");
+        }
 
         if(turnOnDebug) gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
@@ -93,4 +102,10 @@ public class LevelGrid : MonoBehaviour {
 
         return Mathf.Abs(aHeight-bHeight);
     }
+}
+
+[Serializable]
+public class RoutingCoords {
+    public Faction faction;
+    public Vector3 routingCoords;
 }
