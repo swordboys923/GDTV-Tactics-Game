@@ -598,13 +598,13 @@ MonoBehaviour:
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  turnOnDebug: 0
+  turnOnDebug: 1
   routingPositionVector3: {x: 0, y: 0, z: 0}
   routingCoords:
   - faction: 1000000000
     routingCoords: {x: 0, y: 0, z: 0}
   - faction: 1000000001
-    routingCoords: {x: 10, y: 10, z: 10}
+    routingCoords: {x: 0, y: 0, z: 8}
 --- !u!4 &58354748
 Transform:
   m_ObjectHideFlags: 0
@@ -864,7 +864,7 @@ PrefabInstance:
     - target: {fileID: 2115536541247420097, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
       propertyPath: isRouting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2115536541247420097, guid: 0cab55236d56b41ebbf45ed0190b9421,
         type: 3}
@@ -2949,6 +2949,16 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
+      propertyPath: isRouting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
+        type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 21300000, guid: 5596318320a201c43998d48467cc4943,
@@ -3007,7 +3017,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.5885828, y: 1}
+    m_SensorSize: {x: 3.566929, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4459,7 +4469,7 @@ PrefabInstance:
     - target: {fileID: 7479518595363535233, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
@@ -4472,6 +4482,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 1313b59ad781d8d429478ac92718feb7,
         type: 3}
+    - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
+        type: 3}
+      propertyPath: isRouting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7479518595363535235, guid: 2cd8e39cb3cd74fdebbbbbb6465809fa,
         type: 3}
       propertyPath: backgroundImage
@@ -5299,7 +5314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984e166fb49ef46d2bf482dfb0e8e2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnOffAI: 1
+  turnOffAI: 0
 --- !u!4 &1453684151
 Transform:
   m_ObjectHideFlags: 0

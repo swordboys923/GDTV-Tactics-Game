@@ -25,11 +25,11 @@ public class RoutingAI : MonoBehaviour {
     }
     private void Start() {
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
-        // OnAnyRoutingComplete +=
+        TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
     }
 
     void Update() {
-        if(!TurnManager.Instance.GetCurrentTurnUnit().GetIsRouting()) return;
+        if(!currentTurnUnit || !currentTurnUnit.GetIsRouting()) return;
         
         switch(state){
             case State.WaitingForUnitTurn:
@@ -37,8 +37,9 @@ public class RoutingAI : MonoBehaviour {
             case State.TakingTurn:
                 timer -= Time.deltaTime;
                 if (timer <=0f) {
-                    TryTakeRoutingUnitAction(SetStateTakingTurn);
-                    state = State.Busy;
+                    if(TryTakeRoutingUnitAction(SetStateTakingTurn)) {
+                        state = State.Busy;
+                    }
                 }
                 break;
             case State.Busy:
@@ -52,21 +53,24 @@ public class RoutingAI : MonoBehaviour {
     }
 
 
-    private void TryTakeRoutingUnitAction(Action onRoutingAIActionComplete) {
-        currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
-        if(!currentTurnUnit.GetIsRouting()) return;
+    private bool TryTakeRoutingUnitAction(Action onRoutingAIActionComplete) {
+        if(!currentTurnUnit.GetIsRouting()) return false;
         if(currentTurnUnit.GetGridPosition() == LevelGrid.Instance.GetRoutingGridPosition(currentTurnUnit.GetFaction())) {
             Debug.Log("Unit has routed");
             currentTurnUnit.TakeAction(currentTurnUnit.GetWaitAction(),currentTurnUnit.GetGridPosition(),onRoutingAIActionComplete);
-            return;
+            return false;
         }
         if(!currentTurnUnit.CanSpendActionPointsToTakeAction(currentTurnUnit.GetMoveAction())) {
             currentTurnUnit.TakeAction(currentTurnUnit.GetWaitAction(),currentTurnUnit.GetGridPosition(),onRoutingAIActionComplete);
-            return;
+            return false;
         }
         List<GridPosition> path = Pathfinding.Instance.FindPath(currentTurnUnit.GetGridPosition(),LevelGrid.Instance.GetRoutingGridPosition(currentTurnUnit.GetFaction()), out int pathLength, currentTurnUnit.jump);
+        if(path == null) {
+            Debug.LogError($"No path found to routing coords: {LevelGrid.Instance.GetRoutingGridPosition(currentTurnUnit.GetFaction())}");
+            currentTurnUnit.TakeAction(currentTurnUnit.GetWaitAction(),currentTurnUnit.GetGridPosition(),onRoutingAIActionComplete);
+            return true;
+        }
         path.Reverse();
-        Debug.Log(path.Count);
 
         List<GridPosition> unitMovementGridPositionList = currentTurnUnit.GetMoveAction().GetActionGridPositionRangeList();
         foreach(GridPosition gridPosition in path) {
@@ -74,15 +78,21 @@ public class RoutingAI : MonoBehaviour {
                 currentTurnUnit.TakeAction(currentTurnUnit.GetMoveAction(),gridPosition,onRoutingAIActionComplete);
 
                 //unit.TakeAction(unit.GetWaitAction(),unit.GetGridPosition(), ()=> {});
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     private void TurnManager_OnUnitTurnChanged(object sender, EventArgs e) {
-        if(!TurnManager.Instance.IsPlayerTurn()) {
-            state = State.TakingTurn;
-            timer = 2f;
-        }
+        currentTurnUnit = TurnManager.Instance.GetCurrentTurnUnit();
+        if(!currentTurnUnit.GetIsRouting()) return;
+        Debug.Log(currentTurnUnit.name);
+        state = State.TakingTurn;
+        timer = .1f;
+    }
+
+    private void TurnManager_OnTurnChanged(object sender, EventArgs e) {
+        
     }
 }
