@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour {
         TurnManager.Instance.OnUnitTurnChanged += TurnManager_OnUnitTurnChanged;
     }
     void Update() {
+        if(turnOffAI) return;
         if(TurnManager.Instance.IsPlayerTurn()) return;
         if(TurnManager.Instance.GetCurrentTurnUnit().GetIsRouting()) return;
         //TODO: Testing Code -- Remove.

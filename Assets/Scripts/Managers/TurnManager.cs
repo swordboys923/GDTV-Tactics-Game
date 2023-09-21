@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
-    // BUG: When testing, the turn order seemed to skip the enemy a few times. It would cycle Unit1, Enemy, Unit | unit1, unit | unit1, Enemy, Unit.
-    // BUG: possible bug. While testing, one unit (the Unit) wasn't included in the turnOrderList
 
     public static TurnManager Instance { get; private set; }
     public event EventHandler OnTurnChanged;
@@ -17,6 +15,8 @@ public class TurnManager : MonoBehaviour {
     private List<Unit> turnOrderList;
 
     private int turnNumber = 1;
+
+    private float stateTimer;
     
     private void Awake() {
         if (Instance != null) {
@@ -37,6 +37,7 @@ public class TurnManager : MonoBehaviour {
         WaitAction.OnAnyWait += WaitAction_OnAnyWait;
         RoutingAI.OnAnyRoutingComplete += RoutingAI_OnAnyRoutingComplete;
     }
+
 
     public List<Unit> GetTurnOrderList() {
         return turnOrderList;
@@ -113,6 +114,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public bool IsPlayerTurn() {
+        if(currentTurnUnit == null) return false;
         return !currentTurnUnit.GetIsEnemy();
     }
 }
