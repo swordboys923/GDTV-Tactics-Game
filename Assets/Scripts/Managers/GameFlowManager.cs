@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,22 @@ public class GameFlowManager : MonoBehaviour {
         TurnEnd,
     }
 
+    public event EventHandler OnTurnStart;
+    public event EventHandler OnRoutingCleanup;
+    public event EventHandler OnCutscene;
+    public event EventHandler OnPrepUnitTurn;
+    public event EventHandler OnUnitTurn;
+    public event EventHandler OnTurnEnd;
+
+    List<IManage> managerList = new List<IManage>();
+
+
     private State state;
     private float stateTimer;
+
+    private void Start() {
+        
+    }
 
 
     // private void Update() {
