@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: DataManager
+
+
 public class UnitManager : MonoBehaviour {
     public static UnitManager Instance { get; private set; }
     private List<Unit> unitList;

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: DataManager
+
 public class GridSystemVisual : MonoBehaviour {
 
     public static GridSystemVisual Instance { get; private set; }

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Not sure what kind of manager this is. Much like the camera manager, this one needs to run concurrently.
+
+
 public class CameraManager : MonoBehaviour {
 
     [SerializeField] private GameObject actionCameraGameObject;

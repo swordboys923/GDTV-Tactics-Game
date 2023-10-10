@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: DataManager
+
 public class LevelGrid : MonoBehaviour {
 
     public static LevelGrid Instance { get; private set; }

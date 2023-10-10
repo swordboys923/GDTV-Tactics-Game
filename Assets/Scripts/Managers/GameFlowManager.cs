@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: StateManager
+
 public class GameFlowManager : MonoBehaviour {
         public enum State {
         TurnStart,

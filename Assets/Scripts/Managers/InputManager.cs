@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//TODO: Not sure what kind of state manager. Each state will need to be responsible for caring what inputs it needs to subscribe to.
+
+
 public class InputManager : MonoBehaviour {
 
     public static InputManager Instance { get; private set; }

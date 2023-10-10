@@ -3,6 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: StateManager
+
+
 public class TurnManager : MonoBehaviour {
 
     public static TurnManager Instance { get; private set; }

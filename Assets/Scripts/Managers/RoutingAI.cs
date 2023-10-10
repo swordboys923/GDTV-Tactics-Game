@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//TODO: StateManager
+
+
 public class RoutingAI : MonoBehaviour {
 
     private enum State {
