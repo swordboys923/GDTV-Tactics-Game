@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class TestStateMachine : MonoBehaviour {
 
@@ -22,6 +23,7 @@ public class TestStateMachine : MonoBehaviour {
         currentState.Enter();
     }
 
+    //FIXME: Should use Peek instead of Pop? Only Pop when the state itself is fully finished?
     public void PopStateStack() {
         if(isPaused) return;
         
@@ -35,6 +37,10 @@ public class TestStateMachine : MonoBehaviour {
 
     public void Pause() {
         isPaused = !isPaused;
+    }
+
+    public void PrintState() {
+        Debug.Log(stateStack.Peek());
     }
 
     private void Update() {
