@@ -7,32 +7,28 @@ using UnityEngine.Video;
 public class TestStateMachine : MonoBehaviour {
 
     private Stack<TestState> stateStack;
-    private TestState currentState;
     private bool isPaused;
 
     private void Start() {
-        currentState = new TestState1();
         stateStack = new Stack<TestState>();
+        stateStack.Push(new TestState1());
     }
 
     public void PushStateStack(TestState state) {
         if(isPaused) return;
 
-        stateStack.Push(currentState);
-        currentState = state;
-        currentState.Enter();
+        stateStack.Push(state);
     }
 
-    //FIXME: Should use Peek instead of Pop? Only Pop when the state itself is fully finished?
     public void PopStateStack() {
         if(isPaused) return;
-        
-        currentState?.Exit();
-        if(stateStack.TryPop(out TestState state)){
-            currentState = state;
-        } else {
-            currentState = null;
+        isPaused = true;
+
+        if(stateStack.TryPop(out TestState state)) {
+            state.Eject();
         }
+
+        isPaused = false;
     }
 
     public void Pause() {
@@ -44,7 +40,7 @@ public class TestStateMachine : MonoBehaviour {
     }
 
     private void Update() {
-        if(currentState == null || isPaused) return;
-        currentState.Update();
+        if(stateStack.Count == 0 || isPaused) return;
+        stateStack.Peek().Update();
     }
 }
