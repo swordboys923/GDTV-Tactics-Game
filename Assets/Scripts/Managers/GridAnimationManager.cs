@@ -23,6 +23,5 @@ public class GridAnimationManager : MonoBehaviour {
         foreach(GridPosition gridPosition in gridPositionArray){
             Instantiate(particleSystem,LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
         }
-        
     }
 }
