@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [Serializable]
 public abstract class BaseAction {
@@ -58,8 +59,8 @@ public abstract class BaseAction {
     public virtual string GetAnimationString() {
         return actionDataSO.GetAnimationString();
     }
-    public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
-    public abstract void Update();
+    public abstract Task TakeAction(GridPosition gridPosition, Action onActionComplete);
+    public abstract Task Update();
    
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition){
         List<GridPosition> validGridPositionList = GetActionGridPositionRangeList();

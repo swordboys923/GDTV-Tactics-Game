@@ -44,7 +44,7 @@ public class LevelGrid : MonoBehaviour {
                 Debug.LogError($"No routing GridPosition at Vector3: {routingPositionVector3}");
                 continue;
             }
-            Debug.Log(routingCoord.faction + " " + routingGridPosition);
+            Debug.Log("Rout Position for: " + routingCoord.faction + " " + routingGridPosition);
             routingCoordsDict.Add(routingCoord.faction,routingGridPosition);
         }
     }

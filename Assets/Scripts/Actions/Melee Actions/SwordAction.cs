@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SwordAction : BaseAction {
 
@@ -19,7 +20,7 @@ public class SwordAction : BaseAction {
     private float stateTimer;
     private Unit targetUnit;
 
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
 
         stateTimer -= Time.deltaTime;
@@ -98,7 +99,7 @@ public class SwordAction : BaseAction {
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
         state = State.SwingingSwordBeforeHit;
         float beforeHitstateTime = .7f;

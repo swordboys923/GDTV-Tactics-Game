@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class InteractAction : BaseAction {
@@ -9,7 +10,7 @@ public class InteractAction : BaseAction {
 
     }
     
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
 
     }
@@ -41,7 +42,7 @@ public class InteractAction : BaseAction {
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         IInteractible interactible = LevelGrid.Instance.GetInteractibleAtGridPosition(gridPosition);
         interactible.Interact(OnInteractComplete);
 

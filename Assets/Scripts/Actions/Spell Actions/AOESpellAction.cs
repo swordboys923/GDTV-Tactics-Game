@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AOESpellAction : BaseAction {
 
@@ -24,7 +25,7 @@ public class AOESpellAction : BaseAction {
     //private GridPosition centerEffectGridPosition;
     private List<Unit> targetUnitList;
 
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
 
         stateTimer -= Time.deltaTime;
@@ -87,7 +88,7 @@ public class AOESpellAction : BaseAction {
         }
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         targetGridPosition = gridPosition;
         targetUnitList = GetTargetUnitList(targetGridPosition);
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveAction : BaseAction {
@@ -16,30 +18,34 @@ public class MoveAction : BaseAction {
 
     private GridPosition startingGridPosition;
 
-    public override void Update() {
-        if (!isActive) return;
+    public override async Task Update() {
 
-        Vector3 targetPosition = positionList[currentPositionIndex];
-        Vector3 moveDirection = (targetPosition - unit.transform.position).normalized;
+        // if (!isActive) return;
+        while(currentPositionIndex < positionList.Count) {
+            Vector3 targetPosition = positionList[currentPositionIndex];
+            Vector3 moveDirection = (targetPosition - unit.transform.position).normalized;
 
-        float rotateSpeed = 10f;
-        unit.transform.forward = Vector3.Slerp(unit.transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z), Time.deltaTime * rotateSpeed);
-        
+            
 
-        float stoppingDistance = .1f;
-        if(Vector3.Distance(unit.transform.position, targetPosition) > stoppingDistance) {
-            float moveSpeed = 4f;
-            unit.transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        } else {
+            float stoppingDistance = .1f;
+            while (Vector3.Distance(unit.transform.position, targetPosition) >= stoppingDistance) {
+                float rotateSpeed = 10f;
+                unit.transform.forward = Vector3.Slerp(unit.transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z), Time.deltaTime * rotateSpeed);
+
+                float moveSpeed = 4f;
+                unit.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                await Task.Yield();
+            }
             currentPositionIndex++;
             if(currentPositionIndex >= positionList.Count){
                 OnStopMoving?.Invoke(this,EventArgs.Empty);
                 ActionComplete();
             }
+            await Task.Yield();
         }
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public override async Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         startingGridPosition = unit.GetGridPosition();
         List<GridPosition> pathGridPositionList = Pathfinding.Instance.FindPath(unit.GetGridPosition(),gridPosition, out int pathLength, unit.jump);
         currentPositionIndex = 0;
@@ -49,6 +55,8 @@ public class MoveAction : BaseAction {
         }
         OnStartMoving?.Invoke(this,EventArgs.Empty);
         ActionStart(onActionComplete);
+
+        await Update();
     }
 
     public override List<GridPosition> GetActionGridPositionRangeList() {

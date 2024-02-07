@@ -77,9 +77,10 @@ public class UnitActionManager : MonoBehaviour {
     }
 
     //Called by the Confirmation button on the ActionConfirmationUI
-    public void TakeAction(){
+    public async void TakeAction(){
         OnActionStarted?.Invoke(this, EventArgs.Empty);
-        currentTurnUnit.TakeAction(selectedAction,mouseGridPosition,ClearBusy);
+        await selectedAction.TakeAction(mouseGridPosition,ClearBusy);
+        Debug.Log("Finished action");
     }
 
     //Called by the Decline button on the ActionConfirmationUI

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading.Tasks;
 public class WaitAction : BaseAction {
 
     public WaitAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
@@ -15,7 +15,7 @@ public class WaitAction : BaseAction {
     }
 
 
-    public override void Update() {
+    public async override Task Update() {
         if (!isActive) return;
     }
 
@@ -32,7 +32,7 @@ public class WaitAction : BaseAction {
         return new List<GridPosition> {unitGridPosition};
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         ActionStart(onActionComplete);
         OnAnyWait?.Invoke(this, new OnAnyWaitEventArgs {
             unit = this.unit

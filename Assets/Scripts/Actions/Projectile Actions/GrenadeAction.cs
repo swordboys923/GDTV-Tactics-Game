@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading.Tasks;
 public class GrenadeAction : BaseAction {
 
     public GrenadeAction(Unit unit, ActionDataSO actionDataSO) : base(unit, actionDataSO) {
@@ -11,7 +11,7 @@ public class GrenadeAction : BaseAction {
 
     [SerializeField] private Transform grenadeProjectilePrefab;
     
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
     }
 
@@ -45,7 +45,7 @@ public class GrenadeAction : BaseAction {
     }
 
     //FIXME
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete){
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete){
         // Transform grenadeProjectileTransform = Instantiate(grenadeProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
         // grenadeProjectileTransform.GetComponent<GrenadeProjectile>().Setup(gridPosition,OnGrenadeBehaviorComplete);
         

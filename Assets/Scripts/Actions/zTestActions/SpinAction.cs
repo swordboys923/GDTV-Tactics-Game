@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SpinAction : BaseAction{
@@ -9,7 +10,7 @@ public class SpinAction : BaseAction{
     }
 
     private float totalSpinAmount;
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
         
         float spinAddAmount = 360f * Time.deltaTime;
@@ -20,7 +21,7 @@ public class SpinAction : BaseAction{
         }
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         totalSpinAmount = 0f;
         ActionStart(onActionComplete);
     }

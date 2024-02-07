@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ShootAction : BaseAction {
@@ -24,7 +25,7 @@ public class ShootAction : BaseAction {
     private Unit targetUnit;
     private bool canShootBullet;
 
-    public override void Update() {
+    public async override Task Update() {
         if(!isActive) return;
 
         stateTimer -= Time.deltaTime;
@@ -152,7 +153,7 @@ public class ShootAction : BaseAction {
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete) {
+    public async override Task TakeAction(GridPosition gridPosition, Action onActionComplete) {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
